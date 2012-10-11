@@ -9,7 +9,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
-$hupso_plugin_url = plugins_url() . '/share-buttons-hupso';
+$hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
 add_filter( 'the_content', 'hupso_the_content', 100 );
 load_plugin_textdomain('share_buttons_hupso', false, dirname( __FILE__ )  . '/languages' );
 
@@ -273,7 +273,7 @@ function hupso_plugin_action_links( $links, $file ) {
  
     // check to make sure we are on the correct plugin
     if ( $file == $this_plugin ) {
-         $settings_link = '<a href="options-general.php?page=share-buttons-hupso/share-buttons-hupso.php">' . __('Settings') . '</a>';
+         $settings_link = '<a href="options-general.php?page=hupso-share-buttons-for-twitter-facebook-google/share-buttons-hupso.php">' . __('Settings') . '</a>';
         array_unshift( $links, $settings_link );
     }
  

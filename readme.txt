@@ -3,7 +3,7 @@ Contributors: kasal
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,7 +31,7 @@ Button will apear below your articles or on top of them as you choose.
 == Installation ==
 
 1. Download plugin file (.zip)
-2. Extract zip file and upload folder /share-buttons-hupso/ to /wp-content/plugins/
+2. Extract zip file and upload folder /hupso-share-buttons-for-twitter-facebook-google/ to /wp-content/plugins/
 3. Go to "Plugins" and activate the plugin
 
 
@@ -76,7 +76,11 @@ Yes. Thay are free and will always be free. And you do not need to open an accou
 4. Settings in Wordpress Administration
 
 
+
 == Changelog ==
+
+= 1.1 =
+* Fixed plugin path
 
 = 1.0 =
 * Initial release
