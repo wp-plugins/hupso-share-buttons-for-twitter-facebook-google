@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 1.0
+Version: 1.2
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -197,7 +197,7 @@ function hupso_admin_settings_save() {
 	else {	
 		$hupso_menu_type = get_option ( 'hupso_menu_type', 'labels');	
 	}
-	$hupso_vars .= 'var icon_type = "'.$hupso_menu_type.'";';		
+	$hupso_vars .= 'var hupso_icon_type = "'.$hupso_menu_type.'";';		
 
 	
 	/* save button position */
@@ -213,7 +213,7 @@ function hupso_admin_settings_save() {
 	/* all images are server from local Wordpress installation */
 	/* minified button code is served by Hupso Static Server */
 	$static_server = 'http://static.hupso.com/share/js/share.js';	
-	$code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img src="'.$hupso_plugin_url.'/buttons/'.$hupso_button_size.'.png" width="'.$width.'" height="'.$height.'" border="0" alt="Share Button"/></a><script type="text/javascript">';
+	$code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img style="border:0px;" src="'.$hupso_plugin_url.'/buttons/'.$hupso_button_size.'.png" width="'.$width.'" height="'.$height.'" border="0" alt="Share Button"/></a><script type="text/javascript">';
 	$code .= $hupso_vars;
 	$code .= '</script><script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';
 	update_option( 'hupso_share_buttons_code', $code );	
@@ -234,7 +234,9 @@ function hupso_the_content( $content ) {
 	global $hupso_plugin_url;
 
 	/* default code */
-	$share_code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img src="'.$hupso_plugin_url.'/buttons/button120x28.png" width="100" height="23" border="0" alt="Share Button"/></a><script type="text/javascript">var hupso_services=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon");var icon_type = "labels";</script><!-- Hupso Share Buttons -->';  
+	$share_code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img style="border:0px;" src="'.$hupso_plugin_url.'/buttons/button120x28.png" width="100" height="23" border="0" alt="Share Button"/></a><script type="text/javascript">var hupso_services=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_icon_type = "labels";</script>';
+	$static_server = 'http://static.hupso.com/share/js/share.js';	
+	$share_code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
    
     $code = get_option ( 'hupso_share_buttons_code', $share_code );
   

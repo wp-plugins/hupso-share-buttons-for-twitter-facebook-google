@@ -3,7 +3,7 @@ Contributors: kasal
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,7 +25,7 @@ Main features / advantages:
 Share Buttons are very easy to configure. Just select button size, button position and which social networking services do you want to offer to your visitors.
 Button will apear below your articles or on top of them as you choose.
 
-[Share Button Demo](http://www.hupso.com/share/).
+[Share Buttons Demo](http://www.hupso.com/share/).
 
 
 == Installation ==
@@ -78,6 +78,9 @@ Yes. Thay are free and will always be free. And you do not need to open an accou
 
 
 == Changelog ==
+
+= 1.2 =
+* Improved default settings
 
 = 1.1 =
 * Fixed plugin path
