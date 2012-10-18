@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 1.3
+Version: 1.4
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -275,7 +275,8 @@ function hupso_the_content( $content ) {
 		return $content;
 	}
 	
-	$post_url = $GLOBALS['post']->guid;
+	$post_url = get_permalink($GLOBALS['post']->ID);
+
 	$hupso_show_frontpage = get_option( 'hupso_show_frontpage' , '1' );
 	$hupso_show_category = get_option( 'hupso_show_category' , '1' );	
 	
