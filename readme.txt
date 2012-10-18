@@ -3,7 +3,7 @@ Contributors: kasal
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 1.2
+Stable tag: 1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,9 @@ Yes. Thay are free and will always be free. And you do not need to open an accou
 
 
 == Changelog ==
+
+= 1.3 =
+* Added options to show/hide social buttons on frontpage and inside categories
 
 = 1.2 =
 * Improved default settings

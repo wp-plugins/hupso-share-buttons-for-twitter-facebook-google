@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 1.2
+Version: 1.3
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -141,6 +141,28 @@ function hupso_admin_settings_show() {
 		<td><hr style="height:1px;"/><input type="radio" name="hupso_button_position" value="below" <?php echo $hupso_below_checked; ?> /> <?php _e('Below the post'); ?><br/>
 		<input type="radio" name="hupso_button_position" value="above" <?php echo $hupso_above_checked; ?> /> <?php _e('Above the post'); ?><br/></td>
 	</tr>	
+	<tr>
+		<td style="width:170px;"><?php _e('Display options'); ?></td>
+		<td><hr style="height:1px;"/>
+			<?php
+				$checked = ' checked="checked" ';
+				
+				$hupso_show_frontpage = get_option( 'hupso_show_frontpage', '1' );
+				if ( $hupso_show_frontpage == 1 )
+					$hupso_show_frontpage_checked = $checked;	
+				else
+					$hupso_show_frontpage_checked = '';	
+					
+				$hupso_show_category = get_option( 'hupso_show_category', '1' );
+				if ( $hupso_show_category == 1 )
+					$hupso_show_category_checked = $checked;	
+				else
+					$hupso_show_category_checked = '';						
+			?>
+			<input type="checkbox" name="hupso_show_frontpage" value="1" <?php echo $hupso_show_frontpage_checked; ?> /> <?php _e('Front page - show social buttons in posts on front page'); ?><br/>
+			<input type="checkbox" name="hupso_show_category" value="1" <?php echo $hupso_show_category_checked; ?> /> <?php _e('Categories - show social buttons in posts when viewing categories, tags, authors or dates'); ?><br/>		
+		</td>
+	</tr>	
 	</table>
 	<br/><br/><input class="button-primary" name="submit" type="submit" value="<?php _e('Save Settings'); ?>" />
 	</form>
@@ -151,6 +173,8 @@ function hupso_admin_settings_show() {
 function hupso_admin_settings_save() {
 
 	global $all_services, $default_services, $hupso_plugin_url;
+	
+	update_option( 'hupso_custom', '1' );
 	$code = '';
 	
 	if ( $_POST[ 'hupso_button_size' ] != '' )
@@ -187,7 +211,7 @@ function hupso_admin_settings_save() {
 		}
 	}	
 	$hupso_vars .= ');';
-	$hupso_vars = str_replace(',)', ')', $hupso_vars);	
+	$hupso_vars = str_replace( ',)', ')', $hupso_vars );	
 	
 	/* save menu type */
 	if ( $post ) {
@@ -195,7 +219,7 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_menu_type', $hupso_menu_type );		
 	}
 	else {	
-		$hupso_menu_type = get_option ( 'hupso_menu_type', 'labels');	
+		$hupso_menu_type = get_option ( 'hupso_menu_type', 'labels' );	
 	}
 	$hupso_vars .= 'var hupso_icon_type = "'.$hupso_menu_type.'";';		
 
@@ -206,8 +230,19 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_button_position', $hupso_button_position );
 	}
 	else {
-		$hupso_button_position = get_option ( 'hupso_button_position', 'below');		
+		$hupso_button_position = get_option ( 'hupso_button_position', 'below' );		
 	}	
+	
+	
+	// save display options */
+	if ( $post ) {
+		$hupso_show_frontpage = $_POST[ 'hupso_show_frontpage' ];	
+		update_option( 'hupso_show_frontpage', $hupso_show_frontpage );
+		
+		$hupso_show_category = $_POST[ 'hupso_show_category' ];	
+		update_option( 'hupso_show_category', $hupso_show_category );		
+	}
+	
 	
 	/* create and save code */
 	/* all images are server from local Wordpress installation */
@@ -215,16 +250,18 @@ function hupso_admin_settings_save() {
 	$static_server = 'http://static.hupso.com/share/js/share.js';	
 	$code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img style="border:0px;" src="'.$hupso_plugin_url.'/buttons/'.$hupso_button_size.'.png" width="'.$width.'" height="'.$height.'" border="0" alt="Share Button"/></a><script type="text/javascript">';
 	$code .= $hupso_vars;
-	$code .= '</script><script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';
 	update_option( 'hupso_share_buttons_code', $code );	
 	
 	/* create preview */
 	$msg .= '<h3>' . __('Button Preview'). '</h3><br/>'; 
-	$msg .= $code . '<br/><br/>';
+	$msg .= $code . '</script>';
+	$msg .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';
+	
+	$msg .= '<br/><br/>';
 	$msg .= __('Move your mouse over the button above to see the sharing menu.');
 	$msg .= '<br/><br/><br/>';
 	$msg .= '<input class="button-primary" name="submit" type="submit" value="' . __('Update Preview') . '" /> ';
-
+	
 	return $msg;
 }
 
@@ -233,13 +270,49 @@ function hupso_the_content( $content ) {
 
 	global $hupso_plugin_url;
 
+	/* Do not show share buttons in feeds */
+	if ( is_feed() ) {
+		return $content;
+	}
+	
+	$post_url = $GLOBALS['post']->guid;
+	$hupso_show_frontpage = get_option( 'hupso_show_frontpage' , '1' );
+	$hupso_show_category = get_option( 'hupso_show_category' , '1' );	
+	
+	/* Do not show share buttons if option is disabled */
+	if ( is_home() && $hupso_show_frontpage != 1 ) {
+		return $content;
+	}
+	/* Do not show share buttons if option is disabled */
+	if ( is_archive() && $hupso_show_category != 1 ) {
+		return $content;
+	}	
+
 	/* default code */
-	$share_code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img style="border:0px;" src="'.$hupso_plugin_url.'/buttons/button120x28.png" width="100" height="23" border="0" alt="Share Button"/></a><script type="text/javascript">var hupso_services=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_icon_type = "labels";</script>';
-	$static_server = 'http://static.hupso.com/share/js/share.js';	
-	$share_code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
+	$share_code = '<!-- Hupso Share Buttons (http://www.hupso.com/share) --><a class="hupso_pop" href="http://www.hupso.com/share"><img style="border:0px;" src="' . $hupso_plugin_url . '/buttons/button120x28.png" width="100" height="23" border="0" alt="Share Button"/></a><script type="text/javascript">var hupso_services=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_icon_type = "labels";';
+	
+    $code = get_option( 'hupso_share_buttons_code', $share_code );	
+	
+	/* Check for old saved button code, prior to version 1.3 */
+	if ( get_option( 'hupso_custom', '0' ) == 0 ) {
+		$old_check = strpos( $code, '</script>' );
+		if ( $old_check !== false ) {
+			$code = substr( $code, 0, $old_check );
+			
+			/* Save new code */
+			update_option( 'hupso_custom', '1' );
+			update_option( 'hupso_share_buttons_code', $code );
+		}	
+	}
+	
+	if ( ( is_home() && $hupso_show_frontpage == 1 ) || ( is_archive() && $hupso_show_category == 1 ) ) {
+		$code .= 'var hupso_url="' . $post_url . '";';
+	}
+	
+	$code .= '</script>';
+	$static_server = 'http://static.hupso.com/share/js/share.js';
+	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
    
-    $code = get_option ( 'hupso_share_buttons_code', $share_code );
-  
     $position = get_option( 'hupso_button_position', 'below' );
 	if ($position == 'below')
 		$new_content = $content . $code;   
