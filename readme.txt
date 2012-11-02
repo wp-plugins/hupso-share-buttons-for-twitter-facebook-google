@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 2.0
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,7 @@ Main features / advantages:
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
 * All major social networks are supported. 
 * Real-time button preview in admin settings
+* Support for right-to-left (RTL) scripts/languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese)
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Button will apear below your articles or on top of them as you choose.
@@ -81,6 +82,9 @@ Yes. Thay are free and will always be free. And you do not need to open any acco
 
 
 == Changelog ==
+
+= 2.1 =
+* Better support for right-to-left (RTL) scripts/languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese)
 
 = 2.0 =
 * New button type: share toolbar
