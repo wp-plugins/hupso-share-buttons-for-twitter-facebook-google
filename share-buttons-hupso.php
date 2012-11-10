@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 2.1
+Version: 2.2
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,10 +11,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-$hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
-add_filter( 'the_content', 'hupso_the_content', 100 );
-load_plugin_textdomain( 'share_buttons_hupso', false, dirname( __FILE__ )  . '/languages' );
+$hupso_excerpt = false;
+$hupso_code = '';
 
+$hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
+add_filter( 'the_content', 'hupso_the_content', 10 );
+add_filter( 'get_the_excerpt', 'hupso_get_the_excerpt', 1);
+add_filter( 'the_excerpt', 'hupso_the_excerpt', 100 );
+
+load_plugin_textdomain( 'share_buttons_hupso', false, dirname( __FILE__ )  . '/languages' );
 
 if ( is_admin() ) {
 	add_filter('plugin_action_links', 'hupso_plugin_action_links', 10, 2);
@@ -43,6 +48,19 @@ function hupso_admin_head() {
 		);
 	}
 }   
+
+function hupso_get_the_excerpt($param) {
+	global $hupso_excerpt;
+	$hupso_excerpt = true;
+}
+
+function hupso_the_excerpt() {
+	global $hupso_code;
+	
+	if ( $hupso_code != '' ) {
+		echo $hupso_code;
+	}
+}
 
 function hupso_admin_settings_show() {
 	global $all_services, $default_services, $hupso_plugin_url;
@@ -324,7 +342,7 @@ function hupso_admin_settings_save() {
 
 function hupso_the_content( $content ) {
 
-	global $hupso_plugin_url, $wp_version;
+	global $hupso_plugin_url, $wp_version, $hupso_excerpt, $hupso_code;
 
 	/* Do not show share buttons in feeds */
 	if ( is_feed() ) {
@@ -423,7 +441,14 @@ function hupso_the_content( $content ) {
     else
 		$new_content = $code . '<br/>' . $content;
    
-	return $new_content; 
+   
+    if ( $hupso_excerpt ) {
+		$hupso_code = $new_content;
+		return $content;
+	}
+	else { 
+		return $new_content;
+	} 
 }  
 
 function hupso_settings_print_services() {
