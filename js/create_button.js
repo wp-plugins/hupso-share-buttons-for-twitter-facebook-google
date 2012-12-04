@@ -42,6 +42,8 @@ function hupso_create_code() {
 				$( "#show_icons" ).show();		
 				$( "#show_title" ).show();
 				$( "#show_color" ).show();
+				$( "#counters_config" ).hide();		
+				$( "#services" ).show();
 				break;
 			case 'share_toolbar':
 				$( "#button_position" ).hide();
@@ -52,6 +54,8 @@ function hupso_create_code() {
 				$( "#show_icons" ).hide();	
 				$( "#show_title" ).show();
 				$( "#show_color" ).hide();
+				$( "#counters_config" ).hide();		
+				$( "#services" ).show();
 				break;
 			case 'floating_toolbar':
 				$( "#button_position" ).show();
@@ -62,9 +66,25 @@ function hupso_create_code() {
 				$( "#show_icons" ).show();				
 				$( "#show_title" ).show();
 				$( "#show_color" ).show();
+				$( "#counters_config" ).hide();	
+				$( "#services" ).show();
 				break;
+			case 'counters':
+				$( "#button_position" ).hide();
+				$( "#button_style" ).hide();	
+				$( "#toolbar_size" ).hide();		
+				$( "#button_preview" ).show();
+				$( "#move_mouse" ).hide();
+				$( "#show_icons" ).hide();	
+				$( "#show_title" ).show();
+				$( "#show_color" ).hide();
+				$( "#counters_config" ).show();
+				$( "#services" ).hide();					
+				break;						
 		}
 		
+		counters_preview = '<img src="http://static.hupso.com/share/buttons/share-small.png"/>';
+			
 		button_position = $("input:radio[name=button_position]:checked").val();
 		toolbar_size = $("input:radio[name=select_toolbar_size]:checked").val();
 		icon_type = $("input:radio[name=menu_type]:checked").val();
@@ -91,34 +111,83 @@ function hupso_create_code() {
 			case 'share_toolbar':
 				hupso_services = '<script type="text/javascript">var hupso_services_t=new Array(';
 				break;
+			case 'counters':
+				hupso_services = '<script type="text/javascript">var hupso_services_c=new Array(';
+				break;					
 		}
-																					  
-		if ( $( "input:checkbox[name=twitter]:checked" ).val() == 1 )
-			hupso_services += '"Twitter",';
-		if ( $( "input:checkbox[name=facebook]:checked" ).val() == 1 )
-			hupso_services += '"Facebook",';		
-		if ( $( "input:checkbox[name=googleplus]:checked" ).val() == 1 )
-			hupso_services += '"Google Plus",';	
-		if ( $( "input:checkbox[name=linkedin]:checked" ).val() == 1 )
-			hupso_services += '"Linkedin",';
-		if ( $( "input:checkbox[name=stumbleupon]:checked" ).val() == 1 )
-			hupso_services += '"StumbleUpon",';
-		if ( $( "input:checkbox[name=digg]:checked" ).val() == 1 )
-			hupso_services += '"Digg",';
-		if ( $( "input:checkbox[name=reddit]:checked" ).val() == 1 )
-			hupso_services += '"Reddit",';
-		if ( $( "input:checkbox[name=bebo]:checked" ).val() == 1 )
-			hupso_services += '"Bebo",';
-		if ( $( "input:checkbox[name=delicious]:checked" ).val() == 1 )
-			hupso_services += '"Delicious",';		
+										
+		
+		if ( button_type == 'counters' ) {
 			
-		var none = hupso_services.substring(hupso_services.length - 1, hupso_services.length);
-		hupso_services = hupso_services.substring(0, hupso_services.length - 1);		
-		if ( none != ',' ) {
-			hupso_services += '();';
-		} else {
+			// twitter
+			var twitter_tweet = $("input:checkbox[name=twitter_tweet]:checked").val();
+			if (twitter_tweet == 1) {
+				hupso_services += '"twitter"';
+				counters_preview += '<img src="http://static.hupso.com/share/img/counters/twitter_tweet.png" />';
+			}
+			
+			// facebook
+			var facebook_like = $("input:checkbox[name=facebook_like]:checked").val();
+			var facebook_send = $("input:checkbox[name=facebook_send]:checked").val();
+			if (facebook_like == 1) {
+				hupso_services += '"facebook_like"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/counters/facebook_like.png" /></span>';
+				if (facebook_send == 1) {
+					hupso_services += '"facebook_send"';					
+					counters_preview += ' <img src="http://static.hupso.com/share/img/counters/facebook_send.png" />';
+				}
+			}			
+
+			// google +1
+			var google_plus_one = $("input:checkbox[name=google_plus_one]:checked").val();
+			if (google_plus_one == 1) {
+				hupso_services += '"google"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/counters/google_plus_one.png" /></span>';
+			}		
+			
+			// linkedin
+			var linkedin_share = $("input:checkbox[name=linkedin_share]:checked").val();
+			if (linkedin_share == 1) {
+				hupso_services += '"linkedin"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/counters/linkedin_share.png" /></span>';
+			}				
+		
+			hupso_services = hupso_services.replace(/""/gi, '","');
 			hupso_services += ');';
+			
 		}
+		
+		else {
+					
+			if ( $( "input:checkbox[name=twitter]:checked" ).val() == 1 )
+				hupso_services += '"Twitter",';
+			if ( $( "input:checkbox[name=facebook]:checked" ).val() == 1 )
+				hupso_services += '"Facebook",';		
+			if ( $( "input:checkbox[name=googleplus]:checked" ).val() == 1 )
+				hupso_services += '"Google Plus",';	
+			if ( $( "input:checkbox[name=linkedin]:checked" ).val() == 1 )
+				hupso_services += '"Linkedin",';
+			if ( $( "input:checkbox[name=stumbleupon]:checked" ).val() == 1 )
+				hupso_services += '"StumbleUpon",';
+			if ( $( "input:checkbox[name=digg]:checked" ).val() == 1 )
+				hupso_services += '"Digg",';
+			if ( $( "input:checkbox[name=reddit]:checked" ).val() == 1 )
+				hupso_services += '"Reddit",';
+			if ( $( "input:checkbox[name=bebo]:checked" ).val() == 1 )
+				hupso_services += '"Bebo",';
+			if ( $( "input:checkbox[name=delicious]:checked" ).val() == 1 )
+				hupso_services += '"Delicious",';		
+				
+		
+			var none = hupso_services.substring(hupso_services.length - 1, hupso_services.length);
+			hupso_services = hupso_services.substring(0, hupso_services.length - 1);		
+			if ( none != ',' ) {
+				hupso_services += '();';
+			} else {
+				hupso_services += ');';
+			}
+		}
+
 
 		switch ( button_type ) {
 			case 'share_button':
@@ -143,6 +212,9 @@ function hupso_create_code() {
 				case 'share_toolbar':
 					hupso_services += 'var hupso_url_t="'+encodeURI(hupso_url)+'";';
 					break;
+				case 'counters':
+					hupso_services += 'var hupso_url_c="'+encodeURI(hupso_url)+'";';
+					break;						
 			}
 			
 		}
@@ -158,6 +230,9 @@ function hupso_create_code() {
 				case 'share_toolbar':
 					hupso_services += 'var hupso_title_t="'+encodeURI(hupso_title)+'";';
 					break;
+				case 'counters':
+					hupso_services += 'var hupso_title_c="'+encodeURI(hupso_title)+'";';
+					break;						
 			}
 			
 		}		
@@ -228,7 +303,11 @@ function hupso_create_code() {
 					toolbar_share = 'share-small';
 					break;
 			}
-			
+		}	
+		
+		if (button_type == 'counters') {
+			hupso_class = 'hupso_counters';
+			hupso_js = 'counters.js';
 		}			
 
 		var code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ -->';
@@ -241,6 +320,9 @@ function hupso_create_code() {
 			case 'share_toolbar':
 				code += '<img src="http://static.hupso.com/share/buttons/'+toolbar_share+'.png" border="0" style="padding-top:5px; float:left;" alt="Social Share Toolbar"/>';
 				break;
+			case 'counters':
+				code += '<img src="http://static.hupso.com/share/buttons/share-small.png" border="0" style="padding-top:2px; float:left;" alt="Social Share Counters"/>';
+				break;					
 		}
 		
 
@@ -263,7 +345,13 @@ function hupso_create_code() {
 		}
 	
 		// update preview
-		$( "#button" ).html(code);	
+		if ( button_type == 'counters') {
+			$( "#button" ).html(counters_preview);	
+		}
+		else {
+			$( "#button" ).html(code);	
+		}		
+		
 	
 	});		
 }

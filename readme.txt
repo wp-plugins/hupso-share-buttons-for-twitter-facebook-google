@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 2.3
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,9 +20,12 @@ Main features / advantages:
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
-* All major social networks are supported. 
-* Real-time button preview in admin settings
-* Support for right-to-left (RTL) scripts/languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese)
+* All major social networks are supported: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo, Delicious.
+* Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share. 
+* Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
+* Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
+* Real-time button preview in admin settings.
+* Support for right-to-left (RTL) scripts/languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese).
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Button will apear below your articles or on top of them as you choose.
@@ -50,18 +53,18 @@ All major social networks are supported: Twitter, Facebook, Google+, Linkedin, S
 = What settings are available? =
 
 From Settings screen you are able to choose:
-* button type (share button, share toolbar)
+* button type (share button, share toolbar, counters)
 * button size
 * social sharing services
 * menu type
 * button position (above or below your posts)
-* display options (options to hide buttons on frontpage and in categories)
+* display options
 
 Please look at *Screenshots* for more information.
 
 = Are share buttons using Javascript? =
 
-Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Menu/toolbar interface for share buttons is loaded at run-time from our servers so we can add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Button images are loaded from your local Wordpress installation.
+Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Menu/toolbar/preview interface for share buttons is loaded at run-time from our servers so we can add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. Counters load javascript code from Twitter, Facebook, Google and Linkedin.
 
 = Are share buttons free? =
 
@@ -69,19 +72,33 @@ Yes. Thay are free and will always be free. And you do not need to open any acco
 
 = When will floating toolbars be available? =
 
-[Hupso Share Buttons](http://www.hupso.com/share/) provide other button types icluding flaoting toolbars. We plan to implement those in next versions of this plugin.
+[Hupso Share Buttons](http://www.hupso.com/share/) provide other button types including floating toolbars. We plan to implement those in next versions of this plugin.
+
+= Why is featured post image not used as thumbnail with Facebook on new posts? =
+
+Please wait up to 24 hours for Facebook to fetch the new thumbnail. After that it should work.
+
+= Found a bug? Have a suggestion? =
+
+Please send bug reports and suggestion using [this feedback form](http://www.hupso.com/share/feedback/).
 
 
 == Screenshots ==
 
-1. Share Toolbar and Share Button on the same page (demo)
-2. Share Toolbar (big)
-2. Share Buttons with drop down menu (icons and service names)
-3. Share Buttons with drop down menu (icons only)
-4. Settings in Wordpress Administration (with real-time button preview)
+1. Share Toolbar and Counters on the same page (demo)
+2. Counters (Twitter Tweet, Facebook Like, Google +1, Linkedin Share) 
+3. Share Toolbar (big)
+4. Share Buttons with drop down menu (icons and service names)
+5. Share Buttons with drop down menu (icons only)
+6. Settings in Wordpress Administration (with real-time button preview)
 
 
 == Changelog ==
+
+= 3.0 =
+* New button type: Counters (support for Facebook Like, Facebook Send, Twitter Tweet, Google +1, Linkedin Share)
+* Featured post image (post thumbnail) is now used as Facebook thumbnail when sharing to Facebook
+* Fix for empty excerpts
 
 = 2.3 =
 * Fixed diplay of excerpts (post summaries)
