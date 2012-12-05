@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.4
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.1 =
+* Bugfix for Share button not loading properly
+* Settings are now deleted on plugin uninstall
 
 = 3.0 =
 * New button type: Counters (support for Facebook Like, Facebook Send, Twitter Tweet, Google +1, Linkedin Share)

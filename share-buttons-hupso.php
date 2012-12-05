@@ -3,15 +3,13 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.0
+Version: 3.1
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 $hupso_dev = '';
-
-$share_image = __('Share');
 
 $hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
 add_filter( 'the_content', 'hupso_the_content', 10 );
@@ -28,14 +26,54 @@ if ( is_admin() ) {
 add_action( 'admin_head', 'hupso_admin_head' );
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
-
-$all_services = array(
+$hupso_all_services = array(
 	'Twitter', 'Facebook', 'Google Plus', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
 );
-$default_services = array(
+$hupso_default_services = array(
 	'Twitter', 'Facebook', 'Google Plus', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
 );	
 
+
+if ( function_exists('register_activation_hook') )
+	register_activation_hook( __FILE__, 'hupso_plugin_activation' );
+
+if ( function_exists('register_uninstall_hook') )
+	register_uninstall_hook( __FILE__, 'hupso_plugin_uninstall' );
+
+function hupso_plugin_uninstall() {
+	delete_option( 'hupso_custom' );
+	delete_option( 'hupso_button_type' );
+	delete_option( 'hupso_button_size' );
+	delete_option( 'hupso_toolbar_size' );
+	delete_option( 'hupso_menu_type' );
+	delete_option( 'hupso_button_position' );
+	delete_option( 'hupso_show_frontpage' );
+	delete_option( 'hupso_show_category' );
+	delete_option( 'hupso_twitter_tweet' );
+	delete_option( 'hupso_facebook_like' );
+	delete_option( 'hupso_facebook_send' );
+	delete_option( 'hupso_google_plus_one' );
+	delete_option( 'hupso_linkedin_share' );
+	delete_option( 'hupso_share_buttons_code' );
+	delete_option( 'hupso_twitter' );
+	delete_option( 'hupso_facebook' );
+	delete_option( 'hupso_googleplus' );
+	delete_option( 'hupso_linkedin' );
+	delete_option( 'hupso_stumbleupon' );
+	delete_option( 'hupso_digg' );
+	delete_option( 'hupso_reddit' );
+	delete_option( 'hupso_bebo' );
+	delete_option( 'hupso_delicious' );
+}
+
+function hupso_plugin_activation() {
+
+	/* Fix for bug in version 3.0 */
+	$size = get_option( 'hupso_button_size', '');
+	if ( ($size == 'share_button') or ($size == 'share_toolbar') or ($size == 'counters') ) {
+		update_option( 'hupso_button_size', 'button100x23');
+	}
+}
 
 function hupso_admin_menu() {
 	add_options_page('', '', 'manage_options', __FILE__, 'hupso_admin_settings_show', '', 6);
@@ -66,7 +104,9 @@ function hupso_get_the_excerpt($content) {
 }
 
 function hupso_admin_settings_show() {
-	global $all_services, $default_services, $hupso_plugin_url;
+	global $hupso_all_services, $hupso_default_services, $hupso_plugin_url;
+	
+	$hupso_share_image = __('Share');	
 	
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
@@ -319,7 +359,7 @@ function hupso_admin_settings_show() {
 
 function hupso_admin_settings_save() {
 
-	global $all_services, $default_services, $hupso_plugin_url;	
+	global $hupso_all_services, $hupso_default_services, $hupso_plugin_url;	
 	update_option( 'hupso_custom', '1' );
 
 	if ( $_POST[ 'button_type' ] != '' )
@@ -337,7 +377,7 @@ function hupso_admin_settings_save() {
 
 	/* save button size */
 	if ( $post ) {
-		$hupso_button_size = $_POST[ 'button_type' ];
+		$hupso_button_size = $_POST[ 'size' ];
 		update_option( 'hupso_button_size', $hupso_button_size );		
 	} else {
 		$hupso_button_size = get_option ( 'hupso_button_size', 'button100x23');
@@ -355,7 +395,7 @@ function hupso_admin_settings_save() {
 			
 	/* save services */	
 	$hupso_vars = 'var hupso_services=new Array(';
-	foreach ( $all_services as $service_text ) {
+	foreach ( $hupso_all_services as $service_text ) {
 		$service_name = strtolower( $service_text );
 		$service_name = str_replace( ' ', '', $service_name );
 		if ( $post ) {
@@ -363,7 +403,7 @@ function hupso_admin_settings_save() {
 			update_option( 'hupso_' . $service_name, $value );
 		}
 		else {	
-			$value = get_option ( 'hupso_' . $service_name, in_array( $service_text, $default_services ) );
+			$value = get_option ( 'hupso_' . $service_name, in_array( $service_text, $hupso_default_services ) );
 		}
 		if ( $value == '1' ) {
 			$hupso_vars .= '"' . $service_text .'",';
@@ -541,14 +581,14 @@ function hupso_the_content( $content ) {
 
 function hupso_settings_print_services() {
 	
-	global $all_services, $default_services, $hupso_plugin_url;
+	global $hupso_all_services, $hupso_default_services, $hupso_plugin_url;
 	
-	foreach ( $all_services as $service_text ) {
+	foreach ( $hupso_all_services as $service_text ) {
 		$service_name = strtolower( $service_text );
 		$service_name = str_replace( ' ', '', $service_name );
 		
 		$checked = '';
-		$value = get_option( 'hupso_' . $service_name , in_array( $service_text, $default_services ) );
+		$value = get_option( 'hupso_' . $service_name , in_array( $service_text, $hupso_default_services ) );
 		if ( $value == "1" ) {
 			$checked = 'checked="checked"';	 
 		} 
@@ -571,6 +611,9 @@ function hupso_plugin_action_links( $links, $file ) {
  
     return $links;
 }
+
+
+
 
 
 ?>
