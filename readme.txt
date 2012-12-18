@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 3.2
+Stable tag: 3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Add simple social sharing buttons to your articles. Your visitors will be able t
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
-** Main features / advantages **
+**Main features / advantages**
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
@@ -25,17 +25,20 @@ These services are used by millions of people every day, so sharing your content
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
 * Real-time button preview in admin settings.
-* Support for right-to-left (RTL) scripts/languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese).
-* Hide or show buttons for specific posts (see shortcodes below)
+* Support for right-to-left (RTL) scripts / languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese).
+* Hide or show buttons for specific posts / pages (see Shortcodes below)
+* Hide or show buttons for posts / pages / front page / categories
+* Hide share buttons for specific categories
+
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them as you choose.
 
-** Shortcodes **
-Use [hupso_hide] anywhere in post's text to hide buttons for specific post.
-Use [hupso] to show buttons for specific post at custom position using shortcode. They will be shown exactly where this shortcode appears.
+**Shortcodes**
+Use [hupso_hide] anywhere in post's text to hide buttons for specific post. 
+Use [hupso] anywhere in post's text to show buttons at custom position inside the post. Buttons will be shown exactly where this shortcode appears.
 
-[Share Buttons Demo](http://www.hupso.com/share/) | [FAQ] (http://wordpress.org/extend/plugins/hupso-share-buttons-for-twitter-facebook-google/faq/) | [Feedback] (http://www.hupso.com/share/feedback/)
+[Share Buttons Demo](http://www.hupso.com/share/) | [FAQ](http://wordpress.org/extend/plugins/hupso-share-buttons-for-twitter-facebook-google/faq/) | [Feedback](http://www.hupso.com/share/feedback/)
 
 
 == Installation ==
@@ -67,13 +70,7 @@ If you still have problems then send bug report [using this feedback form](http:
 
 = What settings are available? =
 
-From Settings screen you are able to choose:
-* button type (share button, share toolbar, counters)
-* button size
-* social sharing services
-* menu type
-* button position (above or below your posts)
-* display options
+From Settings screen you are able to choose: button type (share button, share toolbar, counters), button size, social sharing services, menu type, button position (above or below your posts), display options.
 
 Please look at *Screenshots* for more information.
 
@@ -109,6 +106,11 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.3 =
+* Option to show/hide share buttons for (all) posts/pages
+* Option to hide share buttons for specific categories
+* Option to select which title gets used when sharing (title of post or title of current web page)
 
 = 3.2 =
 * It is now possible to hide buttons for specific post using shortcode [hupso_hide]
