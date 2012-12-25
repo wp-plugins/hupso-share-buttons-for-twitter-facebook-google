@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 3.3
+Stable tag: 3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,12 +29,14 @@ These services are used by millions of people every day, so sharing your content
 * Hide or show buttons for specific posts / pages (see Shortcodes below)
 * Hide or show buttons for posts / pages / front page / categories
 * Hide share buttons for specific categories
+* Hide "Share" image or use translated image (20+ languages available)
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them as you choose.
 
 **Shortcodes**
+
 Use [hupso_hide] anywhere in post's text to hide buttons for specific post. 
 Use [hupso] anywhere in post's text to show buttons at custom position inside the post. Buttons will be shown exactly where this shortcode appears.
 
@@ -67,6 +69,10 @@ All major social networks are supported: Twitter, Facebook, Google+, Linkedin, S
 
 Please upgrade the plugin to the latest version. If that does not help then try to reinstall the plugin (uninstall it and install it again).
 If you still have problems then send bug report [using this feedback form](http://www.hupso.com/share/feedback/).
+
+= Buttons are not working with one post. Only "Share" image in shown, but no social icons. They work correctly on other posts. What can I do? =
+
+HTML of your post in not valid. You need to fix the text inside the post. Perhaps you forgot to close a <p> or <div> tag at the end. Perhaps you have some other HTML error in it. Use HTML validator if you cannot find an error.
 
 = What settings are available? =
 
@@ -106,6 +112,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.4 =
+* Option to hide "Share" image
+* Option to use translated "Share" image (20 languages)
 
 = 3.3 =
 * Option to show/hide share buttons for (all) posts/pages

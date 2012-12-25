@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.3
+Version: 3.4
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -47,6 +47,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_button_type' );
 	delete_option( 'hupso_button_size' );
 	delete_option( 'hupso_toolbar_size' );
+	delete_option( 'hupso_share_image' );
+	delete_option( 'hupso_share_image_lang' );
 	delete_option( 'hupso_menu_type' );
 	delete_option( 'hupso_button_position' );
 	delete_option( 'hupso_show_posts' );
@@ -192,12 +194,12 @@ function hupso_admin_settings_show() {
 				default: $hupso_share_toolbar_checked = $checked;
 			}			
 		?>		
-		<td><input type="radio" name="button_type" onclick="hupso_create_code()" value="share_button" <?php echo $hupso_share_button_checked; ?>  /> Share Button<br/><img src="<?php echo  $hupso_plugin_url.'/buttons/button100x23.png';?>" /><br/><br/>
-		<input type="radio" name="button_type" onclick="hupso_create_code()" value="share_toolbar" <?php echo $hupso_share_toolbar_checked; ?> /> Share Toolbar <br/><img src="<?php echo $hupso_plugin_url.'/img/share_toolbar_big.png';?>" /><br/><br/>	
-		<input type="radio" name="button_type" onclick="hupso_create_code()" value="counters" <?php echo $hupso_share_counters_checked; ?> /> Counters <br/><img src="<?php echo $hupso_plugin_url.'/img/counters.png';?>" /><br/><br/>
+		<td><input type="radio" name="button_type" onclick="hupso_create_code()" onchange="hupso_create_code()" value="share_button" <?php echo $hupso_share_button_checked; ?>  /> Share Button<br/><img src="<?php echo  $hupso_plugin_url.'/buttons/button100x23.png';?>" /><br/><br/>
+		<input type="radio" name="button_type" onclick="hupso_create_code()" onchange="hupso_create_code()" value="share_toolbar" <?php echo $hupso_share_toolbar_checked; ?> /> Share Toolbar <br/><img src="<?php echo $hupso_plugin_url.'/img/share_toolbar_big.png';?>" /><br/><br/>	
+		<input type="radio" name="button_type" onclick="hupso_create_code()" onchange="hupso_create_code()" value="counters" <?php echo $hupso_share_counters_checked; ?> /> Counters <br/><img src="<?php echo $hupso_plugin_url.'/img/counters.png';?>" /><br/><br/>
 		</td>	
 	</tr>
-	<tr><td></td><td><hr style="height:1px; width:100%;"/></td></tr>
+	<tr><td style="width:100px;"></td><td><hr style="height:1px; width:300px; float:left;"/></td></tr>
 	</table>	
 	</div>
 	
@@ -207,12 +209,13 @@ function hupso_admin_settings_show() {
 		<td style="width:100px;"><?php _e('Button size', 'share_buttons_hupso'); ?></td>
 		<td>
 			<table border="0">
-			<tr><td><input type="radio" name="size" value="button60x14" onclick="hupso_create_code()" <?php echo $button60_checked; ?> /></td><td style="padding-right:10px;"><?php echo $button_60_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="button80x19" onclick="hupso_create_code()" <?php echo $button80_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_80_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="button60x14" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button60_checked; ?> /></td><td style="padding-right:10px;"><?php echo $button_60_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="button80x19" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button80_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_80_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
 			</table>
+<hr style="height:1px; width:300px;"/>			
 		</td>
 	</tr>
 	</table>
@@ -233,18 +236,73 @@ function hupso_admin_settings_show() {
 				default: $hupso_toolbar_size_medium_checked = $checked;
 			}			
 		?>
-		<input type="radio" name="select_toolbar_size" value="big" onclick="hupso_create_code()" <?php echo $hupso_toolbar_size_big_checked; ?> /> <?php _e( 'Big', 'share_buttons_hupso');?> <br/>
-		<input type="radio" name="select_toolbar_size" value="medium" onclick="hupso_create_code()" <?php echo $hupso_toolbar_size_medium_checked; ?> /> <?php _e( 'Medium', 'share_buttons_hupso');?> <br/>	
-		<input type="radio" name="select_toolbar_size" value="small" onclick="hupso_create_code()" <?php echo $hupso_toolbar_size_small_checked; ?> /> <?php _e( 'Small', 'share_buttons_hupso');?> <br/>	
+		<input type="radio" name="select_toolbar_size" value="big" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $hupso_toolbar_size_big_checked; ?> /> <?php _e( 'Big', 'share_buttons_hupso');?> <br/>
+		<input type="radio" name="select_toolbar_size" value="medium" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $hupso_toolbar_size_medium_checked; ?> /> <?php _e( 'Medium', 'share_buttons_hupso');?> <br/>	
+		<input type="radio" name="select_toolbar_size" value="small" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $hupso_toolbar_size_small_checked; ?> /> <?php _e( 'Small', 'share_buttons_hupso');?> <br/>
+		<hr style="height:1px; width:300px;"/>	
+		</td>
 	</tr>		
 	</table>
 	</div>	
+	
+	
+	<div id="share_image" style="padding-top:10px;">
+	<table border="0">
+		<tr>
+		<td style="width:100px;"><?php _e('Share image', 'share_buttons_hupso'); ?></td>
+		<td style="width:300px">
+			<?php
+			
+				/* hupso_share_image */
+				$checked = ' checked="checked" ';
+				$hupso_share_image = get_option( 'hupso_share_image', 'normal' );
+				switch ( $hupso_share_image ) {
+					case '':
+					case 'show':	$hupso_share_image_show_checked = $checked; break;
+					case 'hide':	$hupso_share_image_hide_checked = $checked;	break;
+					case 'lang':	$hupso_share_image_lang_checked = $checked;	break;	
+				}
+				
+				$hupso_share_image_lang = get_option ( 'hupso_share_image_lang', '');
+			
+			?>
+		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="show" <?php echo $hupso_share_image_show_checked; ?>/> <?php _e('Show in language', 'share_buttons_hupso');?>:  
+			<select id="share_image_lang" name="share_image_lang" onclick="hupso_create_code()" onchange="hupso_create_code()">
+			  <option value="en" <?php if ( ($hupso_share_image_lang == 'en') || ($hupso_share_image_lang == '') ) echo ' selected ';?>>English</option>		
+			  <option value="fr" <?php if ($hupso_share_image_lang == 'fr') echo ' selected ';?>><?php _e('French', 'share_buttons_hupso');?></option>
+			  <option value="de" <?php if ($hupso_share_image_lang == 'de') echo ' selected ';?>><?php _e('German', 'share_buttons_hupso');?></option>
+			  <option value="it" <?php if ($hupso_share_image_lang == 'it') echo ' selected ';?>><?php _e('Italian', 'share_buttons_hupso');?></option>	  		  		  
+			  <option value="pt" <?php if ($hupso_share_image_lang == 'pt') echo ' selected ';?>><?php _e('Portuguese', 'share_buttons_hupso');?></option>
+			  <option value="es" <?php if ($hupso_share_image_lang == 'es') echo ' selected ';?>><?php _e('Spanish', 'share_buttons_hupso');?></option>
+			  <option value="id" <?php if ($hupso_share_image_lang == 'id') echo ' selected ';?>><?php _e('Indonesian', 'share_buttons_hupso');?></option>
+			  <option value="da" <?php if ($hupso_share_image_lang == 'da') echo ' selected ';?>><?php _e('Danish', 'share_buttons_hupso');?></option>	
+			  <option value="nl" <?php if ($hupso_share_image_lang == 'nl') echo ' selected ';?>><?php _e('Dutch', 'share_buttons_hupso');?></option>	
+			  <option value="sv" <?php if ($hupso_share_image_lang == 'sv') echo ' selected ';?>><?php _e('Swedish', 'share_buttons_hupso');?></option>	
+			  <option value="no" <?php if ($hupso_share_image_lang == 'no') echo ' selected ';?>><?php _e('Norwegian', 'share_buttons_hupso');?></option>	
+			  <option value="sr" <?php if ($hupso_share_image_lang == 'sr') echo ' selected ';?>><?php _e('Serbian', 'share_buttons_hupso');?></option>
+			  <option value="hr" <?php if ($hupso_share_image_lang == 'hr') echo ' selected ';?>><?php _e('Croatian', 'share_buttons_hupso');?></option>
+			  <option value="et" <?php if ($hupso_share_image_lang == 'et') echo ' selected ';?>><?php _e('Estonian', 'share_buttons_hupso');?></option>
+			  <option value="ro" <?php if ($hupso_share_image_lang == 'ro') echo ' selected ';?>><?php _e('Romanian', 'share_buttons_hupso');?></option>
+			  <option value="ga" <?php if ($hupso_share_image_lang == 'ga') echo ' selected ';?>><?php _e('Irish', 'share_buttons_hupso');?></option>
+			  <option value="af" <?php if ($hupso_share_image_lang == 'af') echo ' selected ';?>><?php _e('Afrikaans', 'share_buttons_hupso');?></option>
+			  <option value="sl" <?php if ($hupso_share_image_lang == 'sl') echo ' selected ';?>><?php _e('Slovenian', 'share_buttons_hupso');?></option>
+			  <option value="pl" <?php if ($hupso_share_image_lang == 'pl') echo ' selected ';?>><?php _e('Polish', 'share_buttons_hupso');?></option>
+			  <option value="bs" <?php if ($hupso_share_image_lang == 'bs') echo ' selected ';?>><?php _e('Bosnian', 'share_buttons_hupso');?></option>
+			  <option value="ms" <?php if ($hupso_share_image_lang == 'ms') echo ' selected ';?>><?php _e('Malay', 'share_buttons_hupso');?></option>
+			</select><br/>
+		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="hide" <?php echo $hupso_share_image_hide_checked; ?>/> <?php _e('Hide', 'share_buttons_hupso'); ?><br/>
+		<hr style="height:1px; width:300px;"/>			
+		</td>	
+		</tr>	
+		</table>
+	</div>	
+	
 	
 	<div id="services">
 	<table border="0">
 	<tr>
 		<td style="width:100px;"><?php _e('Social networks', 'share_buttons_hupso'); ?></td>
-		<td><hr style="height:1px; width:200px;"/><?php hupso_settings_print_services(); ?></td>
+		<td><?php hupso_settings_print_services(); ?></td>
 	</tr>
 	</table>
 	</div>
@@ -318,7 +376,7 @@ function hupso_admin_settings_show() {
 			}			
 		
 		?>
-		<td><hr style="height:1px; width:200px;"/><input type="radio" name="menu_type" value="labels" onclick="hupso_create_code()" <?php echo $hupso_labels_checked; ?> /> <?php _e('Show icons and service names', 'share_buttons_hupso'); ?><br/>
+		<td><hr style="height:1px; width:300px;"/><input type="radio" name="menu_type" value="labels" onclick="hupso_create_code()" <?php echo $hupso_labels_checked; ?> /> <?php _e('Show icons and service names', 'share_buttons_hupso'); ?><br/>
 		<input type="radio" name="menu_type" value="icons" onclick="hupso_create_code()" <?php echo $hupso_icons_checked; ?> /> <?php _e('Show icons only', 'share_buttons_hupso'); ?><br/></td>
 	</tr>	
 	</table>
@@ -336,13 +394,13 @@ function hupso_admin_settings_show() {
 				default: $hupso_below_checked = $checked;
 			}			
 		?>
-		<td><hr style="height:1px; width:200px;" align="left"/>
+		<td><hr style="height:1px; width:300px;" align="left"/>
 		<input type="radio" name="hupso_button_position" value="above" <?php echo $hupso_above_checked; ?> /> <?php _e('Above the post', 'share_buttons_hupso'); ?><br/>
 		<input type="radio" name="hupso_button_position" value="below" <?php echo $hupso_below_checked; ?> /> <?php _e('Below the post', 'share_buttons_hupso'); ?><br/></td>
 	</tr>	
 	<tr>
 		<td style="width:100px;"><?php _e('Show buttons on', 'share_buttons_hupso'); ?></td>
-		<td><hr style="height:1px; width:200px;" align="left"/>
+		<td><hr style="height:1px; width:300px;" align="left"/>
 			<?php
 				$checked = ' checked="checked" ';
 				
@@ -382,7 +440,7 @@ function hupso_admin_settings_show() {
 	</tr>	
 	<tr>
 		<td style="width:100px;"><?php _e('Hide buttons for specific categories', 'share_buttons_hupso'); ?></td>
-		<td><hr style="height:1px; width:200px;" align="left"/>
+		<td><hr style="height:1px; width:300px;" align="left"/>
 			<?php
 				/* hidden categories */
 				$hupso_hide_categories = get_option( 'hupso_hide_categories', array() );
@@ -411,8 +469,8 @@ function hupso_admin_settings_show() {
 		</td>
 	</tr>			
 	<tr>
-		<td style="width:100px;"><?php _e('Get title for sharing from', 'share_buttons_hupso'); ?></td>
-		<td><hr style="height:1px; width:200px;" align="left"/>
+		<td style="width:100px;"><?php _e('Get share text from', 'share_buttons_hupso'); ?></td>
+		<td><hr style="height:1px; width:300px;" align="left"/>
 			<?php
 				$checked = ' checked="checked" ';
 				
@@ -421,8 +479,7 @@ function hupso_admin_settings_show() {
 				if ( $hupso_title_text == 'page' )
 					$hupso_title_text_page_checked = $checked;	
 				else
-					$hupso_title_text_post_checked = $checked;;		
-						
+					$hupso_title_text_post_checked = $checked;			
 			?>
 			<input type="radio" name="hupso_title_text" value="post" <?php echo $hupso_title_text_post_checked; ?> /> <?php _e('Title of post/page in Wordpress', 'share_buttons_hupso'); ?><br/>	
 			<input type="radio" name="hupso_title_text" value="page" <?php echo $hupso_title_text_page_checked; ?> /> <?php _e('Title of current web page', 'share_buttons_hupso'); ?>
@@ -474,6 +531,22 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_toolbar_size', $hupso_toolbar_size );		
 	} else {
 		$hupso_button_size = get_option ( 'hupso_toolbar_size', 'medium');
+	}	
+			
+	/* save share_image */
+	if ( $post ) {
+		$hupso_share_image = $_POST[ 'hupso_share_image' ];
+		update_option( 'hupso_share_image', $hupso_share_image );		
+	} else {
+		$hupso_share_image = get_option ( 'hupso_share_image', 'normal');
+	}				
+	
+	/* save share_image_lang */
+	if ( $post ) {
+		$hupso_share_image_lang = $_POST[ 'share_image_lang' ];
+		update_option( 'hupso_share_image_lang', $hupso_share_image_lang );		
+	} else {
+		$hupso_share_image_lang = get_option ( 'hupso_share_image_lang', '');
 	}	
 			
 	/* save services */	
@@ -775,7 +848,6 @@ function hupso_plugin_action_links( $links, $file ) {
  
     return $links;
 }
-
 
 
 

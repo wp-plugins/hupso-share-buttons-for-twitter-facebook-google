@@ -24,6 +24,10 @@ function hupso_create_code() {
 		var hupso_float_right_f = false;	
 		var toolbar_size = 'big';
 		var toolbar_share = 'share';
+		var counters_preview = '';
+		var share_image = 'show';
+		var share_image_custom_url = '';
+		var share_image_lang = '';		
 	
 		dir = "";
 		cdn = "static";
@@ -44,6 +48,7 @@ function hupso_create_code() {
 				$( "#show_color" ).show();
 				$( "#counters_config" ).hide();		
 				$( "#services" ).show();
+				$( "#share_image" ).hide();
 				break;
 			case 'share_toolbar':
 				$( "#button_position" ).hide();
@@ -56,6 +61,7 @@ function hupso_create_code() {
 				$( "#show_color" ).hide();
 				$( "#counters_config" ).hide();		
 				$( "#services" ).show();
+				$( "#share_image" ).show();
 				break;
 			case 'floating_toolbar':
 				$( "#button_position" ).show();
@@ -68,6 +74,7 @@ function hupso_create_code() {
 				$( "#show_color" ).show();
 				$( "#counters_config" ).hide();	
 				$( "#services" ).show();
+				$( "#share_image" ).hide();
 				break;
 			case 'counters':
 				$( "#button_position" ).hide();
@@ -79,16 +86,44 @@ function hupso_create_code() {
 				$( "#show_title" ).show();
 				$( "#show_color" ).hide();
 				$( "#counters_config" ).show();
-				$( "#services" ).hide();					
+				$( "#services" ).hide();	
+				$( "#share_image" ).show();
 				break;						
 		}
 		
-		counters_preview = '<img src="http://static.hupso.com/share/buttons/share-small.png"/>';
+		share_image = $("input:radio[name=hupso_share_image]:checked").val();
+		share_image_custom_url = $.trim($("input:text[name=hupso_share_image_custom_url]").val());
+		
+		var lang_code = $("#share_image_lang option:selected").val();
+		if ( lang_code != 'en' ) {
+			share_image_lang = 'lang/' + lang_code + '/';
+		}
+		else {
+			share_image_lang = '';
+		}
+		
+		
+		switch ( share_image ) {
+			case 'show':
+				if ( (lang_code == 'en') || (lang_code == '')) {
+					counters_preview = '<img src="http://static.hupso.com/share/buttons/share-small.png"/>';
+				}
+				else {
+					counters_preview = '<img style="margin-right:10px;" src="http://static.hupso.com/share/buttons/lang/'+lang_code+'/share-small.png"/>';	
+				}
+				break;
+			case 'hide':	
+				counters_preview = '<img src="http://static.hupso.com/share/buttons/dot.png"/>';
+				break;
+			case 'custom':
+				counters_preview = '<img src="' + share_image_custom_url + '"/>';
+				break;
+		}		
 			
 		button_position = $("input:radio[name=button_position]:checked").val();
 		toolbar_size = $("input:radio[name=select_toolbar_size]:checked").val();
 		icon_type = $("input:radio[name=menu_type]:checked").val();
-	
+		
    		bsize = $("input:radio[name=size]:checked").val();
 		var values = bsize.split('x');
 		bheight = values[1];
@@ -313,17 +348,37 @@ function hupso_create_code() {
 		var code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ -->';
 		code += '<a class="'+hupso_class+'" href="http://www.hupso.com/share/">';  // float:  class="hupso_float"
 		
-		switch ( button_type ) {
+switch ( button_type ) {
 			case 'share_button':
-				code += '<img src="http://static.hupso.com/share/buttons/'+bsize+'.png" width="'+bwidth+'" height="'+bheight+'" border="0" alt="Share Button"/>';
+				code += '<img src="http://static.hupso.com/share/buttons/'+bsize+'.png" width="'+bwidth+'" height="'+bheight+'" border="0" alt="Share"/>';
 				break;
 			case 'share_toolbar':
-				code += '<img src="http://static.hupso.com/share/buttons/'+toolbar_share+'.png" border="0" style="padding-top:5px; float:left;" alt="Social Share Toolbar"/>';
+				if ( share_image == 'hide' ) {
+					toolbar_share = 'dot';
+					share_image_lang = '';
+				}
+				if ( share_image == 'custom') {
+					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+				}
+				else {
+					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang+toolbar_share+'.png" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+				}
 				break;
 			case 'counters':
-				code += '<img src="http://static.hupso.com/share/buttons/share-small.png" border="0" style="padding-top:2px; float:left;" alt="Social Share Counters"/>';
-				break;					
-		}
+				var share_url = 'share-small';
+				if ( share_image == 'none' ) {
+					share_url = 'dot';
+					share_image_lang = '';
+				}
+				if ( share_image == 'custom') {
+					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+				}
+				else {
+					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang + share_url + '.png" border="0" style="padding-top:2px; float:left;" alt="Share"/>';
+				}			 
+				
+				break;				
+		}				
 		
 
 		code += '</a>';
