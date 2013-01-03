@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 3.4
+Stable tag: 3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,8 @@ These services are used by millions of people every day, so sharing your content
 * Support for right-to-left (RTL) scripts / languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese).
 * Hide or show buttons for specific posts / pages (see Shortcodes below)
 * Hide or show buttons for posts / pages / front page / categories
+* Option to add "via @yourprofile" to tweets (Twitter)
+* Localized counters: Tweet, Facebook Like, Facebook Share, Google +1 buttons can use translated versions (support for 73 languages)
 * Hide share buttons for specific categories
 * Hide "Share" image or use translated image (20+ languages available)
 
@@ -72,7 +74,7 @@ If you still have problems then send bug report [using this feedback form](http:
 
 = Buttons are not working with one post. Only "Share" image in shown, but no social icons. They work correctly on other posts. What can I do? =
 
-HTML of your post in not valid. You need to fix the text inside the post. Perhaps you forgot to close a <p> or <div> tag at the end. Perhaps you have some other HTML error in it. Use HTML validator if you cannot find an error.
+HTML of your post in not valid. You need to fix the text inside the post. Perhaps you forgot to close a p or div tag at the end. Perhaps you have some other HTML error in it. Use HTML validator if you cannot find an error.
 
 = What settings are available? =
 
@@ -112,6 +114,13 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.5
+* Option to add "via @yourprofile" to tweets (Twitter)
+* Localized counters: Tweet, Facebook Like, Facebook Share, Google +1 buttons can now use translated versions (support for 73 languages)
+* Chinese "Share" image
+* Fix for Facebook Like in Internet Explorer 8
+* Option to add CSS style to share buttons
 
 = 3.4 =
 * Option to hide "Share" image
