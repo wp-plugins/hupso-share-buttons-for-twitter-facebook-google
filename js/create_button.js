@@ -331,15 +331,15 @@ function hupso_create_code() {
 			
 			switch ( toolbar_size ) {
 				case 'big':
-					hupso_services += "var hupso_toolbar_size_t='big';";
+					hupso_services += 'var hupso_toolbar_size_t="big";';
 					toolbar_share = 'share';
 					break;
 				case 'medium':
-					hupso_services += "var hupso_toolbar_size_t='medium';";
+					hupso_services += 'var hupso_toolbar_size_t="medium";';
 					toolbar_share = 'share-medium';
 					break;
 				case 'small':
-					hupso_services += "var hupso_toolbar_size_t='small';";
+					hupso_services += 'var hupso_toolbar_size_t="small";';
 					toolbar_share = 'share-small';
 					break;
 			}
@@ -371,7 +371,7 @@ switch ( button_type ) {
 				break;
 			case 'counters':
 				var share_url = 'share-small';
-				if ( share_image == 'none' ) {
+				if ( share_image == 'hide' ) {
 					share_url = 'dot';
 					share_image_lang = '';
 				}
