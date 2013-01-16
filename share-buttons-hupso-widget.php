@@ -25,6 +25,7 @@ class Hupso_Widget extends WP_Widget {
 	 * @param array $instance Saved values from database.
 	 */
 	public function widget( $args, $instance ) {
+		global $hupso_state;
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 

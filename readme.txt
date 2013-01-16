@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5
-Stable tag: 3.6
+Stable tag: 3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,10 @@ You can configure share buttons in plugin settings.
 
 Yes, you can. Just include [hupso] anywhere in widget text area and share buttons will be displayed there.
 
+= How can I display share buttons only inside widget and not under posts? =
+
+Add Hupso share buttons widget, then go to Hupso plugin settings and clear all fields in "Show buttons on" section.
+
 = Buttons are not working properly. What can I do? =
 
 Please upgrade the plugin to the latest version. If that does not help then try to reinstall the plugin (uninstall it and install it again).
@@ -137,6 +141,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Changelog ==
 
+= 3.7 =
+* Option to display share buttons on password protected pages
+* Fixed: you can now display share buttons only in widget (just clear all fields in "Show buttons on" section)
 
 = 3.6 =
 * Sidebar widget

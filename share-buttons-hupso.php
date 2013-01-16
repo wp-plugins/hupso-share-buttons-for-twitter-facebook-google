@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.6
+Version: 3.7
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -97,6 +97,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_twitter_via' );
 	delete_option( 'hupso_css_style' );
 	delete_option( 'hupso_widget_text' );
+	delete_option( 'hupso_password_protected' );	
 }
 
 function hupso_plugin_activation() {
@@ -253,6 +254,7 @@ function hupso_admin_settings_show() {
 			<tr><td><input type="radio" name="size" value="button80x19" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button80_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_80_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
+
 			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
 			</table>
 <hr style="height:1px; width:500px;"/>			
@@ -504,12 +506,21 @@ function hupso_admin_settings_show() {
 				if ( $hupso_show_category == 1 )
 					$hupso_show_category_checked = $checked;	
 				else
-					$hupso_show_category_checked = '';						
+					$hupso_show_category_checked = '';	
+					
+				/* password protected posts */
+				$hupso_password_protected = get_option( 'hupso_password_protected', '0');
+				if ( $hupso_password_protected == '1' )
+					$hupso_password_protected_checked = $checked;	
+				else
+					$hupso_password_protected_checked = '';							
+								
 			?>
 			<input type="checkbox" name="hupso_show_posts" value="1" <?php echo $hupso_show_posts_checked; ?> /> <?php _e('Posts', 'share_buttons_hupso'); ?><br/>
 			<input type="checkbox" name="hupso_show_pages" value="1" <?php echo $hupso_show_pages_checked; ?> /> <?php _e('Pages', 'share_buttons_hupso'); ?><br/>
 			<input type="checkbox" name="hupso_show_frontpage" value="1" <?php echo $hupso_show_frontpage_checked; ?> /> <?php _e('Front page', 'share_buttons_hupso'); ?><br/>
-			<input type="checkbox" name="hupso_show_category" value="1" <?php echo $hupso_show_category_checked; ?> /> <?php _e('Categories (categories, tags, dates, authors)', 'share_buttons_hupso'); ?><br/>		
+			<input type="checkbox" name="hupso_show_category" value="1" <?php echo $hupso_show_category_checked; ?> /> <?php _e('Categories (categories, tags, dates, authors)', 'share_buttons_hupso'); ?><br/>	
+			<input type="checkbox" name="hupso_password_protected" value="1" <?php echo $hupso_password_protected_checked; ?> /> <?php _e('Password protected posts', 'share_buttons_hupso'); ?><br/>	
 		</td>
 	</tr>	
 	<tr>
@@ -602,14 +613,10 @@ function hupso_admin_settings_show() {
 					$hupso_widget_text_checked = '';							
 				
 			?>
-			<input type="checkbox" name="hupso_widget_text" value="1" <?php echo $hupso_widget_text_checked; ?> /> <?php _e('Use shortcodes in text widgets', 'share_buttons_hupso'); ?><br/><?php _e('If this is checked, you can use [hupso] shortcode inside text widgets and it will be replaced by share buttons', 'share_buttons_hupso'); ?>
+			<input type="checkbox" name="hupso_widget_text" value="1" <?php echo $hupso_widget_text_checked; ?> /> <?php _e('Use shortcodes in text widgets', 'share_buttons_hupso'); ?><br/><?php _e('If this is checked, you can use [hupso] shortcode inside text widgets and it will be replaced by share buttons', 'share_buttons_hupso'); ?>.
 		</td>
 	</tr>		
 	
-	
-
-		
-		
 	</table>
 	<br/><br/><input class="button-primary" name="submit" type="submit" onclick="hupso_create_code()" value="<?php _e('Save Settings', 'share_buttons_hupso'); ?>" />
 	</form>
@@ -773,7 +780,13 @@ function hupso_admin_settings_save() {
 	if ( $post ) {
 		$hupso_widget_text = @$_POST[ 'hupso_widget_text' ];	
 		update_option( 'hupso_widget_text', $hupso_widget_text );		
-	}	
+	}
+	
+	/* Save hupso_password_protected */
+	if ( $post ) {
+		$hupso_password_protected = @$_POST[ 'hupso_password_protected' ];	
+		update_option( 'hupso_password_protected', $hupso_password_protected );		
+	}		
 	
 	/* save hupso_hide_categories */
 	if ( $post ) {
@@ -801,14 +814,14 @@ function hupso_the_content( $content ) {
 	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state;
 	
 	/* Do now show share buttons when [hupso_hide] is used */
-	if ( stripos($content, '[hupso_hide]') !== false ) {
+	if ( ($hupso_state == 'normal') && ( stripos($content, '[hupso_hide]') !== false ) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);
 		return $content;
 	}
 
 	/* Do not show share buttons in feeds */
-	if ( is_feed() ) {
+	if ( ($hupso_state == 'normal') && (is_feed()) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);		
 		return $content;
@@ -816,19 +829,29 @@ function hupso_the_content( $content ) {
 	
 	/* Do not show share buttons on password protected pages, but show it inside widget */
 	$pass = $GLOBALS['post']->post_password;
-	if ( ($hupso_state == 'normal') && ( ($pass != '') || (post_password_required()) ) ) {
-		return $content;
+	$hupso_password_protected = get_option( 'hupso_password_protected', '0');
+	if ( $hupso_state == 'normal' ) {
+		if ($pass != '') {
+			if (!$hupso_password_protected) {
+				return $content;
+			}
+			else {
+				if (post_password_required()) {
+					return $content;
+				}
+			}
+		}
 	}
 	
 	$hupso_show_posts = get_option( 'hupso_show_posts' , '1' );
-	if ( is_single() && $hupso_show_posts != 1 ) {
+	if ( ($hupso_state == 'normal') && (is_single()) && ($hupso_show_posts != 1) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);
 		return $content;
 	}
 		
 	$hupso_show_pages = get_option( 'hupso_show_pages' , '1' );	
-	if ( is_page() && $hupso_show_pages != 1 ) {
+	if ( ($hupso_state == 'normal') && (is_page()) && ($hupso_show_pages != 1) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);	
 		return $content;
@@ -838,13 +861,13 @@ function hupso_the_content( $content ) {
 	$hupso_show_category = get_option( 'hupso_show_category' , '1' );	
 	
 	/* Do not show share buttons if option is disabled */
-	if ( is_home() && $hupso_show_frontpage != 1 ) {
+	if ( ($hupso_state == 'normal') && (is_home()) && ($hupso_show_frontpage != 1) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);		
 		return $content;
 	}
 	/* Do not show share buttons if option is disabled */
-	if ( is_archive() && $hupso_show_category != 1 ) {
+	if ( ($hupso_state == 'normal') && (is_archive()) && ($hupso_show_category != 1) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);		
 		return $content;
@@ -857,7 +880,7 @@ function hupso_the_content( $content ) {
 	if ( $hupso_hide_categories == '' ) {
 		$hupso_hide_categories = array();
 	}
-	if ( @in_array($current_category, $hupso_hide_categories) ) {
+	if ( ($hupso_state == 'normal') && (@in_array($current_category, $hupso_hide_categories)) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);		
 		return $content;
