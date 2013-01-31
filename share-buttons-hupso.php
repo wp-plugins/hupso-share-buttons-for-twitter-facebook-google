@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.7
+Version: 3.8
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +77,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_show_pages' );		
 	delete_option( 'hupso_show_frontpage' );
 	delete_option( 'hupso_show_category' );
+	delete_option( 'hupso_show_search' );	
 	delete_option( 'hupso_twitter_tweet' );
 	delete_option( 'hupso_facebook_like' );
 	delete_option( 'hupso_facebook_send' );
@@ -98,6 +99,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_css_style' );
 	delete_option( 'hupso_widget_text' );
 	delete_option( 'hupso_password_protected' );	
+	delete_option( 'hupso_page_url' );	
+	delete_option( 'hupso_page_title' );			
 }
 
 function hupso_plugin_activation() {
@@ -110,7 +113,7 @@ function hupso_plugin_activation() {
 }
 
 function hupso_admin_menu() {
-	add_options_page('', '', 'manage_options', __FILE__, 'hupso_admin_settings_show', '', 6);
+	add_options_page('Hupso Share Buttons Settings', 'Hupso Share Buttons', 'manage_options', __FILE__, 'hupso_admin_settings_show', '', 6);
 }
 
 function hupso_admin_head() {
@@ -254,7 +257,6 @@ function hupso_admin_settings_show() {
 			<tr><td><input type="radio" name="size" value="button80x19" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button80_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_80_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
-
 			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
 			</table>
 <hr style="height:1px; width:500px;"/>			
@@ -508,19 +510,30 @@ function hupso_admin_settings_show() {
 				else
 					$hupso_show_category_checked = '';	
 					
+				/* search pages */
+				$hupso_show_search = get_option( 'hupso_show_search', '1');
+				if ( $hupso_show_search == '1' )
+					$hupso_show_search_checked = $checked;	
+				else
+					$hupso_show_search_checked = '';						
+					
 				/* password protected posts */
 				$hupso_password_protected = get_option( 'hupso_password_protected', '0');
 				if ( $hupso_password_protected == '1' )
 					$hupso_password_protected_checked = $checked;	
 				else
-					$hupso_password_protected_checked = '';							
+					$hupso_password_protected_checked = '';			
+					
+									
 								
 			?>
 			<input type="checkbox" name="hupso_show_posts" value="1" <?php echo $hupso_show_posts_checked; ?> /> <?php _e('Posts', 'share_buttons_hupso'); ?><br/>
 			<input type="checkbox" name="hupso_show_pages" value="1" <?php echo $hupso_show_pages_checked; ?> /> <?php _e('Pages', 'share_buttons_hupso'); ?><br/>
 			<input type="checkbox" name="hupso_show_frontpage" value="1" <?php echo $hupso_show_frontpage_checked; ?> /> <?php _e('Front page', 'share_buttons_hupso'); ?><br/>
 			<input type="checkbox" name="hupso_show_category" value="1" <?php echo $hupso_show_category_checked; ?> /> <?php _e('Categories (categories, tags, dates, authors)', 'share_buttons_hupso'); ?><br/>	
+			<input type="checkbox" name="hupso_show_search" value="1" <?php echo $hupso_show_search_checked; ?> /> <?php _e('Search pages', 'share_buttons_hupso'); ?><br/>				
 			<input type="checkbox" name="hupso_password_protected" value="1" <?php echo $hupso_password_protected_checked; ?> /> <?php _e('Password protected posts', 'share_buttons_hupso'); ?><br/>	
+			
 		</td>
 	</tr>	
 	<tr>
@@ -582,7 +595,7 @@ function hupso_admin_settings_show() {
 				$hupso_twitter_via = get_option( 'hupso_twitter_via', '' );
 			
 			?>
-			@<input type="text" name="hupso_twitter_via" onclick="hupso_create_code()" onchange="hupso_create_code()" onmouseout="hupso_create_code()" value="<?php echo $hupso_twitter_via; ?>" /> <span style="padding-left:30px;"><?php _e('Add "via @yourprofile" to tweets', 'share_buttons_hupso');?>.</span><br/>
+			@<input type="text" name="hupso_twitter_via" onclick="hupso_create_code()" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="30" value="<?php echo $hupso_twitter_via; ?>" /> <span style="padding-left:30px;"><?php _e('Add "via @yourprofile" to tweets', 'share_buttons_hupso');?>.</span><br/>
 		</td>
 	</tr>
 	
@@ -614,6 +627,30 @@ function hupso_admin_settings_show() {
 				
 			?>
 			<input type="checkbox" name="hupso_widget_text" value="1" <?php echo $hupso_widget_text_checked; ?> /> <?php _e('Use shortcodes in text widgets', 'share_buttons_hupso'); ?><br/><?php _e('If this is checked, you can use [hupso] shortcode inside text widgets and it will be replaced by share buttons', 'share_buttons_hupso'); ?>.
+		</td>
+	</tr>		
+	
+	<tr>
+		<td style="width:100px;"><?php _e('Custom title', 'share_buttons_hupso'); ?></td>
+		<td><hr style="height:1px; width:400px;" align="left"/>
+			<?php
+				/* page_title */
+				$checked = ' checked="checked" ';
+				$hupso_page_title = get_option( 'hupso_page_title', '');				
+			?>
+			<input type="text" name="page_title" value="<?php echo $hupso_page_title;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom text that will always be used for sharing.', 'share_buttons_hupso'); ?><br/><?php _e('Leave this blank to use title of current page as text for sharing. [Default]', 'share_buttons_hupso'); ?>
+		</td>
+	</tr>		
+	
+	<tr>
+		<td style="width:100px;"><?php _e('Custom url', 'share_buttons_hupso'); ?></td>
+		<td><hr style="height:1px; width:400px;" align="left"/>
+			<?php
+				/* page_url */
+				$checked = ' checked="checked" ';
+				$hupso_page_url = get_option( 'hupso_page_url', '');				
+			?>
+			<input type="text" name="page_url" value="<?php echo $hupso_page_url;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom url that will always be used for sharing. You can enter your root website here (e.g.: http://www.example.com or http://example.blogspot.com, so counters will show statistics for your whole website, not for each page individually.', 'share_buttons_hupso'); ?><br/><?php _e('Leave this blank to use url of current page for sharing. [Default]', 'share_buttons_hupso'); ?>
 		</td>
 	</tr>		
 	
@@ -737,7 +774,11 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_show_frontpage', $hupso_show_frontpage );
 		
 		$hupso_show_category = @$_POST[ 'hupso_show_category' ];	
-		update_option( 'hupso_show_category', $hupso_show_category );		
+		update_option( 'hupso_show_category', $hupso_show_category );	
+		
+		$hupso_show_search = @$_POST[ 'hupso_show_search' ];	
+		update_option( 'hupso_show_search', $hupso_show_search );			
+			
 	}
 	
 	/* save options for counters */
@@ -775,6 +816,18 @@ function hupso_admin_settings_save() {
 		$hupso_css_style = @$_POST[ 'hupso_css_style' ];	
 		update_option( 'hupso_css_style', $hupso_css_style );		
 	}		
+	
+	/* Save page_url */
+	if ( $post ) {
+		$hupso_page_url = @$_POST[ 'page_url' ];	
+		update_option( 'hupso_page_url', $hupso_page_url );		
+	}	
+	
+	/* Save page_title */
+	if ( $post ) {
+		$hupso_page_title = @$_POST[ 'page_title' ];	
+		update_option( 'hupso_page_title', $hupso_page_title );		
+	}			
 	
 	/* Save hupso_widget_text */
 	if ( $post ) {
@@ -843,6 +896,14 @@ function hupso_the_content( $content ) {
 		}
 	}
 	
+	
+	$hupso_show_search = get_option( 'hupso_show_search' , '1' );
+	if ( ($hupso_state == 'normal') && (is_search()) && ($hupso_show_search != 1) ) {
+		$content = str_ireplace('[hupso_hide]', '', $content);
+		$content = str_ireplace('[hupso]', '', $content);
+		return $content;
+	}
+	
 	$hupso_show_posts = get_option( 'hupso_show_posts' , '1' );
 	if ( ($hupso_state == 'normal') && (is_single()) && ($hupso_show_posts != 1) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
@@ -889,8 +950,26 @@ function hupso_the_content( $content ) {
 	$hupso_title_text = get_option( 'hupso_title_text' , 'post' );
 	$hupso_twitter_via = get_option( 'hupso_twitter_via', '' );
 	$hupso_counters_lang = get_option( 'hupso_counters_lang', 'en_US' );
+	
 	$post_url = get_permalink($GLOBALS['post']->ID);
 	$post_title = @$GLOBALS['post']->post_title;
+		
+	if ( ( $hupso_state == 'widget' ) || ( $hupso_state == 'shortcodes' ) ) {
+		if ( isset($_SERVER['HTTPS']) ) {
+			$protocol = 'https://';
+		}
+		else {
+			$protocol = 'http://';
+		}
+		$post_url = $protocol . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
+		$post_title = '';
+	}
+	
+	
+
+	
+	$hupso_page_url = get_option( 'hupso_page_url', '' );
+	$hupso_page_title = get_option( 'hupso_page_title', '' );	
 	
 	
 	/* default code */
@@ -946,15 +1025,21 @@ function hupso_the_content( $content ) {
 	}
 	
 	if ( ( is_home() && $hupso_show_frontpage == 1 ) || ( is_archive() && $hupso_show_category == 1 ) )  {
+		if ( $hupso_page_url != '' ) {
+			$new_url = $hupso_page_url;
+		}
+		else {
+			$new_url = $post_url;
+		}
 		switch ( $button_type ) {
 			case 'share_button':	
-				$code .= 'var hupso_url="' . $post_url . '";';
+				$code .= 'var hupso_url="' . $new_url . '";';
 				break;
 			case 'share_toolbar':
-				$code .= 'var hupso_url_t="' . $post_url . '";';
+				$code .= 'var hupso_url_t="' . $new_url . '";';
 				break;
 			case 'counters':
-				$code .= 'var hupso_url_c="' . $post_url . '";';
+				$code .= 'var hupso_url_c="' . $new_url . '";';
 				break;
 		}
 			
@@ -962,15 +1047,21 @@ function hupso_the_content( $content ) {
 	
 	if ( $hupso_title_text == 'post' ) {
 		$ptitle = strip_tags($post_title);
+		if ( $hupso_page_title != '' ) {
+			$new_title = $hupso_page_title;
+		}
+		else {
+			$new_title = $ptitle;
+		}		
 		switch ( $button_type ) {
 			case 'share_button': 
-				$code .= 'var hupso_title="' . str_replace('"', '&quot;', $ptitle) . '";';
+				$code .= 'var hupso_title="' . str_replace('"', '&quot;', $new_title) . '";';
 				break;
 			case 'share_toolbar':
-				$code .= 'var hupso_title_t="' . str_replace('"', '&quot;', $ptitle) . '";';
+				$code .= 'var hupso_title_t="' . str_replace('"', '&quot;', $new_title) . '";';
 				break;
 			case 'counters':
-				$code .= 'var hupso_title_c="' . str_replace('"', '&quot;', $ptitle) . '";';
+				$code .= 'var hupso_title_c="' . str_replace('"', '&quot;', $new_title) . '";';
 				break;
 		}	
 	}

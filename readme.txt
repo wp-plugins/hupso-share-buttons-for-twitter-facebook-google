@@ -3,8 +3,8 @@ Contributors: kasal
 Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
-Tested up to: 3.5
-Stable tag: 3.7
+Tested up to: 3.5.1
+Stable tag: 3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,7 @@ These services are used by millions of people every day, so sharing your content
 * Hide "Share" image or use translated image (20+ languages available)
 * Sidebar widget
 * Use of shortcodes inside template files
+* Display staring stats for whole website or for each page individually
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
@@ -91,6 +92,10 @@ Yes, you can. Just include [hupso] anywhere in widget text area and share button
 
 Add Hupso share buttons widget, then go to Hupso plugin settings and clear all fields in "Show buttons on" section.
 
+= Can I set share buttons in such a way that it counts the entire site instead of just that specific page? =
+
+Yes, you can. Enter your website root under "Custom url" in Settings. After that counters will show sharing stats for your whole website, not for each page individually.
+
 = Buttons are not working properly. What can I do? =
 
 Please upgrade the plugin to the latest version. If that does not help then try to reinstall the plugin (uninstall it and install it again).
@@ -140,6 +145,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 9. Share buttons under post, sidebar widget and text widget - Chinese version (73 languages available)
 
 == Changelog ==
+
+= 3.8 =
+* Option to show or hide share buttons for search pages
+* Option to use custom title and url for sharing (useful if you want counters to show sharing stats for your whole website, not for each page individually)
 
 = 3.7 =
 * Option to display share buttons on password protected pages
