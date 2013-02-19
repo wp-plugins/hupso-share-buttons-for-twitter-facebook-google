@@ -4,15 +4,15 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.8
+Stable tag: 3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Help visitors share your posts on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit and others.
+Help visitors share your posts on popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit and others.
 
 == Description ==
 
-Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
+Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -20,8 +20,8 @@ These services are used by millions of people every day, so sharing your content
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
-* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo, Delicious.
-* Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share. 
+* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious.
+* Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share, Pinterest - Pin it 
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
 * Real-time button preview in admin settings.
@@ -35,6 +35,7 @@ These services are used by millions of people every day, so sharing your content
 * Sidebar widget
 * Use of shortcodes inside template files
 * Display staring stats for whole website or for each page individually
+* Select image to use for Facebook sharing (Facebook thumbnail)
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
@@ -84,6 +85,10 @@ Then drag Hupso Share Buttons Widget from left and drop it on the sidebar on the
 Add this PHP code inside template files at position where you want to show share buttons: echo do_shortcode('[hupso]'); 
 You can configure share buttons in plugin settings.
 
+= How can I hide share buttons inside template files? =
+
+Use this code: $HUPSO_SHOW = false; Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).
+
 = Can I use shortcodes inside widget text? =
 
 Yes, you can. Just include [hupso] anywhere in widget text area and share buttons will be displayed there.
@@ -113,7 +118,7 @@ Please look at *Screenshots* for more information.
 
 = Are share buttons using Javascript? =
 
-Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Menu/toolbar/preview interface for share buttons is loaded at run-time from our servers so we can add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. Counters load javascript code from Twitter, Facebook, Google and Linkedin.
+Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Menu/toolbar/preview interface for share buttons is loaded at run-time from our servers so we can add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. Counters load javascript code from Twitter, Facebook, Google, Linkedin, Pinterest or from other social services that are selected.
 
 = Are share buttons free? =
 
@@ -134,6 +139,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Screenshots ==
 
+
 1. Share Toolbar and Counters on the same page (demo)
 2. Counters (Twitter Tweet, Facebook Like, Google +1, Linkedin Share) 
 3. Share Toolbar (big)
@@ -144,7 +150,14 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 8. Share buttons under post, sidebar widget and text widget - Spanish version (73 languages available)
 9. Share buttons under post, sidebar widget and text widget - Chinese version (73 languages available)
 
+
 == Changelog ==
+
+= 3.9 =
+* Pinterest support (Pin it button)
+* Option to display custom Share image from URL
+* Select image to use for Facebook sharing (Facebook thumbnail)
+* Share buttons can now be hidden inside template files (by setting $HUPSO_SHOW = false anywhere before div id="content")
 
 = 3.8 =
 * Option to show or hide share buttons for search pages

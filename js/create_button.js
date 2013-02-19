@@ -136,6 +136,10 @@ function hupso_create_code() {
 		
 		hupso_url = $.trim($("input:text[name=page_url]").val());
 		hupso_title = $.trim($("input:text[name=page_title]").val());	
+		
+		var title_dec = $('<div />').html(hupso_title).text();
+		hupso_title = title_dec.replace(/\"/g,'&quot;');		
+		
 		hupso_counters_lang = $("#hupso_counters_lang option:selected").val();	
 		
 		hupso_background_color = $.trim($("input:text[name=background_color]").val()).toUpperCase();	
@@ -176,13 +180,20 @@ function hupso_create_code() {
 					hupso_services += '"facebook_send"';					
 					counters_preview += ' <img src="http://static.hupso.com/share/img/counters/facebook_send.png" />';
 				}
-			}			
-
+			}		
+			
 			// google +1
 			var google_plus_one = $("input:checkbox[name=google_plus_one]:checked").val();
 			if (google_plus_one == 1) {
 				hupso_services += '"google"';
 				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/counters/google_plus_one.png" /></span>';
+			}		
+
+			// pinterest
+			var pinterest_pin = $("input:checkbox[name=pinterest_pin]:checked").val();
+			if (pinterest_pin == 1) {
+				hupso_services += '"pinterest"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/buttons/PinExt.png" /></span>';
 			}		
 			
 			// linkedin
@@ -205,6 +216,8 @@ function hupso_create_code() {
 				hupso_services += '"Facebook",';		
 			if ( $( "input:checkbox[name=googleplus]:checked" ).val() == 1 )
 				hupso_services += '"Google Plus",';	
+			if ( $( "input:checkbox[name=pinterest]:checked" ).val() == 1 )
+				hupso_services += '"Pinterest",';					
 			if ( $( "input:checkbox[name=linkedin]:checked" ).val() == 1 )
 				hupso_services += '"Linkedin",';
 			if ( $( "input:checkbox[name=stumbleupon]:checked" ).val() == 1 )
@@ -355,7 +368,7 @@ function hupso_create_code() {
 		
 switch ( button_type ) {
 			case 'share_button':
-				code += '<img src="http://static.hupso.com/share/buttons/'+bsize+'.png" width="'+bwidth+'" height="'+bheight+'" border="0" alt="Share"/>';
+				code += '<img src="http://static.hupso.com/share/buttons/'+bsize+'.png" width="'+bwidth+'" height="'+bheight+'" border="0" alt="Share Button"/>';
 				break;
 			case 'share_toolbar':
 				if ( share_image == 'hide' ) {
@@ -363,10 +376,10 @@ switch ( button_type ) {
 					share_image_lang = '';
 				}
 				if ( share_image == 'custom') {
-					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left; padding-right:5px;" alt="Share Button"/>';
 				}
 				else {
-					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang+toolbar_share+'.png" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang+toolbar_share+'.png" border="0" style="padding-top:5px; float:left;" alt="Share Button"/>';
 				}
 				break;
 			case 'counters':
@@ -376,10 +389,10 @@ switch ( button_type ) {
 					share_image_lang = '';
 				}
 				if ( share_image == 'custom') {
-					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left;" alt="Share"/>';
+					code += '<img src="' + share_image_custom_url + '" border="0" style="padding-top:5px; float:left; padding-right:5px;" alt="Share Button"/>';
 				}
 				else {
-					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang + share_url + '.png" border="0" style="padding-top:2px; float:left;" alt="Share"/>';
+					code += '<img src="http://static.hupso.com/share/buttons/'+share_image_lang + share_url + '.png" border="0" style="padding-top:2px; float:left;" alt="Share Button"/>';
 				}			 
 				
 				break;				

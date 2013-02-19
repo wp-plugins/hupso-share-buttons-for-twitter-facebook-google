@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.8
+Version: 3.9
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,6 +13,8 @@ Domain Path: /languages
 
 $hupso_dev = '';
 $hupso_state = 'normal';
+
+$HUPSO_SHOW = true;
 
 $hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
 add_filter( 'the_content', 'hupso_the_content', 10 );
@@ -30,10 +32,10 @@ add_action( 'admin_head', 'hupso_admin_head' );
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
 $hupso_all_services = array(
-	'Twitter', 'Facebook', 'Google Plus', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
+	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
 );
 $hupso_default_services = array(
-	'Twitter', 'Facebook', 'Google Plus', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
+	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
 );	
 
 add_action('widgets_init', 'hupso_widget_init');
@@ -71,6 +73,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_toolbar_size' );
 	delete_option( 'hupso_share_image' );
 	delete_option( 'hupso_share_image_lang' );
+	delete_option( 'hupso_share_image_custom_url' );
 	delete_option( 'hupso_menu_type' );
 	delete_option( 'hupso_button_position' );
 	delete_option( 'hupso_show_posts' );
@@ -82,6 +85,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_facebook_like' );
 	delete_option( 'hupso_facebook_send' );
 	delete_option( 'hupso_google_plus_one' );
+	delete_option( 'hupso_pinterest_pin' );
 	delete_option( 'hupso_linkedin_share' );
 	delete_option( 'hupso_counters_lang' );
 	delete_option( 'hupso_share_buttons_code' );
@@ -96,6 +100,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_delicious' );
 	delete_option( 'hupso_title_text' );
 	delete_option( 'hupso_twitter_via' );
+	delete_option( 'hupso_facebook_image' );	
+	delete_option( 'hupso_facebook_custom_image' );	
 	delete_option( 'hupso_css_style' );
 	delete_option( 'hupso_widget_text' );
 	delete_option( 'hupso_password_protected' );	
@@ -127,11 +133,49 @@ function hupso_admin_head() {
 
 function hupso_set_facebook_thumbnail() {
 	global $post;
+	
+	/*
 	if ( !is_singular() )
 		return;
-	if ( ( function_exists('has_post_thumbnail') ) && ( has_post_thumbnail( $post->ID ) ) ) {
-		$thumb_image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
-		echo '<meta property="og:image" content="' . esc_attr( $thumb_image[0] ) . '"/>';
+	*/	
+		
+	$thumb_image = '';		
+	$hupso_facebook_image = get_option( 'hupso_facebook_image', 'fch' );
+	$hupso_facebook_custom_image = get_option( 'hupso_facebook_custom_image', '' );	
+	
+	switch ( $hupso_facebook_image ) {
+		case 'header':
+			$thumb_image = get_header_image();
+			break;
+		case 'featured':
+			if ( ( function_exists('has_post_thumbnail') ) && ( has_post_thumbnail( $post->ID ) ) ) {
+				$thumb_image_temp = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
+				$thumb_image = $thumb_image_temp[0];
+			}
+			break;	
+		case 'custom':
+			$thumb_image = $hupso_facebook_custom_image;
+			break;
+		case 'none': 
+			$thumb_image = '';
+			break;
+		case 'fch': /* featured, custom, header */ 
+			if ( ( function_exists('has_post_thumbnail') ) && ( has_post_thumbnail( $post->ID ) ) ) {
+				$thumb_image_temp = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
+				$thumb_image = $thumb_image_temp[0];
+				break;
+			}
+			if (  $hupso_facebook_custom_image != '') {
+				$thumb_image = $hupso_facebook_custom_image;
+				break;						
+			}
+			$thumb_image = get_header_image();
+			break;
+	}	
+	
+	
+	if ( $thumb_image != '' ) {
+		echo '<meta property="og:image" content="' . esc_attr( $thumb_image ) . '"/>';
 	}	
 }
 
@@ -170,17 +214,25 @@ function hupso_admin_settings_show() {
 	echo '<div id="move_mouse"><p style="font-size:13px; padding-top: 15px;"><b>Move your mouse over the button to see the sharing menu.</b></p></div><br/><br/>';
 	echo '<div style="padding-left:40px;"><input class="button-primary" name="submit-preview" type="submit" onclick="hupso_create_code()" value="' . __('Save Settings', 'share_buttons_hupso') . '" /></div>';
 	echo '</div>';	
+	
 	echo '<div id="tips" style="background: #CCCCFF; padding: 10px 10px 10px 10px; margin-top:30px; ">';
 	echo '<p><b>' . __('Shortcodes', 'share_buttons_hupso') . '</b></p>';
 	echo '<p>Use <b>[hupso_hide]</b> anywhere in post\'s text to hide buttons for specific post.</p>';
 	echo '<p>Use <b>[hupso]</b> anywhere in post\'s text to show buttons for specific post at custom position.</p>';
 	echo '<p>Use <b>Hupso Share Buttons Widget</b> to show share buttons in sidebar or footer.</p>';	
 	echo '<p>Use <b>echo do_shortcode( \'[hupso]\' ); </b> to show share buttons anywhere inside template files.</p>';	
+	echo '<p>Use <b>$HUPSO_SHOW = false;</b> to hide share buttons inside template files. Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).</p>';		
 	echo '</div>';	
+	
 	echo '<div id="feedback" style="background: #C7FFA3; padding: 10px 10px 10px 10px; margin-top:30px; ">';	
 	echo '<p><b>Bugs? Comments?</b></p>';
 	echo '<p>We value your feedback. Please send comments, bug reports and suggestions, so we can make this plugin the best social sharing plugin for Wordpress.</p>';
-	echo '<p><a href="http://www.hupso.com/share/feedback/" target="_blank">Use this form</a> (opens in new window).</p>';
+	echo '<p><a href="http://www.hupso.com/share/feedback/" target="_blank">Use this suggestion form</a></p>';
+	echo '</div>';	
+	
+	echo '<div id="generic" style="background: #FFDD7F; padding: 10px 10px 10px 10px; margin-top:30px; ">';		
+	echo '<p><b>Generic HTML code</b></p>';	
+	echo '<p>If you need generic HTML code for Hupso Share Buttons to use in HTML documents or inside other CMS, you can <a href="http://www.hupso.com/share/" target="_blank">generate the code here</a>.</p>';
 	echo '</div>';
 	
 	echo '</div>';
@@ -189,7 +241,7 @@ function hupso_admin_settings_show() {
 	$start = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ -->';
 	$end = '<!-- Hupso Share Buttons -->';
 	$class_name = 'hupso_pop';
-	$alt = 'Share';
+	$alt = 'Share Button';
 	$class_url = ' href="http://www.hupso.com/share/" ';	
 	$style = 'padding-left:5px; padding-top:5px; padding-bottom:5px; margin:0';
 
@@ -306,14 +358,17 @@ function hupso_admin_settings_show() {
 				$hupso_share_image_show_checked = '';
 				$hupso_share_image_hide_checked = '';
 				$hupso_share_image_lang_checked = '';
+				$hupso_share_image_custom_checked = '';
 				switch ( $hupso_share_image ) {
 					case '':
 					case 'show':	$hupso_share_image_show_checked = $checked; break;
 					case 'hide':	$hupso_share_image_hide_checked = $checked;	break;
 					case 'lang':	$hupso_share_image_lang_checked = $checked;	break;	
+					case 'custom':	$hupso_share_image_custom_checked = $checked; break;	
 				}
 				
-				$hupso_share_image_lang = get_option ( 'hupso_share_image_lang', '');
+				$hupso_share_image_lang = get_option ( 'hupso_share_image_lang', '' );
+				$hupso_share_image_custom_url = get_option ( 'hupso_share_image_custom_url', '' );
 			
 			?>
 		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="show" <?php echo $hupso_share_image_show_checked; ?>/> <?php _e('Show in language', 'share_buttons_hupso');?>:  
@@ -343,6 +398,7 @@ function hupso_admin_settings_show() {
 			  <option value="cs" <?php if ($hupso_share_image_lang == 'cs') echo ' selected ';?>>Czech</option>			  		  
 			</select><br/>
 		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="hide" <?php echo $hupso_share_image_hide_checked; ?>/> <?php _e('Hide', 'share_buttons_hupso'); ?><br/>
+		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="custom" <?php echo $hupso_share_image_custom_checked; ?>/> <?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input name="hupso_share_image_custom_url" type="text" onmouseout="hupso_create_code()" onchange="hupso_create_code()" value="<?php echo $hupso_share_image_custom_url;?>" size="50" /><br/><span style="padding-left:30px; font-size:10px;">(<?php _e('Optimal image height: 32px - big, 24px - medium, 16px - small/counters', 'share_buttons_hupso'); ?>)</span><br/>	
 		<hr style="height:1px; width:500px;"/>			
 		</td>	
 		</tr>	
@@ -364,6 +420,7 @@ function hupso_admin_settings_show() {
 			$facebook_like_checked = '';
 			$facebook_send_checked = '';
 			$google_plus_one_checked = '';
+			$pinterest_pin_checked = '';
 			$linkedin_share_checked = '';
 			
 			$twitter_tweet = get_option( 'hupso_twitter_tweet', '1' );
@@ -377,6 +434,9 @@ function hupso_admin_settings_show() {
 			
 			$google_plus_one = get_option( 'hupso_google_plus_one', '1' );
 			if ( $google_plus_one == 1 ) $google_plus_one_checked = $checked;
+			
+			$pinterest_pin = get_option( 'hupso_pinterest_pin', '1' );
+			if ( $pinterest_pin == 1 ) $pinterest_pin_checked = $checked;			
 			
 			$linkedin_share = get_option( 'hupso_linkedin_share', '1' );
 			if ( $linkedin_share == 1 ) $linkedin_share_checked = $checked;	
@@ -408,6 +468,11 @@ function hupso_admin_settings_show() {
 				<td><img src="<?php echo $hupso_plugin_url; ?>/img/counters/google_plus_one.png" /></td>
 				<td></td>
 			</tr>	
+			<tr>
+				<td><input type="checkbox" name="pinterest_pin" onclick="hupso_create_code()" value="1" <?php echo $pinterest_pin_checked;?> /></td>
+				<td><img src="<?php echo $hupso_plugin_url; ?>/buttons/PinExt.png" /></td>
+				<td></td>
+			</tr>				
 			<tr>
 				<td><input type="checkbox" name="linkedin_share" onclick="hupso_create_code()" value="1" <?php echo $linkedin_share_checked;?> /></td>
 				<td><img src="<?php echo $hupso_plugin_url; ?>/img/counters/linkedin_share.png" /></td>
@@ -595,9 +660,60 @@ function hupso_admin_settings_show() {
 				$hupso_twitter_via = get_option( 'hupso_twitter_via', '' );
 			
 			?>
-			@<input type="text" name="hupso_twitter_via" onclick="hupso_create_code()" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="30" value="<?php echo $hupso_twitter_via; ?>" /> <span style="padding-left:30px;"><?php _e('Add "via @yourprofile" to tweets', 'share_buttons_hupso');?>.</span><br/>
+			@<input type="text" name="hupso_twitter_via" onclick="hupso_create_code()" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="30" value="<?php echo $hupso_twitter_via; ?>" /> <span style="padding-left:30px;"><?php _e('Add "via @yourprofile" to tweets', 'share_buttons_hupso', 'share_buttons_hupso');?>.</span><br/>
 		</td>
 	</tr>
+	
+	<tr>
+		<td style="width:100px;"><?php _e('Image for Facebook thumbnail', 'share_buttons_hupso'); ?></td>
+		<td><hr style="height:1px; width:500px;" align="left"/>
+			<?php
+				
+				$checked = ' checked="checked" ';
+				
+				/* Facebook image */
+				$hupso_facebook_image_header_checked = '';
+				$hupso_facebook_image_featured_checked = '';				
+				$hupso_facebook_image_custom_checked = '';
+				$hupso_facebook_image_none_checked = '';				
+				$hupso_facebook_image_fch_checked = '';	
+				
+				$hupso_facebook_image = get_option(	 'hupso_facebook_image', 'fch' );		
+
+				switch ( $hupso_facebook_image ) {
+					case 'header':
+						$hupso_facebook_image_header_checked = $checked;
+						break;
+					case 'featured':
+						$hupso_facebook_image_featured_checked = $checked;
+						break;	
+					case 'custom':
+						$hupso_facebook_image_custom_checked = $checked;
+						break;
+					case 'none': 
+						$hupso_facebook_image_none_checked = $checked;
+						break;
+					case 'fch': /* featured, custom, header */ 
+						$hupso_facebook_image_fch_checked = $checked;
+						break;						
+				}
+			
+				/* Facebook custom image */
+				$hupso_facebook_custom_image = get_option( 'hupso_facebook_custom_image', '' );
+				
+				/* Other */
+				$header_image = trim(get_header_image());
+			
+			?>
+			<span style="font-size:10px"><?php _e('After you change settings here, please wait 24 hours (or more) for Facebook to fetch new thumbnails', 'share_buttons_hupso');?>.</span><br/>
+
+			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="header" <?php echo $hupso_facebook_image_header_checked; ?>/> <?php _e('Header image', 'share_buttons_hupso'); ?> <?php if ( $header_image != '' ) { echo '(<a href="' . $header_image . '" title="' . __( 'Click here to see full header image', 'share_buttons_hupso' ) . '" target="_blank">' . __( 'preview', 'share_buttons_hupso' ) . '</a>)'; } ?><br/>
+			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="featured" <?php echo $hupso_facebook_image_featured_checked; ?>/> <?php _e('Featured image of post', 'share_buttons_hupso'); ?><br/>
+			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="custom" <?php echo $hupso_facebook_image_custom_checked; ?>/> <?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input type="text" name="hupso_facebook_custom_image" onclick="hupso_create_code()" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" value="<?php echo $hupso_facebook_custom_image; ?>" /><br/>
+			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="none" <?php echo $hupso_facebook_image_none_checked; ?>/> <?php _e('None', 'share_buttons_hupso'); ?><br/>				
+			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="fch" <?php echo $hupso_facebook_image_fch_checked; ?>/> <?php _e('FCH  - use Featured image of post (if available), then use Custom image (if available), then use Header image (if available)', 'share_buttons_hupso'); ?><br/>
+		</td>
+	</tr>	
 	
 	<tr>
 		<td style="width:100px;"><?php _e('CSS style', 'share_buttons_hupso'); ?></td>
@@ -636,7 +752,8 @@ function hupso_admin_settings_show() {
 			<?php
 				/* page_title */
 				$checked = ' checked="checked" ';
-				$hupso_page_title = get_option( 'hupso_page_title', '');				
+				$hupso_page_title = stripslashes(get_option( 'hupso_page_title', ''));		
+				$hupso_page_title = htmlentities($hupso_page_title);	
 			?>
 			<input type="text" name="page_title" value="<?php echo $hupso_page_title;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom text that will always be used for sharing.', 'share_buttons_hupso'); ?><br/><?php _e('Leave this blank to use title of current page as text for sharing. [Default]', 'share_buttons_hupso'); ?>
 		</td>
@@ -717,6 +834,15 @@ function hupso_admin_settings_save() {
 	} else {
 		$hupso_share_image_lang = get_option ( 'hupso_share_image_lang', '');
 	}	
+	
+	/* save share_image_custom_url */
+	if ( $post ) {
+		$hupso_share_image_custom_url = @$_POST[ 'hupso_share_image_custom_url' ];
+		update_option( 'hupso_share_image_custom_url', $hupso_share_image_custom_url );		
+	} else {
+		$hupso_share_image_custom_url = get_option ( 'hupso_share_image_custom_url', '');
+	}		
+		
 			
 	/* save services */	
 	$hupso_vars = 'var hupso_services=new Array(';
@@ -795,6 +921,9 @@ function hupso_admin_settings_save() {
 		$google_plus_one = @$_POST[ 'google_plus_one' ];	
 		update_option( 'hupso_google_plus_one', $google_plus_one );	
 		
+		$pinterest_pin = @$_POST[ 'pinterest_pin' ];	
+		update_option( 'hupso_pinterest_pin', $pinterest_pin );			
+		
 		$linkedin_share = @$_POST[ 'linkedin_share' ];	
 		update_option( 'hupso_linkedin_share', $linkedin_share );	
 	}
@@ -810,6 +939,18 @@ function hupso_admin_settings_save() {
 		$hupso_twitter_via = @$_POST[ 'hupso_twitter_via' ];	
 		update_option( 'hupso_twitter_via', $hupso_twitter_via );		
 	}	
+	
+	/* Save Facebook image */
+	if ( $post ) {
+		$hupso_facebook_image = @$_POST[ 'hupso_facebook_image' ];	
+		update_option( 'hupso_facebook_image', $hupso_facebook_image );		
+	}		
+	
+	/* Save Facebook custom image */
+	if ( $post ) {
+		$hupso_facebook_custom_image = @$_POST[ 'hupso_facebook_custom_image' ];	
+		update_option( 'hupso_facebook_custom_image', $hupso_facebook_custom_image );		
+	}		
 	
 	/* Save CSS style */
 	if ( $post ) {
@@ -864,7 +1005,14 @@ function hupso_the_widget( $content ) {
 
 function hupso_the_content( $content ) {
 
-	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state;
+	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW;
+	
+	
+	if ($HUPSO_SHOW == false) {
+		$content = str_ireplace('[hupso_hide]', '', $content);
+		$content = str_ireplace('[hupso]', '', $content);
+		return $content;	
+	}
 	
 	/* Do now show share buttons when [hupso_hide] is used */
 	if ( ($hupso_state == 'normal') && ( stripos($content, '[hupso_hide]') !== false ) ) {
@@ -969,7 +1117,7 @@ function hupso_the_content( $content ) {
 
 	
 	$hupso_page_url = get_option( 'hupso_page_url', '' );
-	$hupso_page_title = get_option( 'hupso_page_title', '' );	
+	$hupso_page_title = stripslashes(get_option( 'hupso_page_title', '' ));	
 	
 	
 	/* default code */
@@ -1138,6 +1286,7 @@ function hupso_settings_print_services() {
 		} 
 		$text =' <img src="' . $hupso_plugin_url . '/img/services/' . $service_name . '.png"/> ' . $service_text;
 		echo '<input type="checkbox" name="' . $service_name . '" value="1" onclick="hupso_create_code()" ' . $checked . ' /> ' . $text . '<br/>';
+
 	}		
 }
 
