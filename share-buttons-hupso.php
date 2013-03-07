@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9
+Version: 3.9.1
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,6 @@ if ( is_admin() ) {
 	add_action('admin_menu', 'hupso_admin_menu');
 }
 
-add_action( 'admin_head', 'hupso_admin_head' );
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
 $hupso_all_services = array(
@@ -46,6 +45,16 @@ $hupso_widget_text = get_option( 'hupso_widget_text', '1');
 if ( $hupso_widget_text == '1' ) {
 	add_filter('widget_text', 'do_shortcode');
 }
+
+
+/* Add stylesheet */
+add_action( 'wp_enqueue_scripts', 'hupso_add_my_stylesheet' );
+
+function hupso_add_my_stylesheet() {
+   wp_register_style( 'hupso_css', plugins_url('style.css', __FILE__) );
+   wp_enqueue_style( 'hupso_css' );
+}
+
 
 function hupso_widget_init() {
     include_once(plugin_dir_path( __FILE__ ) . '/share-buttons-hupso-widget.php');
@@ -92,6 +101,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_twitter' );
 	delete_option( 'hupso_facebook' );
 	delete_option( 'hupso_googleplus' );
+	delete_option( 'hupso_pinterest' );	
 	delete_option( 'hupso_linkedin' );
 	delete_option( 'hupso_stumbleupon' );
 	delete_option( 'hupso_digg' );
@@ -106,7 +116,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_widget_text' );
 	delete_option( 'hupso_password_protected' );	
 	delete_option( 'hupso_page_url' );	
-	delete_option( 'hupso_page_title' );			
+	delete_option( 'hupso_page_title' );		
+	delete_option( 'hupso_hide_categories' );	
 }
 
 function hupso_plugin_activation() {
@@ -122,14 +133,6 @@ function hupso_admin_menu() {
 	add_options_page('Hupso Share Buttons Settings', 'Hupso Share Buttons', 'manage_options', __FILE__, 'hupso_admin_settings_show', '', 6);
 }
 
-function hupso_admin_head() {
-	if ( is_admin() ) {
-		wp_enqueue_script(
-			'hupso_create_button',
-			plugins_url('/js/create_button.js', __FILE__ )
-		);
-	}
-}   
 
 function hupso_set_facebook_thumbnail() {
 	global $post;
@@ -187,6 +190,11 @@ function hupso_get_the_excerpt($content) {
 
 function hupso_admin_settings_show() {
 	global $hupso_all_services, $hupso_default_services, $hupso_plugin_url;
+	
+	wp_enqueue_script(
+			'hupso_create_button',
+			plugins_url('/js/create_button.js', __FILE__ )
+	);	
 	
 	$hupso_lang_code = __('en_US', 'share_buttons_hupso');
 	$hupso_language = __('English', 'share_buttons_hupso');	
@@ -395,7 +403,8 @@ function hupso_admin_settings_show() {
 			  <option value="bs" <?php if ($hupso_share_image_lang == 'bs') echo ' selected ';?>>Bosnian</option>
 			  <option value="ms" <?php if ($hupso_share_image_lang == 'ms') echo ' selected ';?>>Malay</option>
 			  <option value="zh" <?php if ($hupso_share_image_lang == 'zh') echo ' selected ';?>>Chinese</option>	
-			  <option value="cs" <?php if ($hupso_share_image_lang == 'cs') echo ' selected ';?>>Czech</option>			  		  
+			  <option value="cs" <?php if ($hupso_share_image_lang == 'cs') echo ' selected ';?>>Czech</option>	
+			  <option value="tr" <?php if ($hupso_share_image_lang == 'tr') echo ' selected ';?>>Turkish</option>			  		  
 			</select><br/>
 		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="hide" <?php echo $hupso_share_image_hide_checked; ?>/> <?php _e('Hide', 'share_buttons_hupso'); ?><br/>
 		<input type="radio" name="hupso_share_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="custom" <?php echo $hupso_share_image_custom_checked; ?>/> <?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input name="hupso_share_image_custom_url" type="text" onmouseout="hupso_create_code()" onchange="hupso_create_code()" value="<?php echo $hupso_share_image_custom_url;?>" size="50" /><br/><span style="padding-left:30px; font-size:10px;">(<?php _e('Optimal image height: 32px - big, 24px - medium, 16px - small/counters', 'share_buttons_hupso'); ?>)</span><br/>	
@@ -705,7 +714,7 @@ function hupso_admin_settings_show() {
 				$header_image = trim(get_header_image());
 			
 			?>
-			<span style="font-size:10px"><?php _e('After you change settings here, please wait 24 hours (or more) for Facebook to fetch new thumbnails', 'share_buttons_hupso');?>.</span><br/>
+			<span style="font-size:10px"><?php _e('All images for Facebook should be at least 200px in both dimensions (Facebook limitation)', 'share_buttons_hupso');?>.<br/><?php _e('After you change settings here, please wait 24 hours (or more) for Facebook to fetch new thumbnails', 'share_buttons_hupso');?>.</span><br/>
 
 			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="header" <?php echo $hupso_facebook_image_header_checked; ?>/> <?php _e('Header image', 'share_buttons_hupso'); ?> <?php if ( $header_image != '' ) { echo '(<a href="' . $header_image . '" title="' . __( 'Click here to see full header image', 'share_buttons_hupso' ) . '" target="_blank">' . __( 'preview', 'share_buttons_hupso' ) . '</a>)'; } ?><br/>
 			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="featured" <?php echo $hupso_facebook_image_featured_checked; ?>/> <?php _e('Featured image of post', 'share_buttons_hupso'); ?><br/>
@@ -1229,6 +1238,7 @@ function hupso_the_content( $content ) {
 	}
 	
 	$static_server = 'http://static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
+	$static_server = 'http://www.hupso.com/share' . $hupso_dev . '/js/debug/' . $js_file;
 	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
    
     $position = get_option( 'hupso_button_position', 'below' );

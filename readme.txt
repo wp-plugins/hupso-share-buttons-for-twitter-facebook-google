@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9
+Stable tag: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Help visitors share your posts on popular social networks: Twitter, Facebook, Go
 
 == Description ==
 
-Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
+Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -130,7 +130,7 @@ Yes. Thay are free and will always be free. And you do not need to open any acco
 
 = Why is featured post image not used as thumbnail with Facebook on new posts? =
 
-Please wait up to 24 hours for Facebook to fetch the new thumbnail. After that it should work.
+You image should be at least 200px in both dimensions. This is a Facebook limitation. Please wait up to 24 hours for Facebook to fetch the new thumbnail. After that it should work.
 
 = Found a bug? Have a suggestion? =
 
@@ -138,7 +138,6 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Screenshots ==
-
 
 1. Share Toolbar and Counters on the same page (demo)
 2. Counters (Twitter Tweet, Facebook Like, Google +1, Linkedin Share) 
@@ -152,6 +151,12 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+
+= 3.9.1 =
+* Facebook comment box is now always visible
+* Fixed potential interference with Nextgen Gallery plugin (while working in admin)
+* Added Turkish "Share" image
 
 = 3.9 =
 * Pinterest support (Pin it button)
