@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.1
+Version: 3.9.3
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -62,9 +62,13 @@ function hupso_widget_init() {
 }
 
 function hupso_shortcodes( $atts ) {
-	global $hupso_state;
+	global $hupso_state, $hupso_shortcode_params;
 	$hupso_state = 'shortcodes';
 	if ($atts == '') {
+		return hupso_the_content('');
+	}
+	else {
+		$hupso_shortcode_params = $atts;
 		return hupso_the_content('');
 	}
 }
@@ -118,6 +122,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_page_url' );	
 	delete_option( 'hupso_page_title' );		
 	delete_option( 'hupso_hide_categories' );	
+	delete_option( 'hupso_button_image_custom_url' );
 }
 
 function hupso_plugin_activation() {
@@ -217,7 +222,7 @@ function hupso_admin_settings_show() {
 	echo '<form name="hupso_settings_form" method="post" action="">'; 	
 	
 	echo '<div id="right" style="float:right; width:200px; margin-right:10px; margin-left:20px; margin-top:20px;">';
-	echo '<div id="button_preview" style="background: #F7FFBF; padding: 10px 10px 10px 10px; "><h3>' . __( 'Preview', 'share_buttons_hupso') . '</h3><br/>';
+	echo '<div id="button_preview" style="background: #F7FFBF; padding: 10px 10px 10px 10px; "><table><tr><td><h3>' . __( 'Preview', 'share_buttons_hupso') . '</h3></td><td style="padding-left:50px;"><input class="button-primary" name="submit-preview" type="button" onclick="hupso_create_code()" value="' . __('Update', 'share_buttons_hupso') . '" /></td></tr></table><br/>';
 	echo '<div id="button"></div>';
 	echo '<div id="move_mouse"><p style="font-size:13px; padding-top: 15px;"><b>Move your mouse over the button to see the sharing menu.</b></p></div><br/><br/>';
 	echo '<div style="padding-left:40px;"><input class="button-primary" name="submit-preview" type="submit" onclick="hupso_create_code()" value="' . __('Save Settings', 'share_buttons_hupso') . '" /></div>';
@@ -251,13 +256,13 @@ function hupso_admin_settings_show() {
 	$class_name = 'hupso_pop';
 	$alt = 'Share Button';
 	$class_url = ' href="http://www.hupso.com/share/" ';	
-	$style = 'padding-left:5px; padding-top:5px; padding-bottom:5px; margin:0';
+	$style = 'padding-left:5px; padding-top:5px; padding-bottom:5px; margin:0; border:0px;';
 
-	$button_60_img = '<img style="'.$style.'" src="'.$hupso_plugin_url.'/buttons/button60x14.png" width="60" height="14" border="0" alt="'.$alt.'"/>';	
-	$button_80_img = '<img style="'.$style.'" src="'.$hupso_plugin_url.'/buttons/button80x19.png" width="80" height="19" border="0" alt="'.$alt.'"/>';
-	$button_100_img = '<img style="'.$style.'" src="'.$hupso_plugin_url.'/buttons/button100x23.png" width="100" height="23" border="0" alt="'.$alt.'"/>';
-	$button_120_img = '<img style="'.$style.'" src="'.$hupso_plugin_url.'/buttons/button120x28.png" width="120" height="28" border="0" alt="'.$alt.'"/>';	
-	$button_160_img = '<img style="'.$style.'" src="'.$hupso_plugin_url.'/buttons/button160x37.png" width="160" height="37" border="0" alt="'.$alt.'"/>';		
+	$button_60_img = '<img style="'.$style.' width: 60px; height:14px;" src="'.$hupso_plugin_url.'/buttons/button60x14.png" alt="'.$alt.'"/>';	
+	$button_80_img = '<img style="'.$style.' width: 80px; height:19px;" src="'.$hupso_plugin_url.'/buttons/button80x19.png" alt="'.$alt.'"/>';
+	$button_100_img = '<img style="'.$style.' width: 100px; height:23px;" src="'.$hupso_plugin_url.'/buttons/button100x23.png" alt="'.$alt.'"/>';
+	$button_120_img = '<img style="'.$style.' width: 120px; height:28px;" src="'.$hupso_plugin_url.'/buttons/button120x28.png" alt="'.$alt.'"/>';	
+	$button_160_img = '<img style="'.$style.' width: 160px; height:37px;" src="'.$hupso_plugin_url.'/buttons/button160x37.png" alt="'.$alt.'"/>';		
 	
 	$checked = 'checked="checked"';
 	$current_button_size = get_option( 'hupso_button_size' , 'button100x23' ); 
@@ -266,12 +271,14 @@ function hupso_admin_settings_show() {
 	$button100_checked = '';
 	$button120_checked = '';
 	$button160_checked = '';
+	$share_button_custom_checked = '';
 	switch ( $current_button_size ) {
 		case 'button60x14'  : $button60_checked = $checked; break;
 		case 'button80x19'  : $button80_checked = $checked; break;
 		case 'button100x23' : $button100_checked = $checked; break;
 		case 'button120x28' : $button120_checked = $checked; break;
 		case 'button160x37' : $button160_checked = $checked; break;
+		case 'custom': $share_button_custom_checked = $checked; break;
 		default:
 			$button100_checked = $checked; break;
 	}
@@ -281,12 +288,13 @@ function hupso_admin_settings_show() {
 	<input type="hidden" name="code" value="" />	
 	<br/>
 	<div id="button_type">	
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Button type', 'share_buttons_hupso'); ?>
 		</td>
 		<?php
 			$hupso_button_type = get_option( 'hupso_button_type', 'share_toolbar' );
+			$hupso_button_image_custom_url = get_option( 'hupso_button_image_custom_url', '');
 			$checked = ' checked="checked" ';
 			$hupso_share_button_checked = '';
 			$hupso_share_toolbar_checked = '';
@@ -308,16 +316,17 @@ function hupso_admin_settings_show() {
 	</div>
 	
 	<div id="button_style">
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Button size', 'share_buttons_hupso'); ?></td>
 		<td>
-			<table border="0">
+			<table style="border: 0px;">
 			<tr><td><input type="radio" name="size" value="button60x14" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button60_checked; ?> /></td><td style="padding-right:10px;"><?php echo $button_60_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button80x19" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button80_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_80_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
+			<tr><td><input type="radio" name="size" value="custom" onclick="hupso_create_code()" onchange="hupso_create_code()"  <?php echo $share_button_custom_checked; ?>  /></td><td style="padding-left:10px;"><?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input type="text" name="hupso_button_image_custom_url" onchange="create_code()" style="width:200px;" value="<?php echo $hupso_button_image_custom_url; ?>"/></td></tr>				
 			</table>
 <hr style="height:1px; width:500px;"/>			
 		</td>
@@ -326,7 +335,7 @@ function hupso_admin_settings_show() {
 	</div>
 	
 	<div id="toolbar_size" style="display:none;">
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Toolbar size', 'share_buttons_hupso'); ?></td>
 		<td style="width:100px">
@@ -354,7 +363,7 @@ function hupso_admin_settings_show() {
 	
 	
 	<div id="share_image" style="padding-top:10px;">
-	<table border="0">
+	<table style="border: 0px;">
 		<tr>
 		<td style="width:100px;"><?php _e('Share image', 'share_buttons_hupso'); ?></td>
 		<td style="width:500px">
@@ -416,7 +425,7 @@ function hupso_admin_settings_show() {
 	
 	
 	<div id="services">
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Social networks', 'share_buttons_hupso'); ?></td>
 		<td><?php hupso_settings_print_services(); ?></td>
@@ -451,7 +460,7 @@ function hupso_admin_settings_show() {
 			if ( $linkedin_share == 1 ) $linkedin_share_checked = $checked;	
 		?>	
 	<div id="counters_config" style="display:none;">
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Social networks', 'share_buttons_hupso'); ?></td>
 		<td>
@@ -504,7 +513,7 @@ function hupso_admin_settings_show() {
 	
 	</div>
 	<div id="show_icons">	
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Type of menu', 'share_buttons_hupso'); ?></td>
 		<?php
@@ -525,7 +534,7 @@ function hupso_admin_settings_show() {
 	</table>
 	</div>
 	
-	<table border="0">
+	<table style="border: 0px;">
 	<tr>
 		<td style="width:100px;"><?php _e('Button position', 'share_buttons_hupso'); ?></td>
 		<?php
@@ -818,7 +827,15 @@ function hupso_admin_settings_save() {
 		$hupso_button_size = get_option ( 'hupso_button_size', 'button100x23');
 	}
 	$b_size = str_replace( 'button', '', $hupso_button_size);
-	list($width, $height) = split('x', $b_size);	
+	if ($b_size != 'custom') {
+		list($width, $height) = split('x', $b_size);	
+	}
+
+	/* save share button custom URL */
+	if ( $post ) {
+		$hupso_button_image_custom_url = @$_POST[ 'hupso_button_image_custom_url' ];
+		update_option( 'hupso_button_image_custom_url', $hupso_button_image_custom_url );	
+	}
 	
 	/* save toolbar size */
 	if ( $post ) {
@@ -1130,7 +1147,7 @@ function hupso_the_content( $content ) {
 	
 	
 	/* default code */
-	$share_code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ --><a class="hupso_toolbar" href="http://www.hupso.com/share/"><img src="http://static.hupso.com/share' . $hupso_dev . '/buttons/share-medium.png" border="0" style="padding-top:5px; float:left;" alt="Share"/></a><script type="text/javascript">var hupso_services_t=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_toolbar_size_t="medium";';
+	$share_code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ --><a class="hupso_toolbar" href="http://www.hupso.com/share/"><img src="http://static.hupso.com/share' . $hupso_dev . '/buttons/share-medium.png" style="border:0px; padding-top:5px; float:left;" alt="Share"/></a><script type="text/javascript">var hupso_services_t=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_toolbar_size_t="medium";';
 	
     $code = get_option( 'hupso_share_buttons_code', $share_code );		
 	$button_type = get_option( 'hupso_button_type', 'share_toolbar' );
@@ -1180,14 +1197,37 @@ function hupso_the_content( $content ) {
 	if ( $hupso_twitter_via != '') {
 		$code .= 'var hupso_twitter_via="' . $hupso_twitter_via . '";';
 	}
+
+	/* Get shortcode params (if they exist) */
+	global $hupso_shortcode_params;	
+	if ($hupso_shortcode_params != '') {
+		if ( isset( $hupso_shortcode_params['title'] ) ) {
+			$h_title = $hupso_shortcode_params['title'];
+		}
+		else {
+			$h_title = '';
+		}
+		if ( isset( $hupso_shortcode_params['url'] ) ) {		
+			$h_url = $hupso_shortcode_params['url'];
+		}
+		else {
+			$h_url = '';
+		}
+	}
 	
-	if ( ( is_home() && $hupso_show_frontpage == 1 ) || ( is_archive() && $hupso_show_category == 1 ) )  {
+	if ( ( is_home() && $hupso_show_frontpage == 1 ) || ( is_archive() && $hupso_show_category == 1 ) || ( $hupso_shortcode_params != '' ) )  {
 		if ( $hupso_page_url != '' ) {
 			$new_url = $hupso_page_url;
 		}
 		else {
 			$new_url = $post_url;
 		}
+	
+		/* Shortcode param */
+		if ( ($hupso_shortcode_params != '') && ($h_url != '') ) {
+			$new_url = $h_url;
+		}
+		
 		switch ( $button_type ) {
 			case 'share_button':	
 				$code .= 'var hupso_url="' . $new_url . '";';
@@ -1210,6 +1250,12 @@ function hupso_the_content( $content ) {
 		else {
 			$new_title = $ptitle;
 		}		
+		
+		/* Shortcode param */
+		if ( ($hupso_shortcode_params != '') && ($h_title != '') ) {
+			$new_title = $h_title;
+		}		
+		
 		switch ( $button_type ) {
 			case 'share_button': 
 				$code .= 'var hupso_title="' . str_replace('"', '&quot;', $new_title) . '";';
@@ -1238,7 +1284,6 @@ function hupso_the_content( $content ) {
 	}
 	
 	$static_server = 'http://static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
-	$static_server = 'http://www.hupso.com/share' . $hupso_dev . '/js/debug/' . $js_file;
 	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
    
     $position = get_option( 'hupso_button_position', 'below' );
