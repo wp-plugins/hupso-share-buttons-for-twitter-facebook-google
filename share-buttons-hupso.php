@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.3
+Version: 3.9.4
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -123,6 +123,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_page_title' );		
 	delete_option( 'hupso_hide_categories' );	
 	delete_option( 'hupso_button_image_custom_url' );
+	delete_option( 'hupso_custom_icons' );	
+	delete_option( 'hupso_image_folder_url' );	
 }
 
 function hupso_plugin_activation() {
@@ -234,11 +236,12 @@ function hupso_admin_settings_show() {
 	echo '<p>Use <b>[hupso]</b> anywhere in post\'s text to show buttons for specific post at custom position.</p>';
 	echo '<p>Use <b>Hupso Share Buttons Widget</b> to show share buttons in sidebar or footer.</p>';	
 	echo '<p>Use <b>echo do_shortcode( \'[hupso]\' ); </b> to show share buttons anywhere inside template files.</p>';	
-	echo '<p>Use <b>$HUPSO_SHOW = false;</b> to hide share buttons inside template files. Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).</p>';		
+	echo '<p>Use <b>global $HUPSO_SHOW; $HUPSO_SHOW = false;</b> to hide share buttons inside template files. Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).</p>';		
 	echo '</div>';	
 	
 	echo '<div id="feedback" style="background: #C7FFA3; padding: 10px 10px 10px 10px; margin-top:30px; ">';	
 	echo '<p><b>Bugs? Comments?</b></p>';
+	echo '<p>Please read <a href="http://wordpress.org/extend/plugins/hupso-share-buttons-for-twitter-facebook-google/faq/" target="_blank">Frequently Asked Questions</a>.</p>';
 	echo '<p>We value your feedback. Please send comments, bug reports and suggestions, so we can make this plugin the best social sharing plugin for Wordpress.</p>';
 	echo '<p><a href="http://www.hupso.com/share/feedback/" target="_blank">Use this suggestion form</a></p>';
 	echo '</div>';	
@@ -326,7 +329,7 @@ function hupso_admin_settings_show() {
 			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="custom" onclick="hupso_create_code()" onchange="hupso_create_code()"  <?php echo $share_button_custom_checked; ?>  /></td><td style="padding-left:10px;"><?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input type="text" name="hupso_button_image_custom_url" onchange="create_code()" style="width:200px;" value="<?php echo $hupso_button_image_custom_url; ?>"/></td></tr>				
+			<tr><td><input type="radio" name="size" value="custom" onclick="hupso_create_code()" onchange="hupso_create_code()"  <?php echo $share_button_custom_checked; ?>  /></td><td style="padding-left:10px;"><?php _e('Custom image from URL', 'share_buttons_hupso'); ?>: <input type="text" name="hupso_button_image_custom_url" onchange="create_code()" style="width:300px;" value="<?php echo $hupso_button_image_custom_url; ?>"/><br/> See <a href="http://www.hupso.com/share/gallery.php" target="_blank">gallery of custom share buttons</a>.</td></tr>	</td></tr>				
 			</table>
 <hr style="height:1px; width:500px;"/>			
 		</td>
@@ -783,11 +786,38 @@ function hupso_admin_settings_show() {
 			<?php
 				/* page_url */
 				$checked = ' checked="checked" ';
-				$hupso_page_url = get_option( 'hupso_page_url', '');				
+				$hupso_page_url = get_option( 'hupso_page_url', '');			
 			?>
 			<input type="text" name="page_url" value="<?php echo $hupso_page_url;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom url that will always be used for sharing. You can enter your root website here (e.g.: http://www.example.com or http://example.blogspot.com, so counters will show statistics for your whole website, not for each page individually.', 'share_buttons_hupso'); ?><br/><?php _e('Leave this blank to use url of current page for sharing. [Default]', 'share_buttons_hupso'); ?>
 		</td>
 	</tr>		
+	
+	<tr>
+		<td style="width:100px;"><?php _e('Use custom social share icons', 'share_buttons_hupso'); ?></div></td>
+		<td><hr style="height:1px; width:400px;" align="left"/>
+			<?php
+				/* image_folder_url */
+				$checked = ' checked="checked" ';
+				$hupso_custom_icons_no_checked = '';
+				$hupso_custom_icons_local_checked = '';
+				$hupso_custom_icons_custom_checked = '';
+				$hupso_custom_icons = get_option( 'hupso_custom_icons', 'no');				
+				$hupso_image_folder_url = get_option( 'hupso_image_folder_url', '');		
+				switch (	$hupso_custom_icons ) {
+					case 'no': 			$hupso_custom_icons_no_checked = $checked; break;
+					case 'local':		$hupso_custom_icons_local_checked = $checked;	break;
+					case 'custom':	$hupso_custom_icons_custom_checked = $checked;	 break;
+				}
+				$image_url = plugins_url('/hupso-share-buttons-for-twitter-facebook-google/img/services/');
+			?>
+			<input type="radio" name="hupso_custom_icons" onclick="hupso_create_code()" onchange="hupso_create_code()" value="no" <?php echo $hupso_custom_icons_no_checked; ?>/> <?php _e('No. [Default. Do not change this unless you know what you are doing.]', 'share_buttons_hupso'); ?><br/>
+			<input type="radio" name="hupso_custom_icons" onclick="hupso_create_code()" onchange="hupso_create_code()" value="local" <?php echo $hupso_custom_icons_local_checked; ?>/> <?php _e('Yes, serve images from local Wordpress folder. ', 'share_buttons_hupso'); ?>		
+			[<?php echo $image_url;?>]<br/>
+			<input type="radio" name="hupso_custom_icons" onclick="hupso_create_code()" onchange="hupso_create_code()" value="custom" <?php echo $hupso_custom_icons_custom_checked; ?>/> <?php _e('Yes, serve images from remote URL: ', 'share_buttons_hupso'); ?><br/>			
+			<input type="text" name="hupso_image_folder_url" value="<?php echo $hupso_image_folder_url;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><input type="hidden" name="hupso_image_folder_local" value="<?php echo $image_url;?>" /><?php _e('Enter URL to folder with custom social images.  Include "/" at the end of the URL. If you would like to use custom icons, make sure you <a href="http://www.hupso.com/share/custom-social-icons.php" target="_blank">read instructions</a>.', 'share_buttons_hupso'); ?><br/><?php _e('This setting has no effect when using Counters.', 'share_buttons_hupso'); ?>
+		</td>
+	</tr>			
+	</div>
 	
 	</table>
 	<br/><br/><input class="button-primary" name="submit" type="submit" onclick="hupso_create_code()" value="<?php _e('Save Settings', 'share_buttons_hupso'); ?>" />
@@ -836,6 +866,16 @@ function hupso_admin_settings_save() {
 		$hupso_button_image_custom_url = @$_POST[ 'hupso_button_image_custom_url' ];
 		update_option( 'hupso_button_image_custom_url', $hupso_button_image_custom_url );	
 	}
+	
+	/* save custom icons */
+	if ( $post ) {
+		$hupso_custom_icons = @$_POST[ 'hupso_custom_icons' ];
+		update_option( 'hupso_custom_icons', $hupso_custom_icons );	
+
+		
+		$hupso_image_folder_url  = @$_POST[ 'hupso_image_folder_url' ];
+		update_option( 'hupso_image_folder_url ', $hupso_image_folder_url );			
+	}	
 	
 	/* save toolbar size */
 	if ( $post ) {
@@ -1189,10 +1229,6 @@ function hupso_the_content( $content ) {
 		$code = str_replace( 'float:left', 'float:right', $code );
 	}
 
-
-	/* hupso_counters_lang */
-	$code .= 'var hupso_counters_lang="' . $hupso_counters_lang . '";';
-
 	/* Twitter via @ */
 	if ( $hupso_twitter_via != '') {
 		$code .= 'var hupso_twitter_via="' . $hupso_twitter_via . '";';
@@ -1268,7 +1304,7 @@ function hupso_the_content( $content ) {
 				break;
 		}	
 	}
-	
+
 	$code .= '</script>';
 	
 	switch ( $button_type ) {
@@ -1285,6 +1321,8 @@ function hupso_the_content( $content ) {
 	
 	$static_server = 'http://static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
 	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
+	
+	
    
     $position = get_option( 'hupso_button_position', 'below' );
 	

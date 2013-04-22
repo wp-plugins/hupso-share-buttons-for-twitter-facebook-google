@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google+, social, sharing, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, lockerz, shareaholic 
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.3
+Stable tag: 3.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ Help visitors share your posts on popular social networks: Twitter, Facebook, Go
 == Description ==
 
 Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
+
+Very simple setup: just install the plugin and social share icons will be added below your posts.
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -36,20 +38,20 @@ These services are used by millions of people every day, so sharing your content
 * Use of shortcodes inside template files
 * Display staring stats for whole website or for each page individually
 * Select image to use for Facebook sharing (Facebook thumbnail)
+* You can use your own custom social icons for Twitter, Facebook and other social networks
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
-Buttons will appear below your articles or on top of them as you choose.
+Buttons will appear below your articles or on top of them (or both) as you choose.
 
 **Shortcodes**
 
-* Use [hupso_hide] anywhere in post's text to hide buttons for specific post. 
-* Use [hupso] anywhere in post's text to show buttons at custom position inside the post. Buttons will be shown exactly where this shortcode appears.
-* Shortcodes inside template files: Add this PHP code inside template files at position where you want to show share buttons: 
-echo do_shortcode('[hupso]'); 
+* Use `[hupso_hide]` anywhere in post's text to hide buttons for specific post. 
+* Use `[hupso]` anywhere in post's text to show buttons at custom position inside the post. Buttons will be shown exactly where this shortcode appears.
+* Shortcodes inside template files: Add this PHP code inside template files at position where you want to show share buttons: `echo do_shortcode('[hupso]');`
 You can configure share buttons in plugin settings.
-* Shortcodes inside widget text: Just include [hupso] anywhere in widget text area and share buttons will be displayed there.
-* You can use custom titles and urls inside shortcodes. Exampe: [hupso title="My title" url="http://www.hupso.com/share/"]. You can use only title or only url if you like: [hupso title="My title"], [hupso url="http://www.hupso.com/share/"].
+* Shortcodes inside widget text: Just include `[hupso]` anywhere in widget text area and share buttons will be displayed there.
+* You can use custom titles and urls inside shortcodes. Exampe: `[hupso title="My title" url="http://www.hupso.com/share/"]`. You can use only title or only url if you like: `[hupso title="My title"]`, `[hupso url="http://www.hupso.com/share/"]`.
 
 [Share Buttons Demo](http://www.hupso.com/share/) | [FAQ](http://wordpress.org/extend/plugins/hupso-share-buttons-for-twitter-facebook-google/faq/) | [Feedback](http://www.hupso.com/share/feedback/)
 
@@ -65,12 +67,12 @@ You can configure share buttons in plugin settings.
 
 = How do I change settings? =
 
-From the Wordpress Administration go to "Plugins" and click on "Settings" under plugin name
+From the Wordpress Administration click on "Settings" and then click on "Hupso Share Buttons".
 
 = How can I hide/show share buttons for specific posts? =
 
-You can hide share buttons for specific post using shortcode [hupso_hide]. Add [hupso_hide] anywhere in your post's text and buttons will be hidden.
-You can show share buttons for specific post at custom position using shortcode [hupso]. Add [hupso] in your post's text where you want the buttons to appear.
+You can hide share buttons for specific post using shortcode `[hupso_hide]`. Add `[hupso_hide]` anywhere in your post's text and buttons will be hidden.
+You can show share buttons for specific post at custom position using shortcode `[hupso]`. Add `[hupso]` in your post's text where you want the buttons to appear.
 
 = Which social networks are supported? =
 
@@ -84,41 +86,74 @@ Then drag Hupso Share Buttons Widget from left and drop it on the sidebar on the
 = How can I style "Share image" with CSS? =
 
 Add CSS to your style.css file.
-For share buttons:  .hupso_pop > img { # add style rules here }
-For share toolbar:   .hupso_toolbar > img { # add style rules here }
-For counters:  .hupso_counters > img { # add style rules here }
+
+For share buttons:  
+`.hupso_pop > img { 
+	# add style rules here 
+}`
+
+For share toolbar:   
+`.hupso_toolbar > img { 
+	# add style rules here 
+}`
+
+For counters:  
+`.hupso_counters > img { 
+	# add style rules here 
+}`
 
 = How do I change the margin of share button, share toolbar or counters? =
 
 Add CSS to your style.css file:
-.hupso_c > div > div {
+`.hupso_c > div > div {
 	margin-left: 0px !important;
-}
+}`
 
 = Facebook comment box is cut on the right. How do I fix it? =
 
 Add this CSS to your style.css file:
-iframe { 
+`iframe { 
 	max-width:none !important; 
+}`
+
+= Share counters are not aligned properly. How can I fix this? =
+
+Add proper CSS to your style.css file. Example:
+`.hupso_twitter {
+	margin-left: 20px !important;
+	margin-right: 25px !important;
 }
+.hupso_facebook {
+	margin-top: -20px !important;
+}
+.hupso_google {
+	margin-bottom: 5px !important;
+}
+.hupso_pinterest {
+	margin-right: 10px !important;
+}`
 
 = How can I show share buttons inside template files? =
 
-Add this PHP code inside template files at position where you want to show share buttons: echo do_shortcode('[hupso]'); 
+Add this PHP code inside template files at position where you want to show share buttons: `echo do_shortcode('[hupso]');` 
 You can configure share buttons in plugin settings.
 
 = How can I hide share buttons inside template files? =
 
-Use this code: $HUPSO_SHOW = false; Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).
+Use this code: `global $HUPSO_SHOW; $HUPSO_SHOW = false;` Make sure you do this before div `id="content"`. This will hide the buttons in content. Share buttons will still show in widget (if used).
 
 = Can I use shortcodes inside widget text? =
 
-Yes, you can. Just include [hupso] anywhere in widget text area and share buttons will be displayed there.
+Yes, you can. Just include `[hupso]` anywhere in widget text area and share buttons will be displayed there.
 
 = Can I set title and url as shortcode parameters? =
 
-Yes. Include this shortcodes anywhere inside post's text or inside text widget: [hupso title="My title" url="http://www.hupso.com/share/"]. Replace title and url with your title and your url.
-You can also set only one of the parameters like this: [hupso title="My title"] or like this [hupso url="http://www.hupso.com/share/"].
+Yes. Include this shortcodes anywhere inside post's text or inside text widget: `[hupso title="My title" url="http://www.hupso.com/share/"]`. Replace title and url with your title and your url.
+You can also set only one of the parameters like this: `[hupso title="My title"]` or like this `[hupso url="http://www.hupso.com/share/"]`.
+
+= Can I use my own social icons for Twitter, Facebook and other social networks? =
+
+Yes, you can. Enable this in Settings and follow instruction there.
 
 = How can I display share buttons only inside widget and not under posts? =
 
@@ -166,7 +201,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Screenshots ==
 
-1. Share Toolbar and Counters on the same page (demo)
+1. Share Toolbar
 2. Counters (Twitter Tweet, Facebook Like, Google +1, Linkedin Share) 
 3. Share Toolbar (big)
 4. Share Buttons with drop down menu (icons and service names)
@@ -175,12 +210,17 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 7. Share buttons under post, sidebar widget and text widget - English version (73 languages available)
 8. Share buttons under post, sidebar widget and text widget - Spanish version (73 languages available)
 9. Share buttons under post, sidebar widget and text widget - Chinese version (73 languages available)
+10. Select image dialog for sharing on Pinterest
 
 
 == Changelog ==
 
+= 3.9.4 =
+* option to use your own custom social icons
+* share button is now available in 8 more colors
+
 = 3.9.3 =
-* it is now possible to set title and url as shortcode parameters, e.g.: [hupso title="My title" url="http://www.hupso.com/share/"]
+* it is now possible to set title and url as shortcode parameters, e.g.: `[hupso title="My title" url="http://www.hupso.com/share/"]`
 * replaced border="0" with style="border:0px;" to help pass W3C validation
 
 = 3.9.2 =
@@ -196,7 +236,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 * Pinterest support (Pin it button)
 * Option to display custom Share image from URL
 * Select image to use for Facebook sharing (Facebook thumbnail)
-* Share buttons can now be hidden inside template files (by setting $HUPSO_SHOW = false anywhere before div id="content")
+* Share buttons can now be hidden inside template files (by setting `global $HUPSO_SHOW; $HUPSO_SHOW = false;` anywhere before div `id="content"`)
 
 = 3.8 =
 * Option to show or hide share buttons for search pages
@@ -232,7 +272,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 = 3.2 =
 * It is now possible to hide buttons for specific post using shortcode [hupso_hide]
-* It is now possible to show buttons for specific post at custom position using shortcode [hupso] (buttons will be displayed exactly where this shortcode appears)
+* It is now possible to show buttons for specific post at custom position using shortcode` [hupso]` (buttons will be displayed exactly where this shortcode appears)
 * Text for social networks is now pulled from post's title
 * Fixed a bug where share buttons did not load inside posts for some themes
 
