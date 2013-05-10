@@ -2,7 +2,12 @@
 var hupso_settings_active = document.hupso_settings_form.button_type;
 if (typeof hupso_settings_active == "object" ) {
 	hupso_create_code();
+	
+	window.onload = function() {
+		hupso_create_code();
+	};
 }
+
 
 function hupso_create_code() {
 
@@ -120,6 +125,7 @@ function hupso_create_code() {
 					counters_preview = '<img src="http://static.hupso.com/share/buttons/share-small.png"/>';
 				}
 				else {
+
 					counters_preview = '<img style="margin-right:10px;" src="http://static.hupso.com/share/buttons/lang/'+lang_code+'/share-small.png"/>';	
 				}
 				break;
@@ -224,7 +230,6 @@ function hupso_create_code() {
 			if ( $( "input:checkbox[name=facebook]:checked" ).val() == 1 )
 				hupso_services += '"Facebook",';		
 			if ( $( "input:checkbox[name=googleplus]:checked" ).val() == 1 )
-
 				hupso_services += '"Google Plus",';	
 			if ( $( "input:checkbox[name=pinterest]:checked" ).val() == 1 )
 				hupso_services += '"Pinterest",';					
@@ -472,4 +477,19 @@ function hupso_create_code() {
 	
 	});		
 }
+
+
+function hupso_restore_background_color() {
+		document.getElementById('background_color').color.fromString('EAF4FF');
+		hupso_background_color = 'EAF4FF';
+		hupso_background = '#EAF4FF';
+		hupso_create_code();
+}
+	
+function hupso_restore_border_color() {
+		document.getElementById('border_color').color.fromString('66CCFF');
+		hupso_border_color = '66CCFF';
+		hupso_border = '#66CCFF';
+		hupso_create_code();
+}	
 

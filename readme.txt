@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.4
+Stable tag: 3.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,8 +13,6 @@ Help visitors share your posts on popular social networks: Twitter, Facebook, Go
 == Description ==
 
 Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
-
-Very simple setup: just install the plugin and social share icons will be added below your posts.
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -39,6 +37,8 @@ These services are used by millions of people every day, so sharing your content
 * Display staring stats for whole website or for each page individually
 * Select image to use for Facebook sharing (Facebook thumbnail)
 * You can use your own custom social icons for Twitter, Facebook and other social networks
+* Load social icons from your own content delivery network (CDN)
+* Set background and border color for share button (menu)
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
@@ -210,10 +210,12 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 7. Share buttons under post, sidebar widget and text widget - English version (73 languages available)
 8. Share buttons under post, sidebar widget and text widget - Spanish version (73 languages available)
 9. Share buttons under post, sidebar widget and text widget - Chinese version (73 languages available)
-10. Select image dialog for sharing on Pinterest
 
 
 == Changelog ==
+
+= 3.9.5 =
+* option to set background and border color for share button (menu)
 
 = 3.9.4 =
 * option to use your own custom social icons

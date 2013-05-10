@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.4
+Version: 3.9.5
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -125,6 +125,8 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_button_image_custom_url' );
 	delete_option( 'hupso_custom_icons' );	
 	delete_option( 'hupso_image_folder_url' );	
+	delete_option( 'hupso_background_color' );	
+	delete_option( 'hupso_border_color' );			
 }
 
 function hupso_plugin_activation() {
@@ -199,9 +201,15 @@ function hupso_admin_settings_show() {
 	global $hupso_all_services, $hupso_default_services, $hupso_plugin_url;
 	
 	wp_enqueue_script(
+			'js_color',
+			plugins_url('/js/jscolor/jscolor.js', __FILE__ )
+	);		
+	
+	wp_enqueue_script(
 			'hupso_create_button',
 			plugins_url('/js/create_button.js', __FILE__ )
 	);	
+
 	
 	$hupso_lang_code = __('en_US', 'share_buttons_hupso');
 	$hupso_language = __('English', 'share_buttons_hupso');	
@@ -426,6 +434,19 @@ function hupso_admin_settings_show() {
 		</table>
 	</div>	
 	
+		<?php
+				/* background & border color */
+				$hupso_background_color = get_option( 'hupso_background_color', 'EAF4FF');			
+				$hupso_border_color = get_option( 'hupso_border_color', '66CCFF');		
+			?>	
+	<div id="show_color">
+	<table style="border: 0px;">
+	<tr><td style="width:100px;"><?php _e('Background color');?></td><td><input class="color" type="text" id="background_color" name="background_color" value="#<?php echo $hupso_background_color; ?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" style="width: 100px;" /><input style="margin-left:30px;" type="button" value="Restore default" onclick="hupso_restore_background_color()" /></td></tr>
+	<tr><td style="width:100px;"><?php _e('Border color');?></td><td><input class="color" type="text" id="border_color" name="border_color" value="#<?php echo $hupso_border_color; ?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" style="width: 100px;" /><input style="margin-left:30px;" type="button" value="Restore default" onclick="hupso_restore_border_color()" />	<hr style="height:1px; width:500px;"/></td></tr>
+	</table>	
+	</div>
+
+	
 	
 	<div id="services">
 	<table style="border: 0px;">
@@ -506,7 +527,7 @@ function hupso_admin_settings_show() {
 	<?php hupso_counters_lang_list(); ?>
 	</select><br/><br/>
 	(<?php _e('Language changes will not show in preview', 'share_buttons_hupso');?>)
-	</td><td><?php _e('Select which language to use for Counters (Tweet, Facebook Like, Facebook Share...)', 'share_buttons_hupso');?>.<?php _e('Some social networks support more languages than others, so some buttons might get translated, while some might stay in English', 'share_buttons_hupso');?>.</td>
+	</td><td><?php _e('Select which language to use for Counters (Tweet, Facebook Like, Facebook Share...)', 'share_buttons_hupso');?>. <?php _e('Some social networks support more languages than others, so some buttons might get translated, while some might stay in English', 'share_buttons_hupso');?>.</td>
 	</tr>									
 			</table>	
 
@@ -726,7 +747,7 @@ function hupso_admin_settings_show() {
 				$header_image = trim(get_header_image());
 			
 			?>
-			<span style="font-size:10px"><?php _e('All images for Facebook should be at least 200px in both dimensions (Facebook limitation)', 'share_buttons_hupso');?>.<br/><?php _e('After you change settings here, please wait 24 hours (or more) for Facebook to fetch new thumbnails', 'share_buttons_hupso');?>.</span><br/>
+			<span style="font-size:10px"><?php _e('All images for Facebook should be at least 200px in both dimensions (Facebook limitation)', 'share_buttons_hupso');?>.<br/><?php _e('After you change settings here, please wait 24 hours (or more) for Facebook to fetch new thumbnails', 'share_buttons_hupso');?>.<br/><?php _e('"og:image" meta tag with image url will be added to head of HTML. Select "None" to disable this feature', 'share_buttons_hupso');?>.<br/></span><br/>
 
 			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="header" <?php echo $hupso_facebook_image_header_checked; ?>/> <?php _e('Header image', 'share_buttons_hupso'); ?> <?php if ( $header_image != '' ) { echo '(<a href="' . $header_image . '" title="' . __( 'Click here to see full header image', 'share_buttons_hupso' ) . '" target="_blank">' . __( 'preview', 'share_buttons_hupso' ) . '</a>)'; } ?><br/>
 			<input type="radio" name="hupso_facebook_image" onclick="hupso_create_code()" onchange="hupso_create_code()" value="featured" <?php echo $hupso_facebook_image_featured_checked; ?>/> <?php _e('Featured image of post', 'share_buttons_hupso'); ?><br/>
@@ -867,11 +888,19 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_button_image_custom_url', $hupso_button_image_custom_url );	
 	}
 	
+	/* save background & border color */
+	if ( $post ) {
+		$hupso_background_color = @$_POST[ 'background_color' ];
+		update_option( 'hupso_background_color', $hupso_background_color );	
+		
+		$hupso_border_color = @$_POST[ 'border_color' ];
+		update_option( 'hupso_border_color', $hupso_border_color );			
+	}	
+	
 	/* save custom icons */
 	if ( $post ) {
 		$hupso_custom_icons = @$_POST[ 'hupso_custom_icons' ];
 		update_option( 'hupso_custom_icons', $hupso_custom_icons );	
-
 		
 		$hupso_image_folder_url  = @$_POST[ 'hupso_image_folder_url' ];
 		update_option( 'hupso_image_folder_url ', $hupso_image_folder_url );			
@@ -1321,8 +1350,6 @@ function hupso_the_content( $content ) {
 	
 	$static_server = 'http://static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
 	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
-	
-	
    
     $position = get_option( 'hupso_button_position', 'below' );
 	
