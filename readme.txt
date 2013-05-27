@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.5
+Stable tag: 3.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -39,6 +39,7 @@ These services are used by millions of people every day, so sharing your content
 * You can use your own custom social icons for Twitter, Facebook and other social networks
 * Load social icons from your own content delivery network (CDN)
 * Set background and border color for share button (menu)
+* Support for SSL (https)
 
 
 Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
@@ -116,6 +117,20 @@ Add this CSS to your style.css file:
 	max-width:none !important; 
 }`
 
+= Facebook comment box is cut at the bottom. How do I fix it? =
+
+This usually happens when you have `overflow:hidden` in your main class for post (style.css). It might look like this:
+`.post {
+ overflow:hidden;
+ }`
+Find it and replace it with:
+`.post {
+ overflow:visible;
+ }`
+ 
+ It is possible that your theme is using a different name, so it might be .post, .article, .entry-content or something similar.
+
+
 = Share counters are not aligned properly. How can I fix this? =
 
 Add proper CSS to your style.css file. Example:
@@ -132,6 +147,19 @@ Add proper CSS to your style.css file. Example:
 .hupso_pinterest {
 	margin-right: 10px !important;
 }`
+
+= How can I move share icons so they would show up in the same line as title of the post? =
+
+Hide share image (from settings) and add this CSS to your style.css file:
+`.hupso_c {
+    float: right;
+    margin-right: 40px;
+    margin-top: -80px;
+    padding-bottom: 20px;
+}`
+
+Then adjust the values so that it looks great with your theme. 
+
 
 = How can I show share buttons inside template files? =
 
@@ -196,6 +224,7 @@ You image should be at least 200px in both dimensions. This is a Facebook limita
 
 = Found a bug? Have a suggestion? =
 
+If you are using an old version of the plugin then first update to latest version. It is possible that your bug has already been fixed.
 Please send bug reports and suggestion using [this feedback form](http://www.hupso.com/share/feedback/).
 
 
@@ -213,6 +242,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.6
+* support for SSL (https)
+* minor bug fixes
 
 = 3.9.5 =
 * option to set background and border color for share button (menu)

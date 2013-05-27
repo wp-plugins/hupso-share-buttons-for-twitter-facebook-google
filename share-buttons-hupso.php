@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.5
+Version: 3.9.6
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,35 @@ $hupso_state = 'normal';
 $HUPSO_SHOW = true;
 
 $hupso_plugin_url = plugins_url() . '/hupso-share-buttons-for-twitter-facebook-google';
+
+
+/* Check if SSL is used */
+if ( is_ssl() ) {
+	$hupso_p = 'https:';
+	if ( strpos( $hupso_plugin_url, 'http://' ) !== false) {
+		$hupso_plugin_url = str_replace( 'http://', 'https://', $hupso_plugin_url);
+	}
+} 
+else {
+	$hupso_p = 'http:';
+ }
+ 
+if ( ! function_exists( 'is_ssl' ) ) {
+	function is_ssl() {
+		if ( isset($_SERVER['HTTPS']) ) {
+			if ( 'on' == strtolower($_SERVER['HTTPS']) )
+				return true;
+			if ( '1' == $_SERVER['HTTPS'] )
+				return true;
+		} 
+		elseif ( isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
+			return true;
+		}
+		return false;
+	}
+}
+
+
 add_filter( 'the_content', 'hupso_the_content', 10 );
 add_filter( 'get_the_excerpt', 'hupso_get_the_excerpt', 1);
 add_filter( 'the_excerpt', 'hupso_the_content', 100 );
@@ -655,7 +684,7 @@ function hupso_admin_settings_show() {
 			  $categories = get_categories(); 
 			  foreach ($categories as $category) {
 				$option = '<option value="'.$category->category_nicename.'"';
-				if ( in_array($category->category_nicename, $hupso_hide_categories ) ) {
+				if ( in_array($category->category_nicename, (array) $hupso_hide_categories ) ) {
 					$option .= ' selected ';
 				}			
 				$option .= '>';
@@ -949,7 +978,7 @@ function hupso_admin_settings_save() {
 			update_option( 'hupso_' . $service_name, $value );
 		}
 		else {	
-			$value = get_option ( 'hupso_' . $service_name, in_array( $service_text, $hupso_default_services ) );
+			$value = get_option ( 'hupso_' . $service_name, in_array( $service_text, (array) $hupso_default_services ) );
 		}
 		if ( $value == '1' ) {
 			$hupso_vars .= '"' . $service_text .'",';
@@ -1100,7 +1129,7 @@ function hupso_the_widget( $content ) {
 
 function hupso_the_content( $content ) {
 
-	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW;
+	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW, $hupso_p;
 	
 	
 	if ($HUPSO_SHOW == false) {
@@ -1184,7 +1213,7 @@ function hupso_the_content( $content ) {
 	if ( $hupso_hide_categories == '' ) {
 		$hupso_hide_categories = array();
 	}
-	if ( ($hupso_state == 'normal') && (@in_array($current_category, $hupso_hide_categories)) ) {
+	if ( ($hupso_state == 'normal') && (@in_array($current_category, (array) $hupso_hide_categories)) ) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
 		$content = str_ireplace('[hupso]', '', $content);		
 		return $content;
@@ -1216,9 +1245,13 @@ function hupso_the_content( $content ) {
 	
 	
 	/* default code */
-	$share_code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ --><a class="hupso_toolbar" href="http://www.hupso.com/share/"><img src="http://static.hupso.com/share' . $hupso_dev . '/buttons/share-medium.png" style="border:0px; padding-top:5px; float:left;" alt="Share"/></a><script type="text/javascript">var hupso_services_t=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_toolbar_size_t="medium";';
+	$share_code = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ --><a class="hupso_toolbar" href="http://www.hupso.com/share/"><img src="' . $hupso_p . '//static.hupso.com/share' . $hupso_dev . '/buttons/share-medium.png" style="border:0px; padding-top:5px; float:left;" alt="Share"/></a><script type="text/javascript">var hupso_services_t=new Array("Twitter","Facebook","Google Plus","Linkedin","StumbleUpon","Digg","Reddit","Bebo","Delicious"); var hupso_toolbar_size_t="medium";';
 	
     $code = get_option( 'hupso_share_buttons_code', $share_code );		
+	if ( $hupso_p == 'https:' ) {
+		$code = str_replace( 'src="http://static.hupso.com', 'src="https://static.hupso.com', $code );
+	}
+	
 	$button_type = get_option( 'hupso_button_type', 'share_toolbar' );
 	
 	/* Check for old saved button code, prior to version 1.3 */
@@ -1348,7 +1381,7 @@ function hupso_the_content( $content ) {
 			break;			
 	}
 	
-	$static_server = 'http://static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
+	$static_server = $hupso_p . '//static.hupso.com/share' . $hupso_dev . '/js/' . $js_file;
 	$code .= '<script type="text/javascript" src="' . $static_server . '"></script><!-- Hupso Share Buttons -->';	
    
     $position = get_option( 'hupso_button_position', 'below' );
@@ -1400,7 +1433,7 @@ function hupso_settings_print_services() {
 		$service_name = str_replace( ' ', '', $service_name );
 		
 		$checked = '';
-		$value = get_option( 'hupso_' . $service_name , in_array( $service_text, $hupso_default_services ) );
+		$value = get_option( 'hupso_' . $service_name , in_array( $service_text, (array) $hupso_default_services ) );
 		if ( $value == "1" ) {
 			$checked = 'checked="checked"';	 
 		} 
