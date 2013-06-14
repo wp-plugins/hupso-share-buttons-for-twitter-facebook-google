@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.6
+Version: 3.9.7
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -46,9 +46,9 @@ if ( ! function_exists( 'is_ssl' ) ) {
 }
 
 
-add_filter( 'the_content', 'hupso_the_content', 10 );
+add_filter( 'the_content', 'hupso_the_content_normal', 10 );
 add_filter( 'get_the_excerpt', 'hupso_get_the_excerpt', 1);
-add_filter( 'the_excerpt', 'hupso_the_content', 100 );
+add_filter( 'the_excerpt', 'hupso_the_content_normal', 100 );
 
 load_plugin_textdomain( 'share_buttons_hupso', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
@@ -1127,10 +1127,15 @@ function hupso_the_widget( $content ) {
 	return hupso_the_content ( $content );
 }
 
+function hupso_the_content_normal( $content ) {
+	global $hupso_state;
+	$hupso_state = 'normal';
+	return hupso_the_content( $content );
+}
+
 function hupso_the_content( $content ) {
 
 	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW, $hupso_p;
-	
 	
 	if ($HUPSO_SHOW == false) {
 		$content = str_ireplace('[hupso_hide]', '', $content);
@@ -1167,7 +1172,6 @@ function hupso_the_content( $content ) {
 			}
 		}
 	}
-	
 	
 	$hupso_show_search = get_option( 'hupso_show_search' , '1' );
 	if ( ($hupso_state == 'normal') && (is_search()) && ($hupso_show_search != 1) ) {
@@ -1208,7 +1212,12 @@ function hupso_the_content( $content ) {
 	
 	/* Check if we are inside category where buttons are hidden */
 	$cats = get_the_category();
-	$current_category = @$cats[0]->slug;	
+	if (isset($cats[0])) {
+		$current_category = @$cats[0]->slug;	
+	}
+	else {
+		$current_category = '';
+	}	
 	$hupso_hide_categories = get_option( 'hupso_hide_categories' , array() );
 	if ( $hupso_hide_categories == '' ) {
 		$hupso_hide_categories = array();

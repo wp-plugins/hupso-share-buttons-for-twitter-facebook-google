@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.6
+Stable tag: 3.9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ These services are used by millions of people every day, so sharing your content
 * Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share, Pinterest - Pin it 
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
-* Real-time button preview in admin settings.
+* Real-time button preview in admin settings. You will be able to see the preview of share buttons as you configure them.
 * Support for right-to-left (RTL) scripts / languages (Arabic, Persian, Urdu, Hebrew, Yiddish, Syriac, Thaana/Dhivehi, N'Ko, Chinese, Japanese).
 * Hide or show buttons for specific posts / pages (see Shortcodes below)
 * Hide or show buttons for posts / pages / front page / categories
@@ -41,8 +41,7 @@ These services are used by millions of people every day, so sharing your content
 * Set background and border color for share button (menu)
 * Support for SSL (https)
 
-
-Share Buttons are very easy to configure. Just select button type, size, position and which social networking services do you want to offer to your visitors.
+Share Buttons are *very easy to configure*. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them (or both) as you choose.
 
 **Shortcodes**
@@ -90,17 +89,17 @@ Add CSS to your style.css file.
 
 For share buttons:  
 `.hupso_pop > img { 
-	# add style rules here 
+	/* add style rules here */
 }`
 
 For share toolbar:   
 `.hupso_toolbar > img { 
-	# add style rules here 
+	/* add style rules here */
 }`
 
 For counters:  
 `.hupso_counters > img { 
-	# add style rules here 
+	/* add style rules here */
 }`
 
 = How do I change the margin of share button, share toolbar or counters? =
@@ -160,6 +159,8 @@ Hide share image (from settings) and add this CSS to your style.css file:
 
 Then adjust the values so that it looks great with your theme. 
 
+= How can I use counters under posts and share toolbar in sidebar? =
+You can use Hupso WP plugin for counters on top/bottom of every post and use raw HTML code for sidebar widget. Go to [Hupso Share Buttons homepage](http://www.hupso.com/share/) and generate HTML code for share buttons. In WP admin, go to Appearance->Widgets and create new text widget (drag and drop it to sidebar) and paste HTML code inside it. 
 
 = How can I show share buttons inside template files? =
 
@@ -179,9 +180,9 @@ Yes, you can. Just include `[hupso]` anywhere in widget text area and share butt
 Yes. Include this shortcodes anywhere inside post's text or inside text widget: `[hupso title="My title" url="http://www.hupso.com/share/"]`. Replace title and url with your title and your url.
 You can also set only one of the parameters like this: `[hupso title="My title"]` or like this `[hupso url="http://www.hupso.com/share/"]`.
 
-= Can I use my own social icons for Twitter, Facebook and other social networks? =
+= Can I replace/change/modify social icons (images) for Twitter, Facebook and other social networks? =
 
-Yes, you can. Enable this in Settings and follow instruction there.
+Yes, you can. Go to plugin settings. Change "Use custom social share icons" to "Yes, serve images from local Wordpress folder", then replace the icons inside plugin folder "img/services". You can also upload images to another web server or CDN ([read instructions](http://www.hupso.com/share/custom-social-icons.php)).
 
 = How can I display share buttons only inside widget and not under posts? =
 
@@ -243,7 +244,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Changelog ==
 
-= 3.9.6
+= 3.9.7 =
+* Bugfix: shortcodes can now be used without showing buttons under posts
+
+= 3.9.6 =
 * support for SSL (https)
 * minor bug fixes
 
