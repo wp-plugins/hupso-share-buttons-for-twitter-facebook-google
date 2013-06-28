@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.7
+Version: 3.9.8
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,7 +45,6 @@ if ( ! function_exists( 'is_ssl' ) ) {
 	}
 }
 
-
 add_filter( 'the_content', 'hupso_the_content_normal', 10 );
 add_filter( 'get_the_excerpt', 'hupso_get_the_excerpt', 1);
 add_filter( 'the_excerpt', 'hupso_the_content_normal', 100 );
@@ -60,7 +59,7 @@ if ( is_admin() ) {
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
 $hupso_all_services = array(
-	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
+	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious', 'Email', 'Print'
 );
 $hupso_default_services = array(
 	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
@@ -83,7 +82,6 @@ function hupso_add_my_stylesheet() {
    wp_register_style( 'hupso_css', plugins_url('style.css', __FILE__) );
    wp_enqueue_style( 'hupso_css' );
 }
-
 
 function hupso_widget_init() {
     include_once(plugin_dir_path( __FILE__ ) . '/share-buttons-hupso-widget.php');
@@ -141,6 +139,10 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_reddit' );
 	delete_option( 'hupso_bebo' );
 	delete_option( 'hupso_delicious' );
+	delete_option( 'hupso_email' );	
+	delete_option( 'hupso_print' );	
+	delete_option( 'hupso_email_button' );	
+	delete_option( 'hupso_print_button' );	
 	delete_option( 'hupso_title_text' );
 	delete_option( 'hupso_twitter_via' );
 	delete_option( 'hupso_facebook_image' );	
@@ -492,6 +494,8 @@ function hupso_admin_settings_show() {
 			$facebook_send_checked = '';
 			$google_plus_one_checked = '';
 			$pinterest_pin_checked = '';
+			$email_button_checked = '';
+			$print_button_checked = '';
 			$linkedin_share_checked = '';
 			
 			$twitter_tweet = get_option( 'hupso_twitter_tweet', '1' );
@@ -509,7 +513,13 @@ function hupso_admin_settings_show() {
 			$pinterest_pin = get_option( 'hupso_pinterest_pin', '1' );
 			if ( $pinterest_pin == 1 ) $pinterest_pin_checked = $checked;			
 			
-			$linkedin_share = get_option( 'hupso_linkedin_share', '1' );
+			$email_button = get_option( 'hupso_email_button', '0' );
+			if ( $email_button == 1 ) $email_button_checked = $checked;	
+			
+			$print_button = get_option( 'hupso_print_button', '0' );
+			if ( $print_button == 1 ) $print_button_checked = $checked;						
+			
+			$linkedin_share = get_option( 'hupso_linkedin_share', '0' );
 			if ( $linkedin_share == 1 ) $linkedin_share_checked = $checked;	
 		?>	
 	<div id="counters_config" style="display:none;">
@@ -543,7 +553,17 @@ function hupso_admin_settings_show() {
 				<td><input type="checkbox" name="pinterest_pin" onclick="hupso_create_code()" value="1" <?php echo $pinterest_pin_checked;?> /></td>
 				<td><img src="<?php echo $hupso_plugin_url; ?>/buttons/PinExt.png" /></td>
 				<td></td>
-			</tr>				
+			</tr>		
+			<tr>
+				<td><input type="checkbox" name="email_button" onclick="hupso_create_code()" value="1" <?php echo $email_button_checked;?> /></td>
+				<td><img src="<?php echo $hupso_plugin_url; ?>/img/services/email-button.png" /></td>
+				<td></td>
+			</tr>	
+			<tr>
+				<td><input type="checkbox" name="print_button" onclick="hupso_create_code()" value="1" <?php echo $print_button_checked;?> /></td>
+				<td><img src="<?php echo $hupso_plugin_url; ?>/img/services/print-button.png" /></td>
+				<td></td>
+			</tr>									
 			<tr>
 				<td><input type="checkbox" name="linkedin_share" onclick="hupso_create_code()" value="1" <?php echo $linkedin_share_checked;?> /></td>
 				<td><img src="<?php echo $hupso_plugin_url; ?>/img/counters/linkedin_share.png" /></td>
@@ -1046,7 +1066,13 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_google_plus_one', $google_plus_one );	
 		
 		$pinterest_pin = @$_POST[ 'pinterest_pin' ];	
-		update_option( 'hupso_pinterest_pin', $pinterest_pin );			
+		update_option( 'hupso_pinterest_pin', $pinterest_pin );		
+		
+		$email_button = @$_POST[ 'email_button' ];	
+		update_option( 'hupso_email_button', $email_button );					
+		
+		$print_button = @$_POST[ 'print_button' ];	
+		update_option( 'hupso_print_button', $print_button );			
 		
 		$linkedin_share = @$_POST[ 'linkedin_share' ];	
 		update_option( 'hupso_linkedin_share', $linkedin_share );	

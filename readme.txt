@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.7
+Stable tag: 3.9.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Help visitors share your posts on popular social networks: Twitter, Facebook, Go
 
 == Description ==
 
-Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. 
+Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous and Email. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -40,6 +40,8 @@ These services are used by millions of people every day, so sharing your content
 * Load social icons from your own content delivery network (CDN)
 * Set background and border color for share button (menu)
 * Support for SSL (https)
+* Email button
+* Print button
 
 Share Buttons are *very easy to configure*. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them (or both) as you choose.
@@ -60,7 +62,7 @@ You can configure share buttons in plugin settings.
 
 1. Download plugin file (.zip)
 2. Extract zip file and upload folder /hupso-share-buttons-for-twitter-facebook-google/ to /wp-content/plugins/
-3. Go to "Plugins" and activate the plugin
+3. Go to "Plugins" and activate the plugin "Hupso Share Buttons for Twitter, Facebook & Google+"
 
 
 == Frequently Asked Questions ==
@@ -145,7 +147,17 @@ Add proper CSS to your style.css file. Example:
 }
 .hupso_pinterest {
 	margin-right: 10px !important;
-}`
+}
+.hupso_email_button {
+	margin-left: 3px !important;
+}
+.hupso_print_button {
+	margin-left: 3px !important;
+}
+.IN-widget { /* Linkedin */
+	margin-top: 1px !important;
+}
+`
 
 = How can I move share icons so they would show up in the same line as title of the post? =
 
@@ -243,6 +255,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.8 =
+* Email button
+* Print button
 
 = 3.9.7 =
 * Bugfix: shortcodes can now be used without showing buttons under posts

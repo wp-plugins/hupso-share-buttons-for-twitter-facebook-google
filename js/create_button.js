@@ -1,6 +1,5 @@
 // detect hupso settings and show share button preview on first load
-var hupso_settings_active = document.hupso_settings_form.button_type;
-if (typeof hupso_settings_active == "object" ) {
+if (document.hupso_settings_form && document.hupso_settings_form.button_type)  {
 	hupso_create_code();
 	
 	window.onload = function() {
@@ -37,7 +36,9 @@ function hupso_create_code() {
 		var hupso_counters_lang = 'en_US';		
 		var hupso_image_folder_url = '';
 		var hupso_image_folder_local = '';
-		var hupso_custom_icons = 'no';		
+		var hupso_custom_icons = 'no';	
+		var hupso_email_button = '0';	
+		var hupso_print_button = '0';			
 	
 		dir = "";
 		cdn = "static";
@@ -125,7 +126,6 @@ function hupso_create_code() {
 					counters_preview = '<img src="http://static.hupso.com/share/buttons/share-small.png"/>';
 				}
 				else {
-
 					counters_preview = '<img style="margin-right:10px;" src="http://static.hupso.com/share/buttons/lang/'+lang_code+'/share-small.png"/>';	
 				}
 				break;
@@ -210,14 +210,28 @@ function hupso_create_code() {
 				hupso_services += '"pinterest"';
 				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/buttons/PinExt.png" /></span>';
 			}		
+
+			// email button
+			var hupso_email_button = $("input:checkbox[name=email_button]:checked").val();
+			if (hupso_email_button == 1) {
+				hupso_services += '"email"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/services/email-button.png" /></span>';
+			}					
+
+			// print button
+			var hupso_print_button = $("input:checkbox[name=print_button]:checked").val();
+			if (hupso_print_button == 1) {
+				hupso_services += '"print"';
+				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/services/print-button.png" /></span>';
+			}				
 			
 			// linkedin
 			var linkedin_share = $("input:checkbox[name=linkedin_share]:checked").val();
 			if (linkedin_share == 1) {
 				hupso_services += '"linkedin"';
 				counters_preview += '<span style="padding-left:20px;"><img src="http://static.hupso.com/share/img/counters/linkedin_share.png" /></span>';
-			}				
-		
+			}					
+
 			hupso_services = hupso_services.replace(/""/gi, '","');
 			hupso_services += ');';
 			
@@ -245,7 +259,10 @@ function hupso_create_code() {
 				hupso_services += '"Bebo",';
 			if ( $( "input:checkbox[name=delicious]:checked" ).val() == 1 )
 				hupso_services += '"Delicious",';		
-				
+			if ( $( "input:checkbox[name=email]:checked" ).val() == 1 )
+				hupso_services += '"Email",';		
+			if ( $( "input:checkbox[name=print]:checked" ).val() == 1 )
+				hupso_services += '"Print",';						
 		
 			var none = hupso_services.substring(hupso_services.length - 1, hupso_services.length);
 			hupso_services = hupso_services.substring(0, hupso_services.length - 1);		
