@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.8
+Stable tag: 3.9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -42,6 +42,7 @@ These services are used by millions of people every day, so sharing your content
 * Support for SSL (https)
 * Email button
 * Print button
+* All share buttons are optional: You can add or remove any button from plugin settings
 
 Share Buttons are *very easy to configure*. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them (or both) as you choose.
@@ -255,6 +256,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.9 =
+* Option to show or hide share buttons in excerpts
 
 = 3.9.8 =
 * Email button

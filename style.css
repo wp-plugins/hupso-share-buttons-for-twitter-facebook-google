@@ -1,3 +1,4 @@
-iframe {
-	max-width: none;
+.fb_iframe_widget_lift {
+	max-width: none !important;
 }
+
