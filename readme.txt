@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.11
+Stable tag: 3.9.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -172,6 +172,13 @@ Hide share image (from settings) and add this CSS to your style.css file:
 
 Then adjust the values so that it looks great with your theme. 
 
+= Facebook like button is seen through my top navigation bar while other buttons are ok. How can fix it? =
+
+Add this CSS to your style.css file:
+`.fb_edge_widget_with_comment {
+    z-index: 0;
+}`
+
 = How can I use counters under posts and share toolbar in sidebar? =
 You can use Hupso WP plugin for counters on top/bottom of every post and use raw HTML code for sidebar widget. Go to [Hupso Share Buttons homepage](http://www.hupso.com/share/) and generate HTML code for share buttons. In WP admin, go to Appearance->Widgets and create new text widget (drag and drop it to sidebar) and paste HTML code inside it. 
 
@@ -235,6 +242,7 @@ Yes. Thay are free and will always be free. And you do not need to open any acco
 = Why is featured post image not used as thumbnail with Facebook on new posts? =
 
 You image should be at least 200px in both dimensions. This is a Facebook limitation. Please wait up to 24 hours for Facebook to fetch the new thumbnail. After that it should work.
+Also check "og:image" meta tags on your site and use [Facebook Debugger](https://developers.facebook.com/tools/debug) to fix problems with Facebook images, titles and descriptions. 
 
 = Found a bug? Have a suggestion? =
 
@@ -256,6 +264,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.12 =
+* Option to hide share buttons in excerpts
 
 = 3.9.11 =
 * Removed option to show or hide share buttons in excerpts due to incompatibility with some themes (it will be added back in next version)
