@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.12
+Stable tag: 3.9.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,7 @@ Add this CSS to your style.css file:
 = How can I use counters under posts and share toolbar in sidebar? =
 You can use Hupso WP plugin for counters on top/bottom of every post and use raw HTML code for sidebar widget. Go to [Hupso Share Buttons homepage](http://www.hupso.com/share/) and generate HTML code for share buttons. In WP admin, go to Appearance->Widgets and create new text widget (drag and drop it to sidebar) and paste HTML code inside it. 
 
+
 = How can I show share buttons inside template files? =
 
 Add this PHP code inside template files at position where you want to show share buttons: `echo do_shortcode('[hupso]');` 
@@ -264,6 +265,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.13 =
+* Bugfix for excerpts
 
 = 3.9.12 =
 * Option to hide share buttons in excerpts

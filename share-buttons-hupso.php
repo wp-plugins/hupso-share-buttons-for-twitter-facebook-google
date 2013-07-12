@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.12
+Version: 3.9.13
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.12';
+$HUPSO_VERSION = '3.9.13';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -49,7 +49,7 @@ if ( ! function_exists( 'is_ssl' ) ) {
 
 add_filter( 'the_content', 'hupso_the_content_normal', 10 );
 add_filter( 'get_the_excerpt', 'hupso_get_the_excerpt', 1);
-add_filter( 'the_excerpt', 'hupso_the_content_normal', 100 );
+add_filter( 'the_excerpt', 'hupso_the_excerpt', 100 );
 
 load_plugin_textdomain( 'share_buttons_hupso', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
@@ -248,7 +248,6 @@ function hupso_admin_settings_show() {
 			'hupso_create_button',
 			plugins_url('/js/create_button.js', __FILE__ )
 	);	
-
 
 	
 	$hupso_lang_code = __('en_US', 'share_buttons_hupso');
@@ -1175,6 +1174,12 @@ function hupso_the_widget( $content ) {
 }
 
 function hupso_the_content_normal( $content ) {
+	global $hupso_state;
+	$hupso_state = 'normal';
+	return hupso_the_content ( $content );
+}
+
+function hupso_the_excerpt( $content ) {
 	global $hupso_state;
 	$hupso_state = 'normal';
 	
