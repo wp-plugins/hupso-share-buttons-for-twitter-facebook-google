@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.13
+Version: 3.9.14
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.13';
+$HUPSO_VERSION = '3.9.14';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -199,7 +199,7 @@ function hupso_set_facebook_thumbnail() {
 			$thumb_image = get_header_image();
 			break;
 		case 'featured':
-			if ( ( function_exists('has_post_thumbnail') ) && ( has_post_thumbnail( $post->ID ) ) ) {
+			if ( ( function_exists('has_post_thumbnail') ) && ( isset( $post ) && has_post_thumbnail( $post->ID ) ) ) {
 				$thumb_image_temp = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
 				$thumb_image = $thumb_image_temp[0];
 			}
@@ -211,7 +211,7 @@ function hupso_set_facebook_thumbnail() {
 			$thumb_image = '';
 			break;
 		case 'fch': /* featured, custom, header */ 
-			if ( ( function_exists('has_post_thumbnail') ) && ( has_post_thumbnail( $post->ID ) ) ) {
+			if ( ( function_exists('has_post_thumbnail') ) && ( isset( $post ) && has_post_thumbnail( $post->ID ) ) ) {
 				$thumb_image_temp = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'medium' );
 				$thumb_image = $thumb_image_temp[0];
 				break;
@@ -945,7 +945,7 @@ function hupso_admin_settings_save() {
 	}
 	$b_size = str_replace( 'button', '', $hupso_button_size);
 	if ($b_size != 'custom') {
-		list($width, $height) = split('x', $b_size);	
+		list($width, $height) = explode('x', $b_size, 2);	
 	}
 
 	/* save share button custom URL */
@@ -1217,7 +1217,7 @@ function hupso_the_content( $content ) {
 	}
 	
 	/* Do not show share buttons on password protected pages, but show it inside widget */
-	$pass = $GLOBALS['post']->post_password;
+	$pass = ( isset( $GLOBALS['post'] ) ? $GLOBALS['post']->post_password : '' );
 	$hupso_password_protected = get_option( 'hupso_password_protected', '0');
 	if ( $hupso_state == 'normal' ) {
 		if ($pass != '') {
@@ -1291,8 +1291,8 @@ function hupso_the_content( $content ) {
 	$hupso_twitter_via = get_option( 'hupso_twitter_via', '' );
 	$hupso_counters_lang = get_option( 'hupso_counters_lang', 'en_US' );
 	
-	$post_url = get_permalink($GLOBALS['post']->ID);
-	$post_title = @$GLOBALS['post']->post_title;
+	$post_url = ( isset($GLOBALS['post']) ? get_permalink($GLOBALS['post']->ID) : get_permalink() );	
+	$post_title = ( isset( $GLOBALS['post'] ) ? $GLOBALS['post']->post_title : '' );	
 		
 	if ( ( $hupso_state == 'widget' ) || ( $hupso_state == 'shortcodes' ) ) {
 		if ( isset($_SERVER['HTTPS']) ) {
@@ -1304,10 +1304,7 @@ function hupso_the_content( $content ) {
 		$post_url = $protocol . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"];
 		$post_title = '';
 	}
-	
-	
 
-	
 	$hupso_page_url = get_option( 'hupso_page_url', '' );
 	$hupso_page_title = stripslashes(get_option( 'hupso_page_title', '' ));	
 	

@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
 Requires at least: 2.8
 Tested up to: 3.5.1
-Stable tag: 3.9.13
+Stable tag: 3.9.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,14 @@ You can configure share buttons in plugin settings.
 = How do I change settings? =
 
 From the Wordpress Administration click on "Settings" and then click on "Hupso Share Buttons".
+
+= Are share buttons free? =
+
+Yes. Thay are free and will always be free. And you do not need to open any account to use them.
+
+= Are share buttons using Javascript? =
+
+Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Counters load javascript code from Twitter, Facebook, Google, Linkedin, Pinterest or from other social services that are selected. Interface for share buttons is loaded from our servers via javascript at run-time. This enables us to add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. 
 
 = How can I hide/show share buttons for specific posts? =
 
@@ -182,7 +190,6 @@ Add this CSS to your style.css file:
 = How can I use counters under posts and share toolbar in sidebar? =
 You can use Hupso WP plugin for counters on top/bottom of every post and use raw HTML code for sidebar widget. Go to [Hupso Share Buttons homepage](http://www.hupso.com/share/) and generate HTML code for share buttons. In WP admin, go to Appearance->Widgets and create new text widget (drag and drop it to sidebar) and paste HTML code inside it. 
 
-
 = How can I show share buttons inside template files? =
 
 Add this PHP code inside template files at position where you want to show share buttons: `echo do_shortcode('[hupso]');` 
@@ -228,14 +235,6 @@ From Settings screen you are able to choose: button type (share button, share to
 
 Please look at *Screenshots* for more information.
 
-= Are share buttons using Javascript? =
-
-Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Menu/toolbar/preview interface for share buttons is loaded at run-time from our servers so we can add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. Counters load javascript code from Twitter, Facebook, Google, Linkedin, Pinterest or from other social services that are selected.
-
-= Are share buttons free? =
-
-Yes. Thay are free and will always be free. And you do not need to open any account to use them.
-
 = When will floating toolbars be available? =
 
 [Hupso Share Buttons](http://www.hupso.com/share/) provide other button types including floating toolbars. We plan to implement those in next versions of this plugin.
@@ -265,6 +264,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.14 =
+* Color picker now supports touch devices
+* Fixed some strict PHP warnings
 
 = 3.9.13 =
 * Bugfix for excerpts
