@@ -12,7 +12,7 @@ class Hupso_Widget extends WP_Widget {
 		parent::__construct(
 	 		'hupso_widget', // Base ID
 			'Hupso Share Buttons Widget', // Name
-			array( 'description' => __( 'Help visitors share your posts on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit and others', 'share_buttons_hupso' ), ) // Args
+			array( 'description' => __( 'Help visitors share your posts on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit and others', 'hupso' ), ) // Args
 		);
 	}
 
@@ -65,7 +65,7 @@ class Hupso_Widget extends WP_Widget {
 			$title = $instance[ 'title' ];
 		}
 		else {
-			$title = __( 'Share', 'share_buttons_hupso' );
+			$title = __( 'Share', 'hupso' );
 		}
 		?>
 		<p>
@@ -73,7 +73,7 @@ class Hupso_Widget extends WP_Widget {
 		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 		</p>
 		<p>
-	    	<a href="options-general.php?page=hupso-share-buttons-for-twitter-facebook-google/share-buttons-hupso.php"><?php _e('Settings', 'share_buttons_hupso');?></a>
+	    	<a href="options-general.php?page=hupso-share-buttons-for-twitter-facebook-google/share-buttons-hupso.php"><?php _e('Settings', 'hupso');?></a>
 		</p>		
 		<?php 
 	}

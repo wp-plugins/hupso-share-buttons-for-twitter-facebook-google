@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, facebook like, social, widget, social media, multisite, multi-site, social icons, reddit, stumble upon, delicious, pinterest, bebo, digg, linkedin, email, print, social toolbar
 Requires at least: 2.8
-Tested up to: 3.5.1
-Stable tag: 3.9.14
+Tested up to: 3.6
+Stable tag: 3.9.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,7 @@ These services are used by millions of people every day, so sharing your content
 * Email button
 * Print button
 * All share buttons are optional: You can add or remove any button from plugin settings
+* Multisite support (works with Wordpress Multi-site)
 
 Share Buttons are *very easy to configure*. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them (or both) as you choose.
@@ -133,6 +134,7 @@ This usually happens when you have `overflow:hidden` in your main class for post
 `.post {
  overflow:hidden;
  }`
+ 
 Find it and replace it with:
 `.post {
  overflow:visible;
@@ -216,6 +218,10 @@ Yes, you can. Go to plugin settings. Change "Use custom social share icons" to "
 
 Add Hupso share buttons widget, then go to Hupso plugin settings and clear all fields in "Show buttons on" section.
 
+= Why is Facebook icon missing when using counters? =
+
+It is missing if your site is running from localhost. It will work when you move website to actual domain.
+
 = Can I set share buttons in such a way that it counts the entire site instead of just that specific page? =
 
 Yes, you can. Enter your website root under "Custom url" in Settings. After that counters will show sharing stats for your whole website, not for each page individually.
@@ -264,6 +270,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.15 =
+* Share buttons can now be enabled/disabled for each post or page individually (inside Edit Post screen). You need to enable this in plugin settings first.
 
 = 3.9.14 =
 * Color picker now supports touch devices
