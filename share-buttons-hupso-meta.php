@@ -29,10 +29,22 @@ function hupso_manage_posts_custom_column( $column, $post_id ) {
 	global $post;
     if ( $column == 'hupso' ) {
 		  $value = get_post_meta( $post->ID, 'hupso-share-buttons', true );
-		  if ($value == '') {
-		  	$value = __('default');
+		  $display = '';
+		  switch ($value) {
+		  	case '': 
+				$display = __('Default');
+				break;
+			case 'default':	
+				$display = __('Default');
+				break;
+			case 'enabled':
+				$display = __('Enabled');
+				break;
+			case 'disabled':
+				$display = __('Disabled');
+				break;
 		  }
-		  echo ucfirst($value);
+		  echo $display;
     }
 }
 

@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, facebook like, social, widget, social media, multisite, multi-site, social icons, reddit, stumble upon, delicious, pinterest, bebo, digg, linkedin, email, print, social toolbar
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 3.9.15
+Stable tag: 3.9.16
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -270,6 +270,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.16 =
+* Included hupso.pot file for translation. If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/). 
+* Added Czech translation 
 
 = 3.9.15 =
 * Share buttons can now be enabled/disabled for each post or page individually (inside Edit Post screen). You need to enable this in plugin settings first.
