@@ -249,6 +249,8 @@ function hupso_create_code() {
 				hupso_services += '"Pinterest",';					
 			if ( $( "input:checkbox[name=linkedin]:checked" ).val() == 1 )
 				hupso_services += '"Linkedin",';
+			if ( $( "input:checkbox[name=tumblr]:checked" ).val() == 1 )
+				hupso_services += '"Tumblr",';				
 			if ( $( "input:checkbox[name=stumbleupon]:checked" ).val() == 1 )
 				hupso_services += '"StumbleUpon",';
 			if ( $( "input:checkbox[name=digg]:checked" ).val() == 1 )

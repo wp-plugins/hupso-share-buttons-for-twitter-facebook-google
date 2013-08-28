@@ -1,18 +1,18 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 3.9.16
+Stable tag: 3.9.17
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Help visitors share your posts on popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit and others.
+Help visitors share your posts on popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit and others.
 
 == Description ==
 
-Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous and Email. 
+Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous and Email. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -20,7 +20,7 @@ These services are used by millions of people every day, so sharing your content
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
-* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious.
+* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious.
 * Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share, Pinterest - Pin it 
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
@@ -94,6 +94,13 @@ All major social networks are supported: Twitter, Facebook, Google+, Linkedin, S
 
 Yes. There is a sidebar widget included with the plugin. Go to WP Administration then click on "Widgets" under "Appearance" menu.
 Then drag Hupso Share Buttons Widget from left and drop it on the sidebar on the right.
+
+= How can I style Hupso share buttons with CSS? =
+
+Use class "hupso-share-buttons" like this:
+`.hupso-share-buttons { 
+	/* add style here */
+}`
 
 = How can I style "Share image" with CSS? =
 
@@ -270,6 +277,11 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.17 =
+* Tumblr button
+* Top div now uses class "hupso-share-buttons", so it is now easy to customize buttons with CSS
+* Better Pinterest dialog for selecting images
 
 = 3.9.16 =
 * Included hupso.pot file for translation. If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/). 

@@ -2,8 +2,8 @@
 /*
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
-Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.16
+Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
+Version: 3.9.17
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.16';
+$HUPSO_VERSION = '3.9.17';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -61,7 +61,7 @@ if ( is_admin() ) {
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
 $hupso_all_services = array(
-	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious', 'Email', 'Print'
+	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'Tumblr', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious', 'Email', 'Print'
 );
 $hupso_default_services = array(
 	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
@@ -142,6 +142,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_googleplus' );
 	delete_option( 'hupso_pinterest' );	
 	delete_option( 'hupso_linkedin' );
+	delete_option( 'hupso_tumblr' );	
 	delete_option( 'hupso_stumbleupon' );
 	delete_option( 'hupso_digg' );
 	delete_option( 'hupso_reddit' );
@@ -260,7 +261,7 @@ function hupso_admin_settings_show() {
 	$hupso_language = __('English', 'hupso');	
 	$hupso_share_image = __('Share', 'hupso');
 	$hupso_excerpts = __('Excerpts', 'hupso');
-	$hupso_feeds = __('Feeds', 'hupso');	
+
 	
 	if ( !current_user_can( 'manage_options' ) )  {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' , 'hupso') );
@@ -310,7 +311,7 @@ function hupso_admin_settings_show() {
 	$start = '<!-- Hupso Share Buttons - http://www.hupso.com/share/ -->';
 	$end = '<!-- Hupso Share Buttons -->';
 	$class_name = 'hupso_pop';
-	$alt = 'Share Button';
+	$alt = 'Share Button';	
 	$class_url = ' href="http://www.hupso.com/share/" ';	
 	$style = 'padding-left:5px; padding-top:5px; padding-bottom:5px; margin:0; border:0px;';
 
@@ -319,6 +320,7 @@ function hupso_admin_settings_show() {
 	$button_100_img = '<img style="'.$style.' width: 100px; height:23px;" src="'.$hupso_plugin_url.'/buttons/button100x23.png" alt="'.$alt.'"/>';
 	$button_120_img = '<img style="'.$style.' width: 120px; height:28px;" src="'.$hupso_plugin_url.'/buttons/button120x28.png" alt="'.$alt.'"/>';	
 	$button_160_img = '<img style="'.$style.' width: 160px; height:37px;" src="'.$hupso_plugin_url.'/buttons/button160x37.png" alt="'.$alt.'"/>';		
+	
 	
 	$checked = 'checked="checked"';
 	$current_button_size = get_option( 'hupso_button_size' , 'button100x23' ); 
@@ -888,7 +890,7 @@ function hupso_admin_settings_show() {
 				$checked = ' checked="checked" ';
 				$hupso_page_url = get_option( 'hupso_page_url', '');			
 			?>
-			<input type="text" name="page_url" value="<?php echo $hupso_page_url;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom url that will always be used for sharing. You can enter your root website here (e.g.: http://www.example.com or http://example.blogspot.com, so counters will show statistics for your whole website, not for each page individually.', 'hupso'); ?><br/><?php _e('Leave this blank to use url of current page for sharing. [Default]', 'hupso'); ?>
+			<input type="text" name="page_url" value="<?php echo $hupso_page_url;?>" onchange="hupso_create_code()" onmouseout="hupso_create_code()" size="50" /><br/><?php _e('Enter custom url that will always be used for sharing. You can enter your root website here (e.g.: http://www.example.com or http://example.blogspot.com), so counters will show statistics for your whole website, not for each page individually.', 'hupso'); ?><br/><?php _e('Leave this blank to use url of current page for sharing. [Default]', 'hupso'); ?>
 		</td>
 	</tr>		
 	
