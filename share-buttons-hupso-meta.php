@@ -15,7 +15,7 @@ else {
 // Add Hupso for 'posts' and 'pages'
 add_filter('manage_posts_columns', 'hupso_manage_posts_columns', 10, 2);
 add_filter('manage_pages_columns', 'hupso_manage_posts_columns', 10, 2);
-function hupso_manage_posts_columns($posts_columns, $post_type)
+function hupso_manage_posts_columns($posts_columns)
 {
     $posts_columns['hupso'] = __('Hupso');
     return $posts_columns;

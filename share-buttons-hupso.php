@@ -2,8 +2,8 @@
 /*
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
-Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.17
+Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, VKontakte and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
+Version: 3.9.18
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.17';
+$HUPSO_VERSION = '3.9.18';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -61,7 +61,7 @@ if ( is_admin() ) {
 add_action( 'wp_head', 'hupso_set_facebook_thumbnail', 1 );
 
 $hupso_all_services = array(
-	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'Tumblr', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious', 'Email', 'Print'
+	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'Tumblr', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious', 'VKontakte', 'Email', 'Print'
 );
 $hupso_default_services = array(
 	'Twitter', 'Facebook', 'Google Plus', 'Pinterest', 'Linkedin', 'StumbleUpon', 'Digg', 'Reddit', 'Bebo', 'Delicious'
@@ -148,6 +148,7 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_reddit' );
 	delete_option( 'hupso_bebo' );
 	delete_option( 'hupso_delicious' );
+	delete_option( 'hupso_vkontakte' );		
 	delete_option( 'hupso_email' );	
 	delete_option( 'hupso_print' );	
 	delete_option( 'hupso_email_button' );	
@@ -1203,11 +1204,11 @@ function hupso_the_content_normal( $content ) {
 }
 
 function hupso_the_excerpt( $content ) {
-	global $hupso_state;
+	global $hupso_state, $post;
 	$hupso_state = 'normal';
 	
 	$hupso_show_excerpts = get_option( 'hupso_show_excerpts' , '1' );	
-	if ( $hupso_show_excerpts == 1 ) {
+	if ( ( $hupso_show_excerpts == 1 )  && ( $post->post_type != 'attachment' ) ) {
 		return hupso_the_content ( $content );		
 	}
 	else {

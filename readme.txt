@@ -1,18 +1,18 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, vkontakte
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 3.9.17
+Stable tag: 3.9.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Help visitors share your posts on popular social networks: Twitter, Facebook, Google Plus, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit and others.
+Help visitors share your posts on popular social networks: Twitter, Facebook, Google+, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit and others.
 
 == Description ==
 
-Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous and Email. 
+Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous, VKontakte and Email. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
@@ -20,7 +20,7 @@ These services are used by millions of people every day, so sharing your content
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
-* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious.
+* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious, VKontakte (ВКонтакте).
 * Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share, Pinterest - Pin it 
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
@@ -56,6 +56,12 @@ Buttons will appear below your articles or on top of them (or both) as you choos
 You can configure share buttons in plugin settings.
 * Shortcodes inside widget text: Just include `[hupso]` anywhere in widget text area and share buttons will be displayed there.
 * You can use custom titles and urls inside shortcodes. Exampe: `[hupso title="My title" url="http://www.hupso.com/share/"]`. You can use only title or only url if you like: `[hupso title="My title"]`, `[hupso url="http://www.hupso.com/share/"]`.
+
+**Translations**
+
+Plugin is currently translated into: Czech, Traditional Chinese, Simplified Chinese.
+If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/).
+
 
 [Share Buttons Demo](http://www.hupso.com/share/) | [FAQ](http://wordpress.org/extend/plugins/hupso-share-buttons-for-twitter-facebook-google/faq/) | [Feedback](http://www.hupso.com/share/feedback/)
 
@@ -274,9 +280,16 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 7. Share buttons under post, sidebar widget and text widget - English version (73 languages available)
 8. Share buttons under post, sidebar widget and text widget - Spanish version (73 languages available)
 9. Share buttons under post, sidebar widget and text widget - Chinese version (73 languages available)
+10. Pinterest dialog that opens after clicking on "Pint it" icon
 
 
 == Changelog ==
+
+= 3.9.18 =
+* VKontakte button
+* Added Traditional Chinese translation
+* Added Simplified Chinese translation
+* Fixed double display of buttons in gallery
 
 = 3.9.17 =
 * Tumblr button
