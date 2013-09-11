@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, VKontakte and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.18
+Version: 3.9.19
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.18';
+$HUPSO_VERSION = '3.9.19';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -168,7 +168,22 @@ function hupso_plugin_uninstall() {
 	delete_option( 'hupso_image_folder_url' );	
 	delete_option( 'hupso_background_color' );	
 	delete_option( 'hupso_border_color' );		
-	delete_option( 'hupso_meta_box' );				
+	delete_option( 'hupso_meta_box' );		
+	
+	/* Delete custom post types */
+	$args = array(
+	   'public'   => true,
+	   '_builtin' => false
+	);
+	$output = 'names'; // names or objects, note names is the default
+	$operator = 'and'; // 'and' or 'or'
+	$post_types = get_post_types( $args, $output, $operator ); 
+				
+	foreach ( $post_types  as $post_type ) {
+		$name = 'hupso_custom_post_' . $post_type;
+		delete_option( $name );
+	}
+	
 }
 
 function hupso_plugin_activation() {
@@ -713,6 +728,35 @@ function hupso_admin_settings_show() {
 			<input type="checkbox" name="hupso_show_excerpts" value="1" <?php echo $hupso_show_excerpts_checked; ?> /> <?php _e('Excerpts', 'hupso'); ?><br/>			
 			<input type="checkbox" name="hupso_show_search" value="1" <?php echo $hupso_show_search_checked; ?> /> <?php _e('Search pages', 'hupso'); ?><br/>				
 			<input type="checkbox" name="hupso_password_protected" value="1" <?php echo $hupso_password_protected_checked; ?> /> <?php _e('Password protected posts', 'hupso'); ?><br/>	
+			
+			<?php 
+				/* Custom post types */
+				$args = array(
+				   'public'   => true,
+				   '_builtin' => false
+				);
+				$output = 'names'; // names or objects, note names is the default
+				$operator = 'and'; // 'and' or 'or'
+				$post_types = get_post_types( $args, $output, $operator ); 
+
+				if ( count($post_types) > 0) {
+					echo '<p>' . __('Custom post types:', 'hupso') . '</p>';
+					
+					foreach ( $post_types  as $post_type ) {
+						$name = 'hupso_custom_post_' . $post_type;
+						$val = get_option( $name, '1' );
+						if ($val == '1') {
+							$checked = ' checked="checked" ';
+						}
+						else {
+							$checked = '';
+						}
+						echo '<input type="checkbox" name="' . $name .'" value="1" ' . $checked.' > ' . $post_type . '<br/>';
+					}			
+				}
+			
+			?>
+			
 			<br/><?php echo __('If you want to show share buttons just on some posts/pages do this:', 'hupso') . ' ' . __('1. Clear options for posts/pages above', 'hupso') . ', ' . __('2. Enable Add share buttons option to "Edit Post" screen - below', 'hupso') . ', ' . __('3. Edit any post or page and configure display of share buttons at the bottom of right sidebar (on "Edit Post" screen)', 'hupso') . '<br/>';
 				/* add meta box */
 				$checked = ' checked="checked" ';
@@ -1186,6 +1230,24 @@ function hupso_admin_settings_save() {
 		update_option( 'hupso_meta_box', $hupso_meta_box );
 	}	
 	
+	/* save custom post types */
+	$args = array(
+	   'public'   => true,
+	   '_builtin' => false
+	);
+	$output = 'names'; // names or objects, note names is the default
+	$operator = 'and'; // 'and' or 'or'
+	$post_types = get_post_types( $args, $output, $operator ); 
+	foreach ( $post_types  as $post_type ) {
+		$name = 'hupso_custom_post_' . $post_type;
+		$val = @$_POST[$name];
+		if ($val == '') {
+			update_option ( $name, '0' );
+		}
+		else {
+			delete_option ( $name );
+		}
+	}	
 	
 	
 }
@@ -1243,6 +1305,18 @@ function hupso_the_content( $content ) {
 		$content = str_ireplace('[hupso]', '', $content);
 		if ($value != 'enabled')
 			return $content;
+	}
+	
+	/* Check custom post types */	
+	if (isset($post)) {	
+		$name = 'hupso_custom_post_' . $post->post_type;
+	}
+	$val = get_option( $name, '1' );
+	if ($val == '0') {
+		$content = str_ireplace('[hupso_hide]', '', $content);
+		$content = str_ireplace('[hupso]', '', $content);
+		if ($value != 'enabled')
+			return $content;		
 	}
 	
 	/* Do now show share buttons when [hupso_hide] is used */

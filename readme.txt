@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, vkontakte
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr
 Requires at least: 2.8
 Tested up to: 3.6
-Stable tag: 3.9.18
+Stable tag: 3.9.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -20,7 +20,7 @@ These services are used by millions of people every day, so sharing your content
 
 * Slick, minimalistic design.
 * Very small and fast. The code for sharing button is very small (only a few KB), so share buttons will not slow down your website - even on devices with slow network connections.
-* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious, VKontakte (ВКонтакте).
+* All major social networks are supported: Twitter, Facebook (Facebook Share / Facebook Like / Facebook Send), Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicious, VKontakte.
 * Social media counters: Twitter Tweet, Facebook Like, Google +1, Linkedin Share, Pinterest - Pin it 
 * Compatible with all major web browsers: Firefox, Chrome, Internet Explorer, Safari, Opera.
 * Share toolbar works with desktop and mobile devices (mobile phones and tablets). Tested with PC, Apple iOS / iPhone / iPad and Google Android devices.
@@ -44,6 +44,7 @@ These services are used by millions of people every day, so sharing your content
 * Print button
 * All share buttons are optional: You can add or remove any button from plugin settings
 * Multisite support (works with Wordpress Multi-site)
+* Support for custom post types (it is possible to show or hide share buttons for each custom post type)
 
 Share Buttons are *very easy to configure*. Just select button type, size, position and which social networking services do you want to offer to your visitors.
 Buttons will appear below your articles or on top of them (or both) as you choose.
@@ -284,6 +285,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.19 =
+* Support for custom post types.  It is now possible to show or hide share buttons for each custom post type.
 
 = 3.9.18 =
 * VKontakte button
