@@ -1,14 +1,14 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo
 Requires at least: 2.8
-Tested up to: 3.7
-Stable tag: 3.9.22
+Tested up to: 3.7.1
+Stable tag: 3.9.23
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Help visitors share your posts on popular social networks: Twitter, Facebook, Google+, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit and others.
+Help share your posts on popular social networks: Twitter, Facebook, Google+, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit, Bebo and others.
 
 == Description ==
 
@@ -285,6 +285,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.23 =
+* Fix for using echo do_shortcode('[hupso]') inside the loop
 
 = 3.9.22 =
 * Renren button
