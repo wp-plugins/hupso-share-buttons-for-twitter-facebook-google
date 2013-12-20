@@ -4,7 +4,7 @@ Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo
 Requires at least: 2.8
 Tested up to: 3.7.1
-Stable tag: 3.9.23
+Stable tag: 3.9.24
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ You can configure share buttons in plugin settings.
 
 **Translations**
 
-Plugin is currently translated into: Czech, Traditional Chinese, Simplified Chinese.
+Plugin is currently translated into: Czech, Traditional Chinese, Simplified Chinese and Dutch (Nederlands / Belgium).
 If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/).
 
 
@@ -285,6 +285,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 3.9.24 =
+* Added Dutch (Nederlands / Belgium) translation
 
 = 3.9.23 =
 * Fix for using echo do_shortcode('[hupso]') inside the loop
