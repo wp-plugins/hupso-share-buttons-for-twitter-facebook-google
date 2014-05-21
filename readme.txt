@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo, social media
 Requires at least: 2.8
-Tested up to: 3.7.1
-Stable tag: 3.9.24
+Tested up to: 3.9.1
+Stable tag: 3.9.25
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,7 +86,7 @@ Yes. Thay are free and will always be free. And you do not need to open any acco
 
 = Are share buttons using Javascript? =
 
-Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Counters load javascript code from Twitter, Facebook, Google, Linkedin, Pinterest or from other social services that are selected. Interface for share buttons is loaded from our servers via javascript at run-time. This enables us to add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. 
+Yes. Javascript is required for sharing buttons to function properly and it must be enabled. Counters load javascript code from Twitter, Facebook, Google, Linkedin, Pinterest or from other social services that are selected. Interface for share buttons is loaded from our servers via javascript at run-time. This enables us to add minor enhancements and fix browser bugs the moment they are discovered without forcing you to upgrade the plugin all the time. Some button images are loaded from your local Wordpress installation and some from our servers. Clicks on share icons can be redirected to target social network throught our servers. One of the benefits of such setup is that share buttons keep working properly, even when there are API changes at social networking sites. This can be a major advantage for websites that do not plan to update plugins regularly.
 
 = How can I hide/show share buttons for specific posts? =
 
@@ -240,6 +240,16 @@ It is missing if your site is running from localhost. It will work when you move
 
 Yes, you can. Enter your website root under "Custom url" in Settings. After that counters will show sharing stats for your whole website, not for each page individually.
 
+= Email button does not seem to work on some devices. Nothing happens when I click on it. What can I do? =
+
+Clicking on e-mail button invokes default e-mail application on the device. If default e-mail application is not set up, it will not do anything.
+On Firefox and Chrome you can use web based e-mail (such as gmail.com or outlook.com) as your default e-mail application if you like, so
+clicking on the email icons will open your web based e-mail account.
+
+[Firefox instructions](https://support.mozilla.org/en-US/kb/change-program-used-open-email-links)
+
+[Chrome instructions](https://support.google.com/chrome/answer/1382847?hl=en#content)
+
 = Buttons are not working properly. What can I do? =
 
 Please upgrade the plugin to the latest version. If that does not help then try to reinstall the plugin (uninstall it and install it again).
@@ -286,6 +296,9 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Changelog ==
 
+= 3.9.25 =
+* Shortcodes with custom urls are now working properly (example: [hupso url="http://www.yahoo.com"])
+
 = 3.9.24 =
 * Added Dutch (Nederlands / Belgium) translation
 
@@ -317,7 +330,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 * Better Pinterest dialog for selecting images
 
 = 3.9.16 =
-* Included hupso.pot file for translation. If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/). 
+* media6degrees.com). 
 * Added Czech translation 
 
 = 3.9.15 =

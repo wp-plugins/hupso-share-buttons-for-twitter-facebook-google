@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, VKontakte and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.24
+Version: 3.9.25
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.24';
+$HUPSO_VERSION = '3.9.25';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -70,6 +70,7 @@ $hupso_default_services = array(
 add_action('widgets_init', 'hupso_widget_init');
 add_shortcode( 'hupso', 'hupso_shortcodes' );
 
+
 /* Use shortcodes in text widgets */
 $hupso_widget_text = get_option( 'hupso_widget_text', '1');
 if ( $hupso_widget_text == '1' ) {
@@ -96,15 +97,15 @@ function hupso_widget_init() {
 }
 
 function hupso_shortcodes( $atts ) {
-	global $hupso_state, $hupso_shortcode_params;
-	$hupso_state = 'shortcodes';
-	if ($atts == '') {
-		return hupso_the_content_shortcodes('');
-	}
-	else {
-		$hupso_shortcode_params = $atts;
-		return hupso_the_content_shortcodes('');
-	}
+    global $hupso_state, $hupso_shortcode_params;
+    $hupso_state = 'shortcodes';    
+    if ($atts == '') {
+        return hupso_the_content_shortcodes('');
+    }
+    else {
+        $hupso_shortcode_params = $atts;
+        return hupso_the_content_shortcodes('');
+    }  
 }
 
 if ( function_exists('register_activation_hook') )
@@ -308,6 +309,7 @@ function hupso_admin_settings_show() {
 	echo '<p><b>' . __('Shortcodes', 'hupso') . '</b></p>';
 	echo '<p>Use <b>[hupso_hide]</b> anywhere in post\'s text to hide buttons for specific post.</p>';
 	echo '<p>Use <b>[hupso]</b> anywhere in post\'s text to show buttons for specific post at custom position.</p>';
+    echo '<p>Use <b>[hupso url="URL"]</b> anywhere in post\'s text to show buttons for specific post at custom position and using custom URL.</p>';
 	echo '<p>Use <b>Hupso Share Buttons Widget</b> to show share buttons in sidebar or footer.</p>';	
 	echo '<p>Use <b>echo do_shortcode( \'[hupso]\' ); </b> to show share buttons anywhere inside template files.</p>';	
 	echo '<p>Use <b>global $HUPSO_SHOW; $HUPSO_SHOW = false;</b> to hide share buttons inside template files. Make sure you do this before div id="content". This will hide the buttons in content. Share buttons will still show in widget (if used).</p>';		
@@ -324,6 +326,11 @@ function hupso_admin_settings_show() {
 	echo '<p><b>Generic HTML code</b></p>';	
 	echo '<p>If you need generic HTML code for Hupso Share Buttons to use in HTML documents or inside other CMS, you can <a href="http://www.hupso.com/share/" target="_blank">generate the code here</a>.</p>';
 	echo '</div>';
+    
+    echo '<div id="translations" style="background: #99EEDD; padding: 10px 10px 10px 10px; margin-top:30px; ">';     
+    echo '<p><b>Translations</b></p>'; 
+    echo '<p>If you would like to translate this plugin into your language, send message <a href="http://www.hupso.com/share/feedback/" target="_blank"> here</a>. Your translations will be included in the next version of the plugin.</p>';
+    echo '</div>';
 	
 	echo '</div>';
 	
@@ -404,7 +411,7 @@ function hupso_admin_settings_show() {
 			<tr><td><input type="radio" name="size" value="button100x23" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button100_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_100_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button120x28" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button120_checked; ?>/></td><td style="padding-right:10px;"><?php echo $button_120_img ?></td></tr>
 			<tr><td><input type="radio" name="size" value="button160x37" onclick="hupso_create_code()" onchange="hupso_create_code()" <?php echo $button160_checked; ?>/></td><td style="padding-right:20px;"><?php echo $button_160_img ?></td></tr>
-			<tr><td><input type="radio" name="size" value="custom" onclick="hupso_create_code()" onchange="hupso_create_code()"  <?php echo $share_button_custom_checked; ?>  /></td><td style="padding-left:10px;"><?php _e('Custom image from URL', 'hupso'); ?>: <input type="text" name="hupso_button_image_custom_url" onchange="create_code()" style="width:300px;" value="<?php echo $hupso_button_image_custom_url; ?>"/><br/> See <a href="http://www.hupso.com/share/gallery.php" target="_blank">gallery of custom share buttons</a>.</td></tr>	</td></tr>				
+			<tr><td><input type="radio" name="size" value="custom" onclick="hupso_create_code()" onchange="hupso_create_code()"  <?php echo $share_button_custom_checked; ?>  /></td><td style="padding-left:10px;"><?php _e('Custom image from URL', 'hupso'); ?>: <input type="text" name="hupso_button_image_custom_url" onchange="create_code()" style="width:300px;" value="<?php echo $hupso_button_image_custom_url; ?>"/><br/> See <a href="http://www.hupso.com/share/gallery.php" target="_blank">gallery of custom share buttons</a>.</td></tr>				
 			</table>
 <hr style="height:1px; width:500px;"/>			
 		</td>
@@ -1237,7 +1244,6 @@ function hupso_admin_settings_save() {
 	/* save custom post types */
 	$args = array(
 	   'public'   => true,
-
 	   '_builtin' => false
 	);
 	$output = 'names'; // names or objects, note names is the default
@@ -1274,6 +1280,7 @@ function hupso_the_excerpt( $content ) {
 	global $hupso_state, $post;
 	$hupso_state = 'normal';
 	
+	
 	$hupso_show_excerpts = get_option( 'hupso_show_excerpts' , '1' );	
 	if ( ( $hupso_show_excerpts == 1 )  && ( $post->post_type != 'attachment' ) ) {
 		return hupso_the_content ( $content );		
@@ -1285,8 +1292,8 @@ function hupso_the_excerpt( $content ) {
 
 function hupso_the_content_shortcodes( $content ) {
 	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW, $hupso_p, $post;
-	global $post_url, $post_title;
-
+	global $post_url, $post_title, $hupso_shortcode_params;
+    
 	$value = '';
 	$hupso_meta_box = get_option( 'hupso_meta_box', '' );
 	if ($hupso_meta_box != "1") {
@@ -1313,8 +1320,16 @@ function hupso_the_content_shortcodes( $content ) {
 	}
 	
 	$post_url = ( isset($GLOBALS['post']) ? get_permalink($GLOBALS['post']->ID) : get_permalink() );	
-	$post_title = ( isset( $GLOBALS['post'] ) ? $GLOBALS['post']->post_title : '' );	
+	$post_title = ( isset( $GLOBALS['post'] ) ? $GLOBALS['post']->post_title : '' );
+    
+    if ( isset($hupso_shortcode_params['title']) ) {
+        $post_title = $hupso_shortcode_params['title'];
+    }	
 	
+    if ( isset($hupso_shortcode_params['url']) ) {
+        $post_url = $hupso_shortcode_params['url'];
+    }   
+
 
 	/* Check if we are inside category where buttons are hidden */
 	$cats = get_the_category();
@@ -1407,24 +1422,25 @@ function hupso_the_content_shortcodes( $content ) {
 	}
 	
 	
-		/* Shortcode param */
-		if ( ($hupso_shortcode_params != '') && ($h_url != '') ) {
-			$new_url = $h_url;
-		}
-		
+	/* Shortcode param */
+	if ( ($hupso_shortcode_params != '') && ($h_url != '') ) {
+		$new_url = $h_url;
+	}
+	else {
 		$new_url = $post_url;
+	}
 		
-		switch ( $button_type ) {
-			case 'share_button':	
-				$code .= 'var hupso_url="' . $new_url . '";';
-				break;
-			case 'share_toolbar':
-				$code .= 'var hupso_url_t="' . $new_url . '";';
-				break;
-			case 'counters':
-				$code .= 'var hupso_url_c="' . $new_url . '";';
-				break;
-		}
+	switch ( $button_type ) {
+		case 'share_button':	
+			$code .= 'var hupso_url="' . $new_url . '";';
+			break;
+		case 'share_toolbar':
+			$code .= 'var hupso_url_t="' . $new_url . '";';
+			break;
+		case 'counters':
+			$code .= 'var hupso_url_c="' . $new_url . '";';
+			break;
+	}
 			
 	
 	
@@ -1511,13 +1527,18 @@ function hupso_the_content_shortcodes( $content ) {
 		}
 	}	
 		
+    $hupso_shortcode_params = '';          
 	return $new_content;
 }
 
 function hupso_the_content( $content ) {
 
 	global $hupso_plugin_url, $wp_version, $hupso_dev, $hupso_state, $HUPSO_SHOW, $hupso_p, $post;
-
+    
+    if (strpos($content, '[hupso ') !== false) {
+        return $content;
+    }
+    
 	$value = '';
 	$hupso_meta_box = get_option( 'hupso_meta_box', '' );
 	if ($hupso_meta_box != "1") {
@@ -1664,7 +1685,7 @@ function hupso_the_content( $content ) {
 	$hupso_twitter_via = get_option( 'hupso_twitter_via', '' );
 	$hupso_counters_lang = get_option( 'hupso_counters_lang', 'en_US' );
 	
-	$post_url = ( isset($GLOBALS['post']) ? get_permalink($GLOBALS['post']->ID) : get_permalink() );	
+	$post_url = ( isset($GLOBALS['post']) ? get_permalink($GLOBALS['post']->ID) : get_permalink() );
 	$post_title = ( isset( $GLOBALS['post'] ) ? $GLOBALS['post']->post_title : '' );	
 		
 	if ( ( $hupso_state == 'widget' ) || ( $hupso_state == 'shortcodes' ) ) {
@@ -1751,6 +1772,8 @@ function hupso_the_content( $content ) {
 		}
 	}
 	
+	$new_url = '';
+	
 	if ( ( is_home() && $hupso_show_frontpage == 1 ) || ( is_archive() && $hupso_show_category == 1 ) || ( $hupso_shortcode_params != '' ) )  {
 		if ( $hupso_page_url != '' ) {
 			$new_url = $hupso_page_url;
@@ -1763,20 +1786,21 @@ function hupso_the_content( $content ) {
 		if ( ($hupso_shortcode_params != '') && ($h_url != '') ) {
 			$new_url = $h_url;
 		}
-		
-		switch ( $button_type ) {
-			case 'share_button':	
-				$code .= 'var hupso_url="' . $new_url . '";';
-				break;
-			case 'share_toolbar':
-				$code .= 'var hupso_url_t="' . $new_url . '";';
-				break;
-			case 'counters':
-				$code .= 'var hupso_url_c="' . $new_url . '";';
-				break;
-		}
-			
+	
 	}
+	
+	switch ( $button_type ) {
+		case 'share_button':	
+			$code .= 'var hupso_url="' . $new_url . '";';
+			break;
+		case 'share_toolbar':
+			$code .= 'var hupso_url_t="' . $new_url . '";';
+			break;
+		case 'counters':
+			$code .= 'var hupso_url_c="' . $new_url . '";';
+			break;
+	}
+	
 	
 	if ( $hupso_title_text == 'post' ) {
 		$ptitle = strip_tags($post_title);
@@ -1858,7 +1882,8 @@ function hupso_the_content( $content ) {
 				$new_content = $content . '<div' . $hupso_css_out. '>' . $code . '</div>';			
 		}
 	}	
-		
+		 
+    $hupso_shortcode_params = '';     
 	return $new_content;
 		
 }  
