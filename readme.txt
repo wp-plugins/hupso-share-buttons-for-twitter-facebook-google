@@ -3,8 +3,8 @@ Contributors: kasal
 Donate link: http://www.hupso.com/
 Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo, social media
 Requires at least: 2.8
-Tested up to: 3.9.1
-Stable tag: 3.9.25
+Tested up to: 4.2.1
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,6 +196,15 @@ Hide share image (from settings) and add this CSS to your style.css file:
 
 Then adjust the values so that it looks great with your theme. 
 
+= How can I increase the space between the buttons? =
+
+Add this CSS to your style.css file:
+
+`.hupso_c > div > a > img {
+    padding-right: 7px !important;
+}`
+
+
 = Facebook like button is seen through my top navigation bar while other buttons are ok. How can fix it? =
 
 Add this CSS to your style.css file:
@@ -296,6 +305,11 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 == Changelog ==
 
+= 4.0.0 =
+* Added Russian share image
+* Compatible with Wordpress 4.2.1
+* Improved compatibility with theme Twenty Fifteen
+
 = 3.9.25 =
 * Shortcodes with custom urls are now working properly (example: [hupso url="http://www.yahoo.com"])
 
@@ -330,7 +344,7 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 * Better Pinterest dialog for selecting images
 
 = 3.9.16 =
-* media6degrees.com). 
+* Included hupso.pot file for translation. If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/). 
 * Added Czech translation 
 
 = 3.9.15 =

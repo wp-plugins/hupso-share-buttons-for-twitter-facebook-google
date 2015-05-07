@@ -3,7 +3,7 @@
 Plugin Name: Hupso Share Buttons for Twitter, Facebook & Google+
 Plugin URI: http://www.hupso.com/share/
 Description: Add simple social sharing buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, VKontakte and Delicous. These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
-Version: 3.9.25
+Version: 4.0.0
 Author: kasal
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,7 @@ Domain Path: /languages
 */
 
 global $HUPSO_VERSION;
-$HUPSO_VERSION = '3.9.25';
+$HUPSO_VERSION = '4.0.0';
 
 $hupso_dev = '';
 $hupso_state = 'normal';
@@ -481,6 +481,7 @@ function hupso_admin_settings_show() {
 			  <option value="it" <?php if ($hupso_share_image_lang == 'it') echo ' selected ';?>>Italian</option>	  		  		  
 			  <option value="pt" <?php if ($hupso_share_image_lang == 'pt') echo ' selected ';?>>Portuguese</option>
 			  <option value="es" <?php if ($hupso_share_image_lang == 'es') echo ' selected ';?>>Spanish</option>
+			  <option value="ru" <?php if ($hupso_share_image_lang == 'ru') echo ' selected ';?>>Russian</option>			  
 			  <option value="id" <?php if ($hupso_share_image_lang == 'id') echo ' selected ';?>>Indonesian</option>
 			  <option value="da" <?php if ($hupso_share_image_lang == 'da') echo ' selected ';?>>Danish</option>	
 			  <option value="nl" <?php if ($hupso_share_image_lang == 'nl') echo ' selected ';?>>Dutch</option>	
