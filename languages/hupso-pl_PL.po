@@ -1,0 +1,468 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/hupso-share-buttons-for-"
+"twitter-facebook-google\n"
+"POT-Creation-Date: 2015-04-05 11:14+0100\n"
+"PO-Revision-Date: 2015-04-08 11:42+0100\n"
+"Last-Translator: Ibushi <ibu.senpai@gmail.com>\n"
+"Language-Team: \n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../share-buttons-hupso-meta.php:20
+msgid "Hupso"
+msgstr "Hupso"
+
+#: ../share-buttons-hupso-meta.php:35 ../share-buttons-hupso-meta.php:38
+#: ../share-buttons-hupso-meta.php:95
+msgid "Default"
+msgstr "Domyślne"
+
+#: ../share-buttons-hupso-meta.php:41 ../share-buttons-hupso-meta.php:96
+msgid "Enabled"
+msgstr "Włączone"
+
+#: ../share-buttons-hupso-meta.php:44 ../share-buttons-hupso-meta.php:97
+msgid "Disabled"
+msgstr "Wyłączone"
+
+#: ../share-buttons-hupso-meta.php:95 ../share-buttons-hupso-widget.php:76
+#: ../share-buttons-hupso.php:1918
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: ../share-buttons-hupso-widget.php:15
+msgid ""
+"Help visitors share your posts on the most popular social networks: Twitter, "
+"Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit and others"
+msgstr ""
+"Ułatw odwiedzającym udostępnianie wpisów na najbardziej popularnych stronach "
+"społecznościowych: Twitter, Facebook, Google Plus, Linkedin, StumbleUpon, "
+"Digg, Reddit i innych"
+
+#: ../share-buttons-hupso-widget.php:68 ../share-buttons-hupso.php:283
+msgid "Share"
+msgstr "Udostępnij"
+
+#: ../share-buttons-hupso-widget.php:72
+msgid "Title"
+msgstr "Tytuł"
+
+#: ../share-buttons-hupso.php:281
+msgid "en_US"
+msgstr "en_US"
+
+#: ../share-buttons-hupso.php:282
+msgid "English"
+msgstr "Angielski"
+
+#: ../share-buttons-hupso.php:284 ../share-buttons-hupso.php:739
+msgid "Excerpts"
+msgstr "Fragmenty"
+
+#: ../share-buttons-hupso.php:288
+msgid "You do not have sufficient permissions to access this page."
+msgstr "Nie masz wystarczających uprawnień, aby wejść na tę stronę."
+
+#: ../share-buttons-hupso.php:298
+msgid "Hupso Share Buttons for Twitter, Facebook & Google+ (Settings)"
+msgstr ""
+"Przyciski Udostępniania Hupso na Twitter, Facebook & Google+ (Ustawienia"
+
+#: ../share-buttons-hupso.php:302
+msgid "Preview"
+msgstr "Podgląd"
+
+#: ../share-buttons-hupso.php:302
+msgid "Update"
+msgstr "Aktualizuj"
+
+#: ../share-buttons-hupso.php:305 ../share-buttons-hupso.php:981
+msgid "Save Settings"
+msgstr "Zapisz ustawienia"
+
+#: ../share-buttons-hupso.php:309
+msgid "Shortcodes"
+msgstr "Shortcode"
+
+#: ../share-buttons-hupso.php:378
+msgid "Button type"
+msgstr "Typ przycisku"
+
+#: ../share-buttons-hupso.php:406
+msgid "Button size"
+msgstr "Rozmiar przycisku"
+
+#: ../share-buttons-hupso.php:414 ../share-buttons-hupso.php:504
+#: ../share-buttons-hupso.php:891
+msgid "Custom image from URL"
+msgstr "Niestandardowy obraz z URL"
+
+#: ../share-buttons-hupso.php:425
+msgid "Toolbar size"
+msgstr "Rozmiar paska"
+
+#: ../share-buttons-hupso.php:440
+msgid "Big"
+msgstr "Duże"
+
+#: ../share-buttons-hupso.php:441
+msgid "Medium"
+msgstr "Średni"
+
+#: ../share-buttons-hupso.php:442
+msgid "Small"
+msgstr "Małe"
+
+#: ../share-buttons-hupso.php:453
+msgid "Share image"
+msgstr "Obraz udostępnienia"
+
+#: ../share-buttons-hupso.php:476
+msgid "Show in language"
+msgstr "Pokaż w języku"
+
+#: ../share-buttons-hupso.php:503
+msgid "Hide"
+msgstr "Ukryj"
+
+#: ../share-buttons-hupso.php:504
+msgid "Optimal image height: 32px - big, 24px - medium, 16px - small/counters"
+msgstr ""
+"Optymalna wysokość obrazu: 32px - duży, 24px - średni, 16px - mały/liczniki"
+
+#: ../share-buttons-hupso.php:518
+msgid "Background color"
+msgstr "Kolor tła"
+
+#: ../share-buttons-hupso.php:519
+msgid "Border color"
+msgstr "Kolor obramowania"
+
+#: ../share-buttons-hupso.php:528 ../share-buttons-hupso.php:571
+msgid "Social networks"
+msgstr "Strony społecznościowe"
+
+#: ../share-buttons-hupso.php:617
+msgid "Show counters in language"
+msgstr "Pokaż liczniki w języku"
+
+#: ../share-buttons-hupso.php:621
+msgid "Language changes will not show in preview"
+msgstr "Zmiany języka nie zostaną pokazane na podglądzie"
+
+#: ../share-buttons-hupso.php:622
+msgid ""
+"Select which language to use for Counters (Tweet, Facebook Like, Facebook "
+"Share...)"
+msgstr ""
+"Wybierz, który język użyć w Licznikach (Tweet, Facebook Like, Facebook "
+"Share...)"
+
+#: ../share-buttons-hupso.php:622
+msgid ""
+"Some social networks support more languages than others, so some buttons "
+"might get translated, while some might stay in English"
+msgstr ""
+"Niektóre strony społecznościowe wspierają więcej języków niż inne, więc "
+"niektóre przyciski mogą być przetłumaczone, gdy inne będą w języku angielskim"
+
+#: ../share-buttons-hupso.php:634
+msgid "Type of menu"
+msgstr "Typ menu"
+
+#: ../share-buttons-hupso.php:647
+msgid "Show icons and service names"
+msgstr "Pokaż ikony i nazwy usług"
+
+#: ../share-buttons-hupso.php:648
+msgid "Show icons only"
+msgstr "Pokaż tylko ikony"
+
+#: ../share-buttons-hupso.php:655
+msgid "Button position"
+msgstr "Pozycja przycisku"
+
+#: ../share-buttons-hupso.php:670
+msgid "Above the post"
+msgstr "Nad wpisem"
+
+#: ../share-buttons-hupso.php:671
+msgid "Below the post"
+msgstr "Pod wpisem"
+
+#: ../share-buttons-hupso.php:672
+msgid "Above and below the post"
+msgstr "Nad i pod wpisem"
+
+#: ../share-buttons-hupso.php:675
+msgid "Show buttons on"
+msgstr "Pokaż przyciski na"
+
+#: ../share-buttons-hupso.php:735
+msgid "Posts"
+msgstr "Wpisy"
+
+#: ../share-buttons-hupso.php:736
+msgid "Pages"
+msgstr "Strony"
+
+#: ../share-buttons-hupso.php:737
+msgid "Front page"
+msgstr "Strona główna"
+
+#: ../share-buttons-hupso.php:738
+msgid "Archive pages (categories, tags, dates, authors)"
+msgstr "Strony archiwum (kategorie, tagi, daty, autorzy)"
+
+#: ../share-buttons-hupso.php:740
+msgid "Search pages"
+msgstr "Strony wyszukiwania"
+
+#: ../share-buttons-hupso.php:741
+msgid "Password protected posts"
+msgstr "Wpisy chronione hasłem"
+
+#: ../share-buttons-hupso.php:754
+msgid "Custom post types:"
+msgstr "Niestandardowe typy wpisów:"
+
+#: ../share-buttons-hupso.php:771
+msgid "If you want to show share buttons just on some posts/pages do this:"
+msgstr ""
+"Jeśli chcesz pokazać przyciski udostępniania jedynie przy niektórych wpisach/"
+"stronach:"
+
+#: ../share-buttons-hupso.php:771
+msgid "1. Clear options for posts/pages above"
+msgstr "1. Wyczyść opcje wpisów/stron powyżej"
+
+#: ../share-buttons-hupso.php:771
+msgid "2. Enable Add share buttons option to \"Edit Post\" screen - below"
+msgstr ""
+"2. Włącz opcję \"Dodaj przyciski udostępniania\" do widoku Edycji wpisu - "
+"poniżej"
+
+#: ../share-buttons-hupso.php:771
+msgid ""
+"3. Edit any post or page and configure display of share buttons at the "
+"bottom of right sidebar (on \"Edit Post\" screen)"
+msgstr ""
+"3. Edytuj jakikolwiek post lub stronę i skonfiguruj wyświetlanie przycisków "
+"udostępniania na dole prawego paska bocznego (w widoku \"Edycji wpisu\")"
+
+#: ../share-buttons-hupso.php:780
+msgid "Add share buttons option to \"Edit Post\" screen"
+msgstr "Dodaj opcję przycisków udostępniania do widoku Edycji wpisu"
+
+#: ../share-buttons-hupso.php:784
+msgid "Hide buttons for specific categories"
+msgstr "Ukryj przyciski w specyficznych kategoriach"
+
+#: ../share-buttons-hupso.php:805
+msgid "Always show"
+msgstr "Zawsze pokazuj"
+
+#: ../share-buttons-hupso.php:807
+msgid "Select categories where you want to hide share buttons."
+msgstr "Wybierz kategorie, na których chcesz ukryć przyciski udostępniania."
+
+#: ../share-buttons-hupso.php:808
+msgid ""
+"To select multiple categories, you need to hold down the Control Key for "
+"each selected category after the first one."
+msgstr ""
+"Aby zaznaczyć kilka kategorii, musisz przytrzymać przycisk CTRL dla każdej "
+"kolejnej kategorii poza pierwszą."
+
+#: ../share-buttons-hupso.php:809
+msgid ""
+"Leave all options unselected or select just the last option to show buttons "
+"inside every category."
+msgstr ""
+"Nie zaznaczaj tych opcji lub zaznacz tylko ostatnią, aby pokazać przyciski "
+"wewnątrz każdej kategorii."
+
+#: ../share-buttons-hupso.php:814
+msgid "Get share text from"
+msgstr "Otrzymaj udostępnienie tekstu z"
+
+#: ../share-buttons-hupso.php:828
+msgid "Title of post in Wordpress"
+msgstr "Tytuł wpisu Wordpressa"
+
+#: ../share-buttons-hupso.php:829
+msgid "Title of current web page"
+msgstr "Tytuł obecnej strony"
+
+#: ../share-buttons-hupso.php:834
+msgid "Twitter via"
+msgstr "Twitter via"
+
+#: ../share-buttons-hupso.php:842
+msgid "Add \"via @yourprofile\" to tweets"
+msgstr "Dodaj \"via @twójprofil\" do tweetów"
+
+#: ../share-buttons-hupso.php:847
+msgid "Image for Facebook thumbnail"
+msgstr "Obraz do miniatury Facebooka"
+
+#: ../share-buttons-hupso.php:887
+msgid ""
+"All images for Facebook should be at least 200px in both dimensions "
+"(Facebook limitation)"
+msgstr ""
+"Wszystkie obrazy na Facebooka powinny mieć wymiary co najmniej 200x200px "
+"(ograniczenia Facebooka)"
+
+#: ../share-buttons-hupso.php:887
+msgid ""
+"After you change settings here, please wait 24 hours (or more) for Facebook "
+"to fetch new thumbnails"
+msgstr ""
+"Po zmianie tych ustawień, odczekaj 24 godziny (lub więcej), aby Facebook "
+"przesłał nowe miniatury"
+
+#: ../share-buttons-hupso.php:887
+msgid ""
+"\"og:image\" meta tag with image url will be added to head of HTML. Select "
+"\"None\" to disable this feature"
+msgstr ""
+"\"og:image\" meta tag z adresem ult obrazu będzie dodany w nagłówku HTML. "
+"Wybierz \"None\", aby wyłączyć tę opcję"
+
+#: ../share-buttons-hupso.php:889
+msgid "Header image"
+msgstr "Obraz nagłówka"
+
+#: ../share-buttons-hupso.php:889
+msgid "Click here to see full header image"
+msgstr "Kliknij tutaj, aby zobaczyć pełny obraz nagłówka"
+
+#: ../share-buttons-hupso.php:889
+msgid "preview"
+msgstr "podgląd"
+
+#: ../share-buttons-hupso.php:890
+msgid "Featured image of post"
+msgstr "Wyróżniony obraz wpisu"
+
+#: ../share-buttons-hupso.php:892
+msgid "None"
+msgstr "Brak"
+
+#: ../share-buttons-hupso.php:893
+msgid ""
+"FCH  - use Featured image of post (if available), then use Custom image (if "
+"available), then use Header image (if available)"
+msgstr ""
+"WNN - użyj Wyróżnionego obrazu wpisu (jeśli dostępny), później użyj "
+"Niestandardowego obrazu (jeśli dostępny), później użyj obrazu Nagłówka "
+"(jeśli dostępny)"
+
+#: ../share-buttons-hupso.php:898
+msgid "CSS style"
+msgstr "Styl CSS"
+
+#: ../share-buttons-hupso.php:906
+msgid ""
+"Use CSS to style share buttons. For example: you can increase padding to "
+"have more free space above or below the buttons"
+msgstr ""
+"Użyć CSS aby ostylować przyciski. Na przykład: możesz zwiększyć padding, aby "
+"zyskać więcej miejsca pod lub nad przyciskami"
+
+#: ../share-buttons-hupso.php:911
+msgid "Widget Text"
+msgstr "Tekst Widgetu"
+
+#: ../share-buttons-hupso.php:924
+msgid "Use shortcodes in text widgets"
+msgstr "Użyj shortcode w tekstowych widgetach."
+
+#: ../share-buttons-hupso.php:924
+msgid ""
+"If this is checked, you can use [hupso] shortcode inside text widgets and it "
+"will be replaced by share buttons"
+msgstr ""
+"Jeśli opcja jest zaznaczona, możesz użyć shortcode [hupso] wewnątrz tekstu "
+"widgetu, który zostanie zastąpiony przyciskami"
+
+#: ../share-buttons-hupso.php:929
+msgid "Custom title"
+msgstr "Niestandardowy tytuł"
+
+#: ../share-buttons-hupso.php:937
+msgid "Enter custom text that will always be used for sharing."
+msgstr ""
+"Wpisz niestandardowy tekst, który będzie zawsze użyty przy udostępnianiu."
+
+#: ../share-buttons-hupso.php:937
+msgid ""
+"Leave this blank to use title of current page as text for sharing. [Default]"
+msgstr ""
+"Pozostaw puste, aby użyć tytułu obecnej strony jako tekstu udostępniania. "
+"[Domyślne]"
+
+#: ../share-buttons-hupso.php:942
+msgid "Custom url"
+msgstr "Niestandardowy URL"
+
+#: ../share-buttons-hupso.php:949
+msgid ""
+"Enter custom url that will always be used for sharing. You can enter your "
+"root website here (e.g.: http://www.example.com or http://example.blogspot."
+"com), so counters will show statistics for your whole website, not for each "
+"page individually."
+msgstr ""
+"Wpisz niestandardowy tekst, który będzie zawsze użyty przy udostępnianiu. "
+"Możesz wpisać link do strony głównej (np. http://www.przyklad.com lub http://"
+"przyklad.blogspot.com), wtedy liczniki będą pokazywać statystyki dla całej "
+"strony, a nie dla każdej z podstron indywidualnie."
+
+#: ../share-buttons-hupso.php:949
+msgid "Leave this blank to use url of current page for sharing. [Default]"
+msgstr ""
+"Pozostaw to pole puste, aby użyć URL aktualnej strony do udostępniania. "
+"[Domyślne]"
+
+#: ../share-buttons-hupso.php:954
+msgid "Use custom social share icons"
+msgstr "Użyj niestandardowych ikon "
+
+#: ../share-buttons-hupso.php:971
+msgid "No. [Default. Do not change this unless you know what you are doing.]"
+msgstr "Nie. [Domyślne. Nie zmieniaj tego, chyba, że wiesz, co robisz.]"
+
+#: ../share-buttons-hupso.php:972
+msgid "Yes, serve images from local Wordpress folder. "
+msgstr "Tak, użyj obrazów z lokalnego folderu Wordpressa."
+
+#: ../share-buttons-hupso.php:974
+msgid "Yes, serve images from remote URL: "
+msgstr "Tak, użyj obrazów ze zdalnego URL:"
+
+#: ../share-buttons-hupso.php:975
+msgid ""
+"Enter URL to folder with custom social images.  Include \"/\" at the end of "
+"the URL. If you would like to use custom icons, make sure you <a href="
+"\"http://www.hupso.com/share/custom-social-icons.php\" target=\"_blank"
+"\">read instructions</a>."
+msgstr ""
+"Wpisz URL do folderu z niestandardowymi ikonami społecznościowymi. Zawrzyj "
+"\"/\" na końcu linku. Jeśli chcesz użyć własnych ikon, upewnij się, że <a "
+"href=\"http://www.hupso.com/share/custom-social-icons.php\" target=\"_blank"
+"\">przeczytałeś instrukcję</a>."
+
+#: ../share-buttons-hupso.php:975
+msgid "This setting has no effect when using Counters."
+msgstr "Te ustawienia nic nie zmieniają, gdy używasz Liczników."

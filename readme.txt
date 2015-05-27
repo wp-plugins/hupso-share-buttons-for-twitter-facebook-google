@@ -1,10 +1,10 @@
 === Hupso Share Buttons for Twitter, Facebook & Google+ ===
 Contributors: kasal
 Donate link: http://www.hupso.com/
-Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo, social media
+Tags: twitter, facebook, google, social sharing, share buttons, social share buttons, share icons, stumbleupon, addthis, sharethis, sexybookmarks, addtoany, multisite, pinterest, print, tumblr, bebo, social media, social buttons, social share, email, print button, social plugin, social widget, email button, post, plus 1
 Requires at least: 2.8
-Tested up to: 4.2.1
-Stable tag: 4.0.0
+Tested up to: 4.2.2
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -60,7 +60,7 @@ You can configure share buttons in plugin settings.
 
 **Translations**
 
-Plugin is currently translated into: Czech, Traditional Chinese, Simplified Chinese and Dutch (Nederlands / Belgium).
+Plugin is currently translated into: Czech, Polish, Traditional Chinese, Simplified Chinese and Dutch (Nederlands / Belgium).
 If you would like to translate into your language, send message [here](http://www.hupso.com/share/feedback/).
 
 
@@ -304,6 +304,10 @@ Please send bug reports and suggestion using [this feedback form](http://www.hup
 
 
 == Changelog ==
+
+= 4.0.1 =
+* Added Polish translation
+* Compatible with Wordpress 4.2.2
 
 = 4.0.0 =
 * Added Russian share image
