@@ -1,0 +1,465 @@
+# Copyright (C) 2014 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Huspo\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/hupso-share-buttons-for-"
+"twitter-facebook-google\n"
+"POT-Creation-Date: 2014-05-27 13:55:17+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-04-08 11:59+0100\n"
+"Last-Translator: ADAM <salamsap@yahoo.com>\n"
+"Language-Team: Hicham ELGOUDALI <elgoudalih@yahoo.com>\n"
+"X-Generator: Poedit 1.6.10\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"Language: ar\n"
+
+#: share-buttons-hupso-meta.php:20
+msgid "Hupso"
+msgstr "ابسو"
+
+#: share-buttons-hupso-meta.php:35 share-buttons-hupso-meta.php:38
+#: share-buttons-hupso-meta.php:95
+msgid "Default"
+msgstr "افتراضي"
+
+#: share-buttons-hupso-meta.php:41 share-buttons-hupso-meta.php:96
+msgid "Enabled"
+msgstr "مفعل"
+
+#: share-buttons-hupso-meta.php:44 share-buttons-hupso-meta.php:97
+msgid "Disabled"
+msgstr "معطيل"
+
+#: share-buttons-hupso-meta.php:95 share-buttons-hupso-widget.php:76
+#: share-buttons-hupso.php:1918
+msgid "Settings"
+msgstr "إعدادات"
+
+#: share-buttons-hupso-widget.php:15
+msgid ""
+"Help visitors share your posts on the most popular social networks: Twitter, "
+"Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit and others"
+msgstr ""
+"ساعد زوار موقعك على مشاركة تدويناتك على اشهر الشبكات الاجتماعية: Twitter, "
+"Facebook, Google Plus, Linkedin, StumbleUpon, Digg, Reddit و اخرى"
+
+#: share-buttons-hupso-widget.php:68 share-buttons-hupso.php:283
+msgid "Share"
+msgstr "شارك"
+
+#: share-buttons-hupso-widget.php:72
+msgid "Title"
+msgstr "العنوان"
+
+#: share-buttons-hupso.php:281
+msgid "en_US"
+msgstr "en_US"
+
+#: share-buttons-hupso.php:282
+msgid "English"
+msgstr "الانجليزية"
+
+#: share-buttons-hupso.php:284 share-buttons-hupso.php:739
+msgid "Excerpts"
+msgstr "مقتطفات"
+
+#: share-buttons-hupso.php:288
+#, fuzzy
+msgid "You do not have sufficient permissions to access this page."
+msgstr "ليس لديك الصلاحيات الكافية لدخول هذه الصفحة."
+
+#: share-buttons-hupso.php:298
+msgid "Hupso Share Buttons for Twitter, Facebook & Google+ (Settings)"
+msgstr "ازرار المشاركة Hupso  لتويتر و الفيسبوك و كوكل بلس (الاعدادات)"
+
+#: share-buttons-hupso.php:302
+#, fuzzy
+msgid "Preview"
+msgstr "معاينة"
+
+#: share-buttons-hupso.php:302
+#, fuzzy
+msgid "Update"
+msgstr "تحديث"
+
+#: share-buttons-hupso.php:305 share-buttons-hupso.php:981
+msgid "Save Settings"
+msgstr "حفظ إعدادات"
+
+#: share-buttons-hupso.php:309
+msgid "Shortcodes"
+msgstr "الاكواد المختصرة"
+
+#: share-buttons-hupso.php:378
+msgid "Button type"
+msgstr "نوع الزر"
+
+#: share-buttons-hupso.php:406
+msgid "Button size"
+msgstr "حجم الزر"
+
+#: share-buttons-hupso.php:414 share-buttons-hupso.php:504
+#: share-buttons-hupso.php:891
+msgid "Custom image from URL"
+msgstr "صورة خاصة من الرابط"
+
+#: share-buttons-hupso.php:425
+msgid "Toolbar size"
+msgstr "حجم شريط الادوات"
+
+#: share-buttons-hupso.php:440
+msgid "Big"
+msgstr "كبير"
+
+#: share-buttons-hupso.php:441
+#, fuzzy
+msgid "Medium"
+msgstr "متوسط"
+
+#: share-buttons-hupso.php:442
+msgid "Small"
+msgstr "صغير"
+
+#: share-buttons-hupso.php:453
+msgid "Share image"
+msgstr "شارك الصور"
+
+#: share-buttons-hupso.php:476
+msgid "Show in language"
+msgstr "عرض باللغة"
+
+#: share-buttons-hupso.php:503
+#, fuzzy
+msgid "Hide"
+msgstr "إخفاء "
+
+#: share-buttons-hupso.php:504
+msgid "Optimal image height: 32px - big, 24px - medium, 16px - small/counters"
+msgstr ""
+"الارتفاع المناسب للصور: 32px - أكبر، 24px - أوسط،  16px - أصغر / الازرار"
+
+#: share-buttons-hupso.php:518
+#, fuzzy
+msgid "Background color"
+msgstr "لون الخلفية"
+
+#: share-buttons-hupso.php:519
+msgid "Border color"
+msgstr "لون الاطار"
+
+#: share-buttons-hupso.php:528 share-buttons-hupso.php:571
+msgid "Social networks"
+msgstr "الشبكات الاجتماعية"
+
+#: share-buttons-hupso.php:617
+msgid "Show counters in language"
+msgstr "عرض العدادات باللغة"
+
+#: share-buttons-hupso.php:621
+msgid "Language changes will not show in preview"
+msgstr "تغيرات اللغة لن يتم عرضها في المعاينة"
+
+#: share-buttons-hupso.php:622
+msgid ""
+"Select which language to use for Counters (Tweet, Facebook Like, Facebook "
+"Share...)"
+msgstr ""
+"حدد اللغة المراد استعمالها في العدادات (Tweet, Facebook like, Facebook "
+"share   ... )"
+
+#: share-buttons-hupso.php:622
+msgid ""
+"Some social networks support more languages than others, so some buttons "
+"might get translated, while some might stay in English"
+msgstr ""
+"بعض الشبكات الاجتماعية تدعم بعض الغات أكتر من الاخرى, اذن فبعض الازرار يمكن "
+"ترجمتها, و البعض الاخر سيبقى على الانجليزية "
+
+#: share-buttons-hupso.php:634
+msgid "Type of menu"
+msgstr "نوع القائمة "
+
+#: share-buttons-hupso.php:647
+msgid "Show icons and service names"
+msgstr "الايقونات و اسماء الخدمات"
+
+#: share-buttons-hupso.php:648
+msgid "Show icons only"
+msgstr "الايقونات فقط"
+
+#: share-buttons-hupso.php:655
+msgid "Button position"
+msgstr "تموضع الازرار"
+
+#: share-buttons-hupso.php:670
+msgid "Above the post"
+msgstr "اعلى التدوينة"
+
+#: share-buttons-hupso.php:671
+msgid "Below the post"
+msgstr "اسفل التدوينة"
+
+#: share-buttons-hupso.php:672
+msgid "Above and below the post"
+msgstr "اعلى و اسفل التدوينة"
+
+#: share-buttons-hupso.php:675
+msgid "Show buttons on"
+msgstr "أظهار الازرار في"
+
+#: share-buttons-hupso.php:735
+#, fuzzy
+msgid "Posts"
+msgstr "مواضيع"
+
+#: share-buttons-hupso.php:736
+#, fuzzy
+msgid "Pages"
+msgstr "صفحات"
+
+#: share-buttons-hupso.php:737
+#, fuzzy
+msgid "Front page"
+msgstr "الصفحة الرئيسية: %s"
+
+#: share-buttons-hupso.php:738
+msgid "Archive pages (categories, tags, dates, authors)"
+msgstr "ارشيف الصفحات(الاصناف, السمات, التواريخ, المؤلفون)"
+
+#: share-buttons-hupso.php:740
+#, fuzzy
+msgid "Search pages"
+msgstr "بحث في الصفحات"
+
+#: share-buttons-hupso.php:741
+msgid "Password protected posts"
+msgstr "تدوينات محمية بقن سري"
+
+#: share-buttons-hupso.php:754
+msgid "Custom post types:"
+msgstr "تشخيص انواع التدوينات:"
+
+#: share-buttons-hupso.php:771
+msgid "If you want to show share buttons just on some posts/pages do this:"
+msgstr "اذا اردت اظهار الازرار في بعض التدوينات او الصفحات فقط: "
+
+#: share-buttons-hupso.php:771
+msgid "1. Clear options for posts/pages above"
+msgstr "1.امسح اختيارات التدوينات و الصفحات اعلاه"
+
+#: share-buttons-hupso.php:771
+msgid "2. Enable Add share buttons option to \"Edit Post\" screen - below"
+msgstr "تفعيل اضافة خيار ازرار المشاكة الى واجهة  \"تحرير التدوينة\" - اسفله"
+
+#: share-buttons-hupso.php:771
+msgid ""
+"3. Edit any post or page and configure display of share buttons at the "
+"bottom of right sidebar (on \"Edit Post\" screen)"
+msgstr ""
+"3. تحرير اي تدوينة أو صفحة و تحديد كيفية عرض ازرار المشارك اسفل القائمة "
+"الجانبية (على واجهة  \"تحرير التدوينة\")"
+
+#: share-buttons-hupso.php:780
+msgid "Add share buttons option to \"Edit Post\" screen"
+msgstr "اضافة خيار ازرار المشاكة الى واجهة  \"تحرير التدوينة\""
+
+#: share-buttons-hupso.php:784
+msgid "Hide buttons for specific categories"
+msgstr "اخفاء الازرار ببعض التصنيفات المعينة"
+
+#: share-buttons-hupso.php:805
+msgid "Always show"
+msgstr "ظهور دائم"
+
+#: share-buttons-hupso.php:807
+msgid "Select categories where you want to hide share buttons."
+msgstr "حدد في اي التصنيفات سيتم أخفاء الازرار"
+
+#: share-buttons-hupso.php:808
+msgid ""
+"To select multiple categories, you need to hold down the Control Key for "
+"each selected category after the first one."
+msgstr ""
+"لتحديد العديد من التصنيفات عليك ابقاء الضغط على مفتاح التحكم لكل تصنيف "
+"اضافي.   "
+
+#: share-buttons-hupso.php:809
+msgid ""
+"Leave all options unselected or select just the last option to show buttons "
+"inside every category."
+msgstr ""
+"اترك جميع الاختيارات غير محددة او اختر اخر الخيارات لاظهار الازرار على كل "
+"التصنيفات"
+
+#: share-buttons-hupso.php:814
+msgid "Get share text from"
+msgstr "استعمل نص المشاركة من"
+
+#: share-buttons-hupso.php:828
+msgid "Title of post in Wordpress"
+msgstr "عنوان التدوينة على الووردبرس"
+
+#: share-buttons-hupso.php:829
+msgid "Title of current web page"
+msgstr "عنوان الصفحة الحالية"
+
+#: share-buttons-hupso.php:834
+msgid "Twitter via"
+msgstr "تويتر عبر"
+
+#: share-buttons-hupso.php:842
+msgid "Add \"via @yourprofile\" to tweets"
+msgstr "اضافة  \"via @yourprofile\"  للتويتات"
+
+#: share-buttons-hupso.php:847
+msgid "Image for Facebook thumbnail"
+msgstr "صورة مصغرة للفيسبوك"
+
+#: share-buttons-hupso.php:887
+msgid ""
+"All images for Facebook should be at least 200px in both dimensions "
+"(Facebook limitation)"
+msgstr "جميع الصور للفيسبوك يجب تتعدى كل ابعادها 200px (محددة من الفيسبوك) "
+
+#: share-buttons-hupso.php:887
+msgid ""
+"After you change settings here, please wait 24 hours (or more) for Facebook "
+"to fetch new thumbnails"
+msgstr ""
+"عند تغيير هاته الاعدادات, عليك انتظار 24ساعة (او اكثر) حتى يجلب الفيسبوك "
+"الصور المصغرة"
+
+#: share-buttons-hupso.php:887
+msgid ""
+"\"og:image\" meta tag with image url will be added to head of HTML. Select "
+"\"None\" to disable this feature"
+msgstr ""
+"\"og:image\" علامة الوصفية (meta tag) مع رابط الصورة سيتم اضافتهما الى head "
+"من نص HTML. اختر \"بدون\" لتعطيل هذا الخيار."
+
+#: share-buttons-hupso.php:889
+#, fuzzy
+msgid "Header image"
+msgstr "صورة الترويسة"
+
+#: share-buttons-hupso.php:889
+msgid "Click here to see full header image"
+msgstr "أنقر هنا لمشاهدة الصورة الكاملة للترويسة"
+
+#: share-buttons-hupso.php:889
+#, fuzzy
+msgid "preview"
+msgstr "معاينة"
+
+#: share-buttons-hupso.php:890
+msgid "Featured image of post"
+msgstr "الصورة الخاصة بالتدوينة"
+
+#: share-buttons-hupso.php:892
+#, fuzzy
+msgid "None"
+msgstr "بدون"
+
+#: share-buttons-hupso.php:893
+msgid ""
+"FCH  - use Featured image of post (if available), then use Custom image (if "
+"available), then use Header image (if available)"
+msgstr ""
+"FCH - استعمل صور الخاصة بالتدوينة (اذا وجدت), ثم استعمل صورة خاصة (اذا "
+"وجدت), ثم استعمل صورة الترويسة - Header - (اذا وجدت)"
+
+#: share-buttons-hupso.php:898
+msgid "CSS style"
+msgstr "تحرير CSS"
+
+#: share-buttons-hupso.php:906
+msgid ""
+"Use CSS to style share buttons. For example: you can increase padding to "
+"have more free space above or below the buttons"
+msgstr ""
+"استعمل CSS لتخصيص ازرار المشاركة. مثال : يمكن الزيادة في padding لزيادة "
+"المسافة قبل و بعد الازرار."
+
+#: share-buttons-hupso.php:911
+msgid "Widget Text"
+msgstr "مربع النص"
+
+#: share-buttons-hupso.php:924
+msgid "Use shortcodes in text widgets"
+msgstr "استعمال الاكواد المختصرة داخل المربعات الجانبية (widgets)"
+
+#: share-buttons-hupso.php:924
+msgid ""
+"If this is checked, you can use [hupso] shortcode inside text widgets and it "
+"will be replaced by share buttons"
+msgstr ""
+"اذا حددتها يمكنك استعمال الرموز المختصرة ل [hupso] داخل المربعات الجانبية "
+"(widgets) و سيتم استبدالها بأزرار المشاركة"
+
+#: share-buttons-hupso.php:929
+msgid "Custom title"
+msgstr "اختيار العنوان"
+
+#: share-buttons-hupso.php:937
+msgid "Enter custom text that will always be used for sharing."
+msgstr "ادخل نصا خاصا يتم استعماله دائما في المشاركة"
+
+#: share-buttons-hupso.php:937
+msgid ""
+"Leave this blank to use title of current page as text for sharing. [Default]"
+msgstr "اترك هذا المكان فارغا لاستعمال عنوان الصفحة الحالية كنص للمشاركة "
+
+#: share-buttons-hupso.php:942
+msgid "Custom url"
+msgstr "اختيار الرابط"
+
+#: share-buttons-hupso.php:949
+msgid ""
+"Enter custom url that will always be used for sharing. You can enter your "
+"root website here (e.g.: http://www.example.com or http://example.blogspot."
+"com), so counters will show statistics for your whole website, not for each "
+"page individually."
+msgstr ""
+"ادخل الرابط الخاص الذي يستم استعماله في المشاركة. يمكنك ادخال الرابك الرئيسي "
+"هنا  (متال : http://www.example.com or http://example.blogspot.com) لكي "
+"تظهراحصائيات موقعك عامة على العدادات و ليس لكل صفحة على حدى"
+
+#: share-buttons-hupso.php:949
+msgid "Leave this blank to use url of current page for sharing. [Default]"
+msgstr ""
+"اترك هذا المكان فارغا لاستعمال رابط الصفحة الحالية في المشاركة. [أفتراضي]"
+
+#: share-buttons-hupso.php:954
+msgid "Use custom social share icons"
+msgstr "استعمال ايقونات بازرار الخاصة"
+
+#: share-buttons-hupso.php:971
+msgid "No. [Default. Do not change this unless you know what you are doing.]"
+msgstr "لا.[ افتراضي. لا تغير هذا الاختيار الا اذا كنت تعلم جيدا ما ستقوم به ]"
+
+#: share-buttons-hupso.php:972
+msgid "Yes, serve images from local Wordpress folder. "
+msgstr "نعم. استعمل صورا توجد في الملف الفرعي للووردبرس"
+
+#: share-buttons-hupso.php:974
+msgid "Yes, serve images from remote URL: "
+msgstr "نعم. استعمل صورا عبر هذا الرابط:"
+
+#: share-buttons-hupso.php:975
+msgid ""
+"Enter URL to folder with custom social images.  Include \"/\" at the end of "
+"the URL. If you would like to use custom icons, make sure you <a href="
+"\"http://www.hupso.com/share/custom-social-icons.php\" target=\"_blank"
+"\">read instructions</a>."
+msgstr ""
+"ادخل رابط الملف الذي يتضمن الصور الاجتماعية الخاصة. مع اضافة \"/\" في اخر "
+"الرابط. اذا اردت استعمال ايقونات خاصة عليك <a href=\"http://www.hupso.com/"
+"share/custom-social-icons.php\" target=\"_blank\">قراءة التعليمات</a>"
+
+#: share-buttons-hupso.php:975
+msgid "This setting has no effect when using Counters."
+msgstr "هذا الاختيار لا تأتير له عند استعمال الازرار بالعداد"
