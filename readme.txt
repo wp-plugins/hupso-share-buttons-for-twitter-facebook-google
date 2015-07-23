@@ -8,11 +8,11 @@ Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Help share your posts on popular social networks: Twitter, Facebook, Google+, Linkedin, Pinterest, StumbleUpon, Tumblr, Reddit, Bebo and others.
+Add social share buttons to your posts or pages. Support for Twitter, Facebook, Google+, Linkedin, Pinterest, Tumblr, Reddit and others.
 
 == Description ==
 
-Add simple social share buttons to your articles. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous, VKontakte and Email. 
+Add simple social share buttons to your posts or pages. Your visitors will be able to easily share your content on the most popular social networks: Twitter, Facebook, Google Plus, Linkedin, Tumblr, Pinterest, StumbleUpon, Digg, Reddit, Bebo, Delicous, VKontakte and Email. 
 
 These services are used by millions of people every day, so sharing your content there will increase traffic to your website.
 
